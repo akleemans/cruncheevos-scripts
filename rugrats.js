@@ -13,17 +13,24 @@ const itemsCollected = 0xc276;
 
 /* ========= PROGRESSION ========= */
 
+const levelFinished = (level) => {
+  return [
+    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', levelId, '=', 'Value', '', level],
+  ];
+};
+
+
 set.addAchievement({
   id: 567982,
   badge: '645630',
   title: 'Baby Steps',
-  description: 'Finish the House level on any difficulty',
+  description: 'Finish the House level',
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 0],
+    ...levelFinished(0),
     ['', 'Mem', '8bit', subLevelId, '=', 'Value', '', 3],
   ),
 });
@@ -63,13 +70,11 @@ set.addAchievement({
   id: 567986,
   badge: '645634',
   title: 'Baby Store',
-  description: 'Finish the Hospital level on any difficulty',
+  description: 'Finish the Hospital level',
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 1],
+    ...levelFinished(1),
     // Needed because other sublevels also trigger stageCompletion.
     // Only after finishing the last room (id=8), the whole level is completed.
     ['', 'Mem', '8bit', subLevelId, '=', 'Value', '', 8],
@@ -94,13 +99,11 @@ set.addAchievement({
   id: 567988,
   badge: '645636',
   title: 'Monkey Circus',
-  description: 'Finish the Train Crash level on any difficulty',
+  description: 'Finish the Train Crash level',
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 2],
+    ...levelFinished(2),
   ),
 });
 
@@ -108,13 +111,11 @@ set.addAchievement({
   id: 567990,
   badge: '645638',
   title: 'It Looks Kinda Like the Park',
-  description: 'Finish the Light Woods level on any difficulty',
+  description: 'Finish the Light Woods level',
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 3],
+    ...levelFinished(3),
   ),
 });
 
@@ -141,13 +142,11 @@ set.addAchievement({
   id: 567992,
   badge: '645640',
   title: 'Sleep and Dream the Night Away',
-  description: 'Finish the Dark Woods level on any difficulty',
+  description: 'Finish the Dark Woods level',
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 4],
+    ...levelFinished(4),
   ),
 });
 
@@ -155,13 +154,11 @@ set.addAchievement({
   id: 567994,
   badge: '645642',
   title: 'Aqua Reptar',
-  description: 'Finish the Reptar Ride level on any difficulty',
+  description: 'Finish the Reptar Ride level',
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 5],
+    ...levelFinished(5),
   ),
 });
 
@@ -169,13 +166,11 @@ set.addAchievement({
   id: 567984,
   badge: '645632',
   title: 'Okey-Dokey Jones',
-  description: 'Finish the Ancient Ruins level on any difficulty',
+  description: 'Finish the Ancient Ruins level',
   points: 25,
   type: 'win_condition',
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 6],
+    ...levelFinished(6),
   ),
 });
 
@@ -188,9 +183,7 @@ set.addAchievement({
   description: 'Finish the House level on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 0],
+    ...levelFinished(0),
     ['', 'Mem', '8bit', subLevelId, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
@@ -203,9 +196,7 @@ set.addAchievement({
   description: 'Finish the Hospital level on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 1],
+    ...levelFinished(1),
     ['', 'Mem', '8bit', subLevelId, '=', 'Value', '', 8],
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
@@ -218,9 +209,7 @@ set.addAchievement({
   description: 'Finish the Train Crash level on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 2],
+    ...levelFinished(2),
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
 });
@@ -232,9 +221,7 @@ set.addAchievement({
   description: 'Finish the Light Woods level on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 3],
+    ...levelFinished(3),
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
 });
@@ -246,9 +233,7 @@ set.addAchievement({
   description: 'Finish the Dark Woods level on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 4],
+    ...levelFinished(4),
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
 });
@@ -260,9 +245,7 @@ set.addAchievement({
   description: 'Finish the Reptar Ride level on Hard difficulty',
   points: 1,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 5],
+    ...levelFinished(5),
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
 });
@@ -274,9 +257,7 @@ set.addAchievement({
   description: 'Finish the Ancient Ruins level on Hard difficulty',
   points: 25,
   conditions: $(
-    ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 6],
+    ...levelFinished(6),
     ['', 'Mem', '8bit', difficulty, '=', 'Value', '', 2],
   ),
 });
