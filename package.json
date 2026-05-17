@@ -2,6 +2,7 @@
   "type": "module",
   "dependencies": {
     "@cruncheevos/cli": "0.2.0",
-    "dotenv": "^17.4.2"
+    "@cruncheevos/core": "^0.2.0",
+    "dotenv": "17.4.2"
   }
 }
