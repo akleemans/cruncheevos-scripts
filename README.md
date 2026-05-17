@@ -4,7 +4,7 @@ cruncheevos-scripts
 My [cruncheevos](https://github.com/suXinjke/cruncheevos) scripts for
 creating [achievements](https://retroachievements.org/).
 
-My sets:
+Sets:
 
 * [The Rugrats Movie](https://retroachievements.org/game/2563): rugrats.js
 * wip - [Turok: Battle of the Bionosaurs](https://retroachievements.org/game/13955): turok.js
