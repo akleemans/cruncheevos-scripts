@@ -21,3 +21,4 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 * Import set: `npx cruncheevos generate 2563 rugrats.js`
 * Diff set: `npx cruncheevos diff rugrats.js`
 * Save to local: `npx cruncheevos save rugrats.js`
+* Lint: `npx eslint rugrats.js --fix`
