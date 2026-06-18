@@ -4,6 +4,8 @@ const set = new AchievementSet({gameId: 13955, title: 'Turok: Battle of the Bion
 const lifeforceCount = 0xde80;
 const currentLives = 0xc0fa;
 const gameState = 0xc2d3;
+const currentMapId = 0xdf96;
+const bossLives = 0xdcb0;
 
 const cheatProtection = () => {
   return [
@@ -24,19 +26,19 @@ set.addAchievement({
   conditions: $(
     ['AndNext', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 0],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 0],
     ['AndNext', 'Delta', 'Bit2', 0xdc79, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc79, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 3],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 3],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['AndNext', 'Delta', 'Bit5', 0xdc69, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit5', 0xdc69, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 0],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 0],
     ['AndNext', 'Delta', 'Bit7', 0xdc74, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit7', 0xdc74, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 2],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 2],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 3],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 3],
     ...cheatProtection(),
   ),
 });
@@ -63,7 +65,7 @@ set.addAchievement({
   description: 'Defeat all 49 enemies in the Hub Ruins',
   points: 5,
   conditions: $(
-    ['MeasuredIf', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 3],
+    ['MeasuredIf', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 3],
     ['AddSource', 'Delta', 'Bit5', 0xdc66],
     ['AddSource', 'Delta', 'Bit1', 0xdc67],
     ['AddSource', 'Delta', 'Bit3', 0xdc67],
@@ -205,14 +207,14 @@ set.addAchievement({
   conditions: $(
     ['AndNext', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 13],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 13],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['AndNext', 'Delta', 'Bit0', 0xdc68, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 4],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 4],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 4],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 15],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 4],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 15],
     ...cheatProtection(),
   ),
 });
@@ -226,14 +228,14 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', 1],
-      ['', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 4],
-      ['', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 15],
+      ['', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 4],
+      ['', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 15],
       ['', 'Delta', '8bit', 0xc0fb, '=', 'Value', '', 0],
       ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 1],
       ['PauseIf', 'Mem', 'Bit5', 0xc2f4, '=', 'Value', '', 1, 1],
       ...cheatProtection(),
     ),
-    alt1: $(['ResetIf', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 63]),
+    alt1: $(['ResetIf', 'Mem', '8bit', currentMapId, '=', 'Value', '', 63]),
   },
 });
 
@@ -276,14 +278,14 @@ set.addAchievement({
   conditions: $(
     ['AndNext', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 17],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 17],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['AndNext', 'Delta', 'Bit4', 0xdc84, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 21],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 21],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 16],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 22],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 16],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 22],
     ...cheatProtection(),
   ),
 });
@@ -319,8 +321,8 @@ set.addAchievement({
   conditions: {
     core: $(
       ['PauseIf', 'Mem', '8bit', 0xc1f4, '=', 'Value', '', 1],
-      ['AndNext', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 16],
-      ['AddHits', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 22],
+      ['AndNext', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 16],
+      ['AddHits', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 22],
       ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 14400],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
@@ -328,9 +330,9 @@ set.addAchievement({
     ),
     alt1: $(
       ['AndNext', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
-      ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 16],
+      ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 16],
       ['AndNext', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
-      ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 22],
+      ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 22],
     ),
   },
 });
@@ -342,7 +344,7 @@ set.addAchievement({
   description: 'Beat Longhunter and collect his key without taking damage',
   points: 5,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 22],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 22],
     ['AndNext', 'Delta', '8bit', 0xdcaf, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdcaf, '=', 'Value', '', 82, 1],
     ['Trigger', 'Mem', '8bit', 0xc0fb, '>', 'Delta', '8bit', 0xc0fb],
@@ -389,17 +391,17 @@ set.addAchievement({
   conditions: $(
     ['AndNext', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 23],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 23],
     ['AndNext', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 31],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 31],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['AndNext', 'Delta', 'Bit2', 0xdc6a, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 23],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 23],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 23],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 32],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 23],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 32],
     ...cheatProtection(),
   ),
 });
@@ -424,8 +426,8 @@ set.addAchievement({
   description: 'Collect all 30 Lifeforce tokens in the Ruins',
   points: 5,
   conditions: $(
-    ['AndNext', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 23],
-    ['MeasuredIf', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 32],
+    ['AndNext', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 23],
+    ['MeasuredIf', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 32],
     ['AddSource', 'Delta', 'Bit0', 0xdc66],
     ['AddSource', 'Delta', 'Bit3', 0xdc66],
     ['AddSource', 'Delta', 'Bit0', 0xdc68],
@@ -531,12 +533,12 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 36],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 36],
       ['', 'Delta', 'Bit5', 0xdc79, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit5', 0xdc79, '=', 'Value', '', 1],
     ),
     alt2: $(
-      ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 33],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 33],
       ['', 'Delta', 'Bit3', 0xdc66, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit3', 0xdc66, '=', 'Value', '', 1],
     ),
@@ -557,8 +559,8 @@ set.addAchievement({
       ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 2],
       ...cheatProtection(),
     ),
-    alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 26]),
-    alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 34]),
+    alt1: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 26]),
+    alt2: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 34]),
   },
 });
 
@@ -629,14 +631,14 @@ set.addAchievement({
   conditions: $(
     ['AndNext', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 50],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 50],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['AndNext', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
     ['AndNext', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 42],
+    ['AddHits', 'Mem', '8bit', currentMapId, '=', 'Value', '', 42],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 40],
-    ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 51],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 40],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 51],
     ...cheatProtection(),
   ),
 });
@@ -649,7 +651,7 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 40],
+      ['', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 40],
       ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
@@ -657,8 +659,8 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      ['AndNext', 'Delta', '8bit', 0xdf96, '=', 'Value', '', 63],
-      ['ResetIf', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 40],
+      ['AndNext', 'Delta', '8bit', currentMapId, '=', 'Value', '', 63],
+      ['ResetIf', 'Mem', '8bit', currentMapId, '=', 'Value', '', 40],
     ),
   },
 });
@@ -700,8 +702,8 @@ set.addAchievement({
   description: 'Collect all seven weapons in the Lost Land',
   points: 5,
   conditions: $(
-    ['AndNext', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 52],
-    ['MeasuredIf', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 57],
+    ['AndNext', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 52],
+    ['MeasuredIf', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 57],
     ['AddSource', 'Delta', 'Bit5', 0xdc66],
     ['AddSource', 'Delta', 'Bit0', 0xdc6a],
     ['AddSource', 'Delta', 'Bit7', 0xdc6e],
@@ -727,7 +729,7 @@ set.addAchievement({
   description: 'Finish the Lost Land without killing any plants or dinosaurs - killing Attack Robots or Alien Infantry is allowed',
   points: 5,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 52],
+    ['', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 52],
     ['AddSource', 'Mem', 'Bit4', 0xdc66],
     ['AddSource', 'Mem', 'Bit1', 0xdc67],
     ['AddSource', 'Mem', 'Bit4', 0xdc67],
@@ -802,9 +804,9 @@ set.addAchievement({
       ['', 'Mem', 'Bit3', 0xdf4c, '=', 'Value', '', 3],
       ...cheatProtection(),
     ),
-    alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 42]),
-    alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 54]),
-    alt3: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 60]),
+    alt1: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 42]),
+    alt2: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 54]),
+    alt3: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 60]),
   },
 });
 
@@ -866,9 +868,9 @@ set.addAchievement({
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 60],
-    ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
-    ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 60],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
     ...cheatProtection(),
   ),
 });
@@ -881,9 +883,9 @@ set.addAchievement({
   points: 10,
   type: 'win_condition',
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
-    ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 62],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
     ...cheatProtection(),
   ),
 });
@@ -895,9 +897,9 @@ set.addAchievement({
   description: 'Finish the Final Confrontation on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
-    ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 62],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
     ...cheatProtection(),
   ),
@@ -911,9 +913,9 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
-      ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
-      ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 62],
+      ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+      ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
       ...cheatProtection(),
     ),
     alt1: $(
@@ -954,7 +956,7 @@ set.addAchievement({
     ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 7],
     ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 62],
     ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
     ['ResetIf', 'Mem', '8bit', currentLives, '=', 'Value', '', 255],
@@ -973,7 +975,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Final Confrontation',
   points: 1,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 60],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 60],
     ['', 'Delta', 'Bit3', 0xdf4c, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf4c, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -991,7 +993,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Hub Ruins',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 1],
     ['', 'Delta', 'Bit3', 0xdf45, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf45, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1009,7 +1011,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Jungle',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 14],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 14],
     ['', 'Delta', 'Bit3', 0xdf46, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf46, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1027,7 +1029,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Ancient City',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 19],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 19],
     ['', 'Delta', 'Bit3', 0xdf47, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf47, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1045,7 +1047,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Ruins',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 26],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 26],
     ['', 'Delta', 'Bit3', 0xdf48, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf48, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1063,7 +1065,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Catacombs',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 34],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 34],
     ['', 'Delta', 'Bit3', 0xdf49, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1081,7 +1083,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Treetops',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 42],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 42],
     ['', 'Delta', 'Bit3', 0xdf4a, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf4a, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1099,7 +1101,7 @@ set.addAchievement({
   description: 'Collect the Chronoscepter piece in the Lost Land',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 54],
+    ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 54],
     ['', 'Delta', 'Bit3', 0xdf4b, '=', 'Value', '', 0],
     ['', 'Mem', 'Bit3', 0xdf4b, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
@@ -1119,13 +1121,13 @@ set.addLeaderboard({
   conditions: {
     start: $(
       ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
-      ['', 'Delta', '8bit', 0xdf96, '=', 'Value', '', 63],
-      ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 16],
+      ['', 'Delta', '8bit', currentMapId, '=', 'Value', '', 63],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 16],
       ...cheatProtection(),
     ),
     cancel: $(
-      ['OrNext', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 16],
-      ['', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 22],
+      ['OrNext', 'Mem', '8bit', currentMapId, '<', 'Value', '', 16],
+      ['', 'Mem', '8bit', currentMapId, '>', 'Value', '', 22],
       ['', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
     ),
     submit: $(
@@ -1133,8 +1135,8 @@ set.addLeaderboard({
       ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
     ),
     value: $(
-      ['AndNext', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 16],
-      ['AndNext', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 22],
+      ['AndNext', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 16],
+      ['AndNext', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 22],
       ['Measured', 'Mem', '8bit', 0xc1f4, '!=', 'Value', '', 1],
     ),
   },
