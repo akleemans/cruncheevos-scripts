@@ -1,5 +1,5 @@
-import { AchievementSet, define as $ } from '@cruncheevos/core'
-const set = new AchievementSet({ gameId: 13955, title: 'Turok: Battle of the Bionosaurs' })
+import {AchievementSet, define as $} from '@cruncheevos/core';
+const set = new AchievementSet({gameId: 13955, title: 'Turok: Battle of the Bionosaurs'});
 
 
 const cheatProtection = () => {
@@ -35,9 +35,9 @@ set.addAchievement({
     ['AddHits', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 2],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 3],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 593732,
@@ -49,9 +49,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc2d3, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xc0fa, '>', 'Delta', '8bit', 0xc0fa],
     ['', 'Mem', '8bit', 0xde80, '<', 'Delta', '8bit', 0xde80],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 593738,
@@ -159,9 +159,9 @@ set.addAchievement({
     ['AddSource', 'Delta', 'Bit1', 0xdc74],
     ['AddSource', 'Delta', 'Bit2', 0xdc74],
     ['', 'Delta', 'Bit4', 0xdc74, '<', 'Value', '', 49],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 593733,
@@ -174,9 +174,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 593736,
@@ -189,14 +189,14 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594030,
   badge: '677171',
-  title: `Now We're Talking`,
+  title: 'Now We\'re Talking',
   description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle',
   points: 5,
   conditions: $(
@@ -210,9 +210,9 @@ set.addAchievement({
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 4],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 15],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594031,
@@ -228,11 +228,11 @@ set.addAchievement({
       ['', 'Delta', '8bit', 0xc0fb, '=', 'Value', '', 0],
       ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 1],
       ['PauseIf', 'Mem', 'Bit5', 0xc2f4, '=', 'Value', '', 1, 1],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(['ResetIf', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 63]),
   },
-})
+});
 
 set.addAchievement({
   id: 594027,
@@ -245,14 +245,14 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594028,
   badge: '677175',
-  title: `Hunter's Peril`,
+  title: 'Hunter\'s Peril',
   description: 'Finish the Jungle on Hard difficulty',
   points: 10,
   conditions: $(
@@ -260,9 +260,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594692,
@@ -281,9 +281,9 @@ set.addAchievement({
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 16],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 22],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 602355,
@@ -299,13 +299,13 @@ set.addAchievement({
       ['AddSource', 'Delta', 'Bit3', 0xdf45],
       ['AddSource', 'Delta', 'Bit3', 0xdf46],
       ['', 'Delta', 'Bit3', 0xdf47, '<', 'Value', '', 3],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 1]),
     alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 14]),
     alt3: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 19]),
   },
-})
+});
 
 set.addAchievement({
   id: 594694,
@@ -321,7 +321,7 @@ set.addAchievement({
       ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 14400],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(
       ['AndNext', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
@@ -330,7 +330,7 @@ set.addAchievement({
       ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 22],
     ),
   },
-})
+});
 
 set.addAchievement({
   id: 595590,
@@ -345,7 +345,7 @@ set.addAchievement({
     ['Trigger', 'Mem', '8bit', 0xc0fb, '>', 'Delta', '8bit', 0xc0fb],
     ['ResetIf', 'Mem', '8bit', 0xc0f9, '<', 'Delta', '8bit', 0xc0f9],
   ),
-})
+});
 
 set.addAchievement({
   id: 594690,
@@ -358,9 +358,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594693,
@@ -373,9 +373,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594697,
@@ -397,9 +397,9 @@ set.addAchievement({
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 23],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 32],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594700,
@@ -410,9 +410,9 @@ set.addAchievement({
   conditions: $(
     ['', 'Delta', '8bit', 0xc1a8, '<', 'Value', '', 99],
     ['', 'Mem', '8bit', 0xc1a8, '=', 'Value', '', 99],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594699,
@@ -483,9 +483,9 @@ set.addAchievement({
     ['AddSource', 'Delta', 'Bit3', 0xdc96],
     ['AddSource', 'Delta', 'Bit4', 0xdc96],
     ['', 'Delta', 'Bit7', 0xdc96, '<', 'Value', '', 30],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594695,
@@ -498,9 +498,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594698,
@@ -513,9 +513,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594703,
@@ -525,7 +525,7 @@ set.addAchievement({
   points: 2,
   conditions: {
     core: $(
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(
       ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 36],
@@ -538,7 +538,7 @@ set.addAchievement({
       ['', 'Mem', 'Bit3', 0xdc66, '=', 'Value', '', 1],
     ),
   },
-})
+});
 
 set.addAchievement({
   id: 602356,
@@ -552,12 +552,12 @@ set.addAchievement({
       ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 2],
       ['AddSource', 'Delta', 'Bit3', 0xdf48],
       ['', 'Delta', 'Bit3', 0xdf49, '<', 'Value', '', 2],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 26]),
     alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 34]),
   },
-})
+});
 
 set.addAchievement({
   id: 594705,
@@ -570,7 +570,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(
       ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 0],
@@ -585,7 +585,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', 0xc0f9, '=', 'Value', '', 5],
     ),
   },
-})
+});
 
 set.addAchievement({
   id: 594701,
@@ -598,9 +598,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594704,
@@ -613,9 +613,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594709,
@@ -634,9 +634,9 @@ set.addAchievement({
     ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 40],
     ['ResetIf', 'Mem', '8bit', 0xdf96, '>', 'Value', '', 51],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594711,
@@ -651,19 +651,19 @@ set.addAchievement({
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
       ['PauseIf', 'Mem', '8bit', 0xfffc, '!=', 'Value', '', 0, 1],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(
       ['AndNext', 'Delta', '8bit', 0xdf96, '=', 'Value', '', 63],
       ['ResetIf', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 40],
     ),
   },
-})
+});
 
 set.addAchievement({
   id: 594707,
   badge: '677408',
-  title: `Hoppin' in the Treetops`,
+  title: 'Hoppin\' in the Treetops',
   description: 'Finish the Treetop Village',
   points: 10,
   type: 'progression',
@@ -671,9 +671,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 594710,
@@ -686,9 +686,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595317,
@@ -713,9 +713,9 @@ set.addAchievement({
     ['AddSource', 'Delta', 'Bit1', 0xdc7e],
     ['AddSource', 'Delta', 'Bit2', 0xdc84],
     ['', 'Delta', 'Bit0', 0xdc85, '<', 'Value', '', 7],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595319,
@@ -749,9 +749,9 @@ set.addAchievement({
     ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595315,
@@ -764,9 +764,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595318,
@@ -779,9 +779,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 602357,
@@ -797,13 +797,13 @@ set.addAchievement({
       ['AddSource', 'Delta', 'Bit3', 0xdf4a],
       ['AddSource', 'Delta', 'Bit3', 0xdf4b],
       ['', 'Delta', 'Bit3', 0xdf4c, '<', 'Value', '', 3],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 42]),
     alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 54]),
     alt3: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 60]),
   },
-})
+});
 
 set.addAchievement({
   id: 595504,
@@ -815,9 +815,9 @@ set.addAchievement({
   conditions: $(
     ['', 'Delta', '8bit', 0xc1bb, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 1],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595503,
@@ -851,9 +851,9 @@ set.addAchievement({
     ['AddSource', 'Delta', '8bit', 0xc1b9],
     ['AddSource', 'Delta', '8bit', 0xc1ba],
     ['', 'Delta', '8bit', 0xc1bb, '<', 'Value', '', 12],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595506,
@@ -866,9 +866,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 60],
     ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595501,
@@ -881,9 +881,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
     ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595505,
@@ -896,9 +896,9 @@ set.addAchievement({
     ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
-    ...cheatProtection()
+    ...cheatProtection(),
   ),
-})
+});
 
 set.addAchievement({
   id: 595507,
@@ -911,7 +911,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
       ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
       ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     alt1: $(
       ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 1],
@@ -919,12 +919,12 @@ set.addAchievement({
     ),
     alt2: $(['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 0]),
   },
-})
+});
 
 set.addAchievement({
   id: 595508,
   badge: '677422',
-  title: `[VOID] True TalSet`,
+  title: '[VOID] True TalSet',
   description: 'Beat the game in one sitting without using passwords or game over',
   points: 25,
   conditions: $(
@@ -961,7 +961,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 595502,
@@ -979,7 +979,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 593734,
@@ -997,7 +997,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 594029,
@@ -1015,7 +1015,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 594691,
@@ -1033,7 +1033,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 594696,
@@ -1051,7 +1051,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 594702,
@@ -1069,7 +1069,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 594708,
@@ -1087,7 +1087,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addAchievement({
   id: 595316,
@@ -1105,7 +1105,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xc0e5, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ),
-})
+});
 
 set.addLeaderboard({
   id: 158907,
@@ -1118,7 +1118,7 @@ set.addLeaderboard({
       ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
       ['', 'Delta', '8bit', 0xdf96, '=', 'Value', '', 63],
       ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 16],
-      ...cheatProtection()
+      ...cheatProtection(),
     ),
     cancel: $(
       ['OrNext', 'Mem', '8bit', 0xdf96, '<', 'Value', '', 16],
@@ -1135,6 +1135,6 @@ set.addLeaderboard({
       ['Measured', 'Mem', '8bit', 0xc1f4, '!=', 'Value', '', 1],
     ),
   },
-})
+});
 
-export default set
+export default set;
