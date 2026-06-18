@@ -1,6 +1,9 @@
 import {AchievementSet, define as $} from '@cruncheevos/core';
 const set = new AchievementSet({gameId: 13955, title: 'Turok: Battle of the Bionosaurs'});
 
+const lifeforceCount = 0xde80;
+const currentLives = 0xc0fa;
+const gameState = 0xc2d3;
 
 const cheatProtection = () => {
   return [
@@ -11,7 +14,6 @@ const cheatProtection = () => {
     ['', 'Mem', '8bit', 0xc0e6, '=', 'Value', '', 0],
   ];
 };
-
 
 set.addAchievement({
   id: 593735,
@@ -38,10 +40,6 @@ set.addAchievement({
     ...cheatProtection(),
   ),
 });
-
-const lifeforceCount = 0xde80;
-const currentLives = 0xc0fa;
-const gameState = 0xc2d3;
 
 set.addAchievement({
   id: 593732,
@@ -227,7 +225,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', 0xc2d3, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', 0xdf96, '>=', 'Value', '', 4],
       ['', 'Mem', '8bit', 0xdf96, '<=', 'Value', '', 15],
       ['', 'Delta', '8bit', 0xc0fb, '=', 'Value', '', 0],
@@ -959,7 +957,7 @@ set.addAchievement({
     ['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 62],
     ['', 'Delta', '8bit', 0xdcb0, '<', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xdcb0, '=', 'Value', '', 255],
-    ['ResetIf', 'Mem', '8bit', 0xc0fa, '=', 'Value', '', 255],
+    ['ResetIf', 'Mem', '8bit', currentLives, '=', 'Value', '', 255],
     ['', 'Mem', '8bit', 0xc0e2, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e3, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xc0e4, '=', 'Value', '', 0],
