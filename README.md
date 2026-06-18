@@ -18,7 +18,7 @@ Sets:
 
 See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packages/cli) for details.
 
-* Import set: `npx cruncheevos generate 2563 rugrats.js`
-* Diff set: `npx cruncheevos diff rugrats.js`
-* Save to local: `npx cruncheevos save rugrats.js`
-* Lint: `npx eslint rugrats.js --fix`
+* Import set: `npx cruncheevos generate 13955 turok.js` (possibly with `--include-unofficial`)
+* Diff set: `npx cruncheevos diff turok.js`
+* Save to local: `npx cruncheevos save turok.js`
+* Lint: `npx eslint turok.js --fix`
