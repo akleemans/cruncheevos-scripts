@@ -39,6 +39,10 @@ set.addAchievement({
   ),
 });
 
+const lifeforceCount = 0xde80;
+const currentLives = 0xc0fa;
+const gameState = 0xc2d3;
+
 set.addAchievement({
   id: 593732,
   badge: '677271',
@@ -46,9 +50,10 @@ set.addAchievement({
   description: 'Get a life by collecting 100 lifeforce tokens',
   points: 2,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc2d3, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xc0fa, '>', 'Delta', '8bit', 0xc0fa],
-    ['', 'Mem', '8bit', 0xde80, '<', 'Delta', '8bit', 0xde80],
+    ['', 'Mem', '8bit', gameState, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', currentLives, '>', 'Delta', '8bit', currentLives],
+    ['', 'Mem', '8bit', currentLives, '!=', 'Value', '', 0xff],
+    ['', 'Mem', '8bit', lifeforceCount, '<', 'Delta', '8bit', lifeforceCount],
     ...cheatProtection(),
   ),
 });
