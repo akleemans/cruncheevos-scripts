@@ -7,7 +7,7 @@ creating [achievements](https://retroachievements.org/).
 Sets:
 
 * [The Rugrats Movie](https://retroachievements.org/game/2563): rugrats.js
-* wip - [Turok: Battle of the Bionosaurs](https://retroachievements.org/game/13955): turok.js
+* [Turok: Battle of the Bionosaurs](https://retroachievements.org/game/13955): turok.js
 
 ## Setup
 
