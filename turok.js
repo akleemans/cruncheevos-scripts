@@ -304,11 +304,11 @@ set.addAchievement({
       ['AddSource', 'Mem', 'Bit3', 0xdf45],
       ['AddSource', 'Mem', 'Bit3', 0xdf46],
       ['', 'Mem', 'Bit3', 0xdf47, '=', 'Value', '', 3],
+      ['OrNext', 'Mem', '8bit', currentMapId, '=', 'Value', '', 1],
+      ['OrNext', 'Mem', '8bit', currentMapId, '=', 'Value', '', 14],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 19],
       ...cheatProtection(),
     ),
-    alt1: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 1]),
-    alt2: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 14]),
-    alt3: $(['', 'Mem', '8bit', 0xdf96, '=', 'Value', '', 19]),
   },
 });
 
@@ -557,10 +557,10 @@ set.addAchievement({
       ['', 'Delta', 'Bit3', 0xdf49, '<', 'Value', '', 2],
       ['AddSource', 'Mem', 'Bit3', 0xdf48],
       ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 2],
+      ['OrNext', 'Mem', '8bit', currentMapId, '=', 'Value', '', 26],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 34],
       ...cheatProtection(),
     ),
-    alt1: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 26]),
-    alt2: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 34]),
   },
 });
 
@@ -802,11 +802,11 @@ set.addAchievement({
       ['AddSource', 'Mem', 'Bit3', 0xdf4a],
       ['AddSource', 'Mem', 'Bit3', 0xdf4b],
       ['', 'Mem', 'Bit3', 0xdf4c, '=', 'Value', '', 3],
+      ['OrNext', 'Mem', '8bit', currentMapId, '=', 'Value', '', 42],
+      ['OrNext', 'Mem', '8bit', currentMapId, '=', 'Value', '', 54],
+      ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 60],
       ...cheatProtection(),
     ),
-    alt1: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 42]),
-    alt2: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 54]),
-    alt3: $(['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 60]),
   },
 });
 
