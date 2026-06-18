@@ -6,6 +6,7 @@ const currentLives = 0xc0fa;
 const gameState = 0xc2d3;
 const currentMapId = 0xdf96;
 const bossLives = 0xdcb0;
+const nrOfKeysCollected = 0xc0fb;
 
 const cheatProtection = () => {
   return [
@@ -176,7 +177,7 @@ set.addAchievement({
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
     ...cheatProtection(),
@@ -190,7 +191,7 @@ set.addAchievement({
   description: 'Finish the Hub Ruins on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -230,8 +231,8 @@ set.addAchievement({
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 4],
       ['', 'Mem', '8bit', currentMapId, '<=', 'Value', '', 15],
-      ['', 'Delta', '8bit', 0xc0fb, '=', 'Value', '', 0],
-      ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 1],
+      ['', 'Delta', '8bit', nrOfKeysCollected, '=', 'Value', '', 0],
+      ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 1],
       ['PauseIf', 'Mem', 'Bit5', 0xc2f4, '=', 'Value', '', 1, 1],
       ...cheatProtection(),
     ),
@@ -247,7 +248,7 @@ set.addAchievement({
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
     ...cheatProtection(),
@@ -261,7 +262,7 @@ set.addAchievement({
   description: 'Finish the Jungle on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -329,9 +330,9 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      ['AndNext', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
+      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
       ['ResetIf', 'Mem', '8bit', currentMapId, '<', 'Value', '', 16],
-      ['AndNext', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
+      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
       ['ResetIf', 'Mem', '8bit', currentMapId, '>', 'Value', '', 22],
     ),
   },
@@ -347,8 +348,9 @@ set.addAchievement({
     ['', 'Mem', '8bit', currentMapId, '=', 'Value', '', 22],
     ['AndNext', 'Delta', '8bit', 0xdcaf, '=', 'Value', '', 0],
     ['', 'Mem', '8bit', 0xdcaf, '=', 'Value', '', 82, 1],
-    ['Trigger', 'Mem', '8bit', 0xc0fb, '>', 'Delta', '8bit', 0xc0fb],
+    ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '>', 'Delta', '8bit', nrOfKeysCollected],
     ['ResetIf', 'Mem', '8bit', 0xc0f9, '<', 'Delta', '8bit', 0xc0f9],
+    ['ResetIf', 'Mem', '8bit', currentMapId, '!=', 'Value', '', 22],
   ),
 });
 
@@ -360,7 +362,7 @@ set.addAchievement({
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
     ...cheatProtection(),
@@ -374,7 +376,7 @@ set.addAchievement({
   description: 'Finish the Ancient City on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -500,7 +502,7 @@ set.addAchievement({
   points: 5,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
     ...cheatProtection(),
@@ -514,7 +516,7 @@ set.addAchievement({
   description: 'Finish the Ruins on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -572,7 +574,7 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+      ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
       ...cheatProtection(),
@@ -600,7 +602,7 @@ set.addAchievement({
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
     ...cheatProtection(),
@@ -614,7 +616,7 @@ set.addAchievement({
   description: 'Finish the Catacombs on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -652,7 +654,7 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '8bit', currentMapId, '>=', 'Value', '', 40],
-      ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+      ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
       ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
       ['PauseIf', 'Mem', '8bit', 0xfffc, '!=', 'Value', '', 0, 1],
@@ -673,7 +675,7 @@ set.addAchievement({
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
     ...cheatProtection(),
@@ -687,7 +689,7 @@ set.addAchievement({
   description: 'Finish the Treetop Village on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -751,7 +753,7 @@ set.addAchievement({
     ['AddSource', 'Mem', 'Bit7', 0xdc6d],
     ['AddSource', 'Mem', 'Bit4', 0xdc6c],
     ['', 'Mem', 'Bit6', 0xdc6c, '=', 'Value', '', 0],
-    ['Trigger', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
     ...cheatProtection(),
@@ -766,7 +768,7 @@ set.addAchievement({
   points: 10,
   type: 'progression',
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
     ...cheatProtection(),
@@ -780,7 +782,7 @@ set.addAchievement({
   description: 'Finish the Lost Land on Hard difficulty',
   points: 10,
   conditions: $(
-    ['', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
     ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
@@ -1128,7 +1130,7 @@ set.addLeaderboard({
     cancel: $(
       ['OrNext', 'Mem', '8bit', currentMapId, '<', 'Value', '', 16],
       ['', 'Mem', '8bit', currentMapId, '>', 'Value', '', 22],
-      ['', 'Mem', '8bit', 0xc0fb, '<', 'Value', '', 3],
+      ['', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
     ),
     submit: $(
       ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
