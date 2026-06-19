@@ -1,6 +1,50 @@
 import {AchievementSet, define as $} from '@cruncheevos/core';
 const set = new AchievementSet({gameId: 13955, title: 'Turok: Battle of the Bionosaurs'});
 
+// Rich presence:
+/*
+Lookup:CurrentRoom
+0x00-0x03=In the Hub Ruins
+0x04-0x0f=In the Jungle
+0x10-0x15=In the Ancient City
+0x16=Fighting Longhunter
+0x17-0x20=In the Ruins
+0x21-0x26=In the Catacombs
+0x27=Fighting Mantis
+0x28-0x33=In the Treetop Village
+0x34-0x39=In the Lost Land
+0x3a-0x3b,0x3d=In the Final Confrontation
+0x3c=Fighting T-Rex
+0x3e=Fighting the Campaigner
+0x3f=Moving between portals
+
+Lookup:Difficulty
+0x0=Easy
+0x1=Medium
+0x2=Hard
+
+Lookup:Weapon
+0x0=Knife
+0x1=Tek Bow
+0x2=Pistol
+0x3=Shotgun
+0x4=Assault Rifle
+0x5=Pulse Rifle
+0x6=Minigun
+0x7=Automatic Shotgun
+0x8=Grenade Launcher
+0x9=Alien Weapon
+0xa=Quad Rocket Launcher
+0xb=Particle Accelerator
+0xc=Fusion Cannon
+0xd=Chronoscepter
+
+Display:
+?0xH00c2d3!=1?In the Menu
+?0xH00c2d3=1?@CurrentRoom(0xH00df96) with @Weapon(0xH00fffc) on @Difficulty(0xH00dee4) • @Number(0xH00c0fb) keys • @Number(0xH00c0fa) lives • @Number(0xH00c0f9) HP
+Playing Turok: Battle of the Bionosaurs
+*/
+
 const lifeforceCount = 0xde80;
 const currentLives = 0xc0fa;
 const gameState = 0xc2d3;
