@@ -438,14 +438,14 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 36],
       ['', 'Delta', 'Bit5', 0xdc79, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit5', 0xdc79, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 36],
     ),
     alt2: $(
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 33],
       ['', 'Delta', 'Bit3', 0xdc66, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit3', 0xdc66, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 33],
     ),
   },
 });
