@@ -5,13 +5,13 @@ const lifeforceCount = 0xde80;
 const currentLives = 0xc0fa;
 const gameState = 0xc2d3;
 const currentRoomId = 0xdf96;
-const bossLives = 0xdcb0;
 const nrOfKeysCollected = 0xc0fb;
 const maxLevelUnlocked = 0xdf59;
 const activeWeaponSelection = 0xfffc;
 
 const bossHealth = 0xdcaf;
 const tRexState = 0xc0fe;
+const campaignerState = 0xc0ff;
 
 const cheatProtection = () => {
   return [
@@ -139,8 +139,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 60],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ['', 'Delta', '8bit', tRexState, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', tRexState, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
 });
@@ -154,8 +154,8 @@ set.addAchievement({
   type: 'win_condition',
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ['', 'Delta', '8bit', campaignerState, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', campaignerState, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
 });
@@ -276,8 +276,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ['', 'Delta', '8bit', campaignerState, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', campaignerState, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
     ...cheatProtection(),
   ),
@@ -1023,8 +1023,8 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
-      ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-      ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+      ['', 'Delta', '8bit', campaignerState, '=', 'Value', '', 0],
+      ['', 'Mem', '8bit', campaignerState, '=', 'Value', '', 2],
       ...cheatProtection(),
     ),
     alt1: $(
