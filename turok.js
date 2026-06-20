@@ -7,6 +7,7 @@ const gameState = 0xc2d3;
 const currentRoomId = 0xdf96;
 const bossLives = 0xdcb0;
 const nrOfKeysCollected = 0xc0fb;
+const maxLevelUnlocked = 0xdf59;
 
 const cheatProtection = () => {
   return [
@@ -29,8 +30,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
     ...cheatProtection(),
   ),
 });
@@ -44,8 +45,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
 });
@@ -59,8 +60,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
     ...cheatProtection(),
   ),
 });
@@ -74,8 +75,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
     ...cheatProtection(),
   ),
 });
@@ -89,8 +90,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
     ...cheatProtection(),
   ),
 });
@@ -104,8 +105,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
     ...cheatProtection(),
   ),
 });
@@ -119,8 +120,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 7],
     ...cheatProtection(),
   ),
 });
@@ -166,8 +167,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -181,8 +182,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -196,8 +197,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -211,8 +212,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -226,8 +227,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -241,8 +242,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -256,8 +257,8 @@ set.addAchievement({
   points: 10,
   conditions: $(
     ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 7],
     ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
     ...cheatProtection(),
   ),
@@ -867,8 +868,8 @@ set.addAchievement({
       ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
       ['AddHits', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 22],
       ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 14400],
-      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-      ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+      ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
+      ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
       ...cheatProtection(),
     ),
     alt1: $(
@@ -905,8 +906,8 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-      ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+      ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
+      ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
       ...cheatProtection(),
     ),
     alt1: $(
@@ -934,8 +935,8 @@ set.addAchievement({
     core: $(
       ['', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 40],
       ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-      ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+      ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
+      ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
       ['PauseIf', 'Mem', '8bit', 0xfffc, '!=', 'Value', '', 0, 1],
       ...cheatProtection(),
     ),
@@ -976,8 +977,8 @@ set.addAchievement({
     ['AddSource', 'Mem', 'Bit4', 0xdc6c],
     ['', 'Mem', 'Bit6', 0xdc6c, '=', 'Value', '', 0],
     ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['Trigger', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
+    ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 7],
     ...cheatProtection(),
   ),
 });
@@ -1013,7 +1014,7 @@ set.addLeaderboard({
   type: 'FRAMES',
   conditions: {
     start: $(
-      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+      ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
       ['', 'Delta', '8bit', currentRoomId, '=', 'Value', '', 63],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 16],
       ...cheatProtection(),
@@ -1024,8 +1025,8 @@ set.addLeaderboard({
       ['', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
     ),
     submit: $(
-      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+      ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
+      ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
     ),
     value: $(
       ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
@@ -1045,26 +1046,26 @@ set.addAchievement({
   points: 25,
   conditions: $(
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 0],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 3],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
     ['AndNext', 'Mem', '8bit', 0xc0fb, '=', 'Value', '', 3],
-    ['AndNext', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['AddHits', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ['AndNext', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
+    ['AddHits', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 7],
     ['', 'Value', '', 0, '=', 'Value', '', 1, 7],
     ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
