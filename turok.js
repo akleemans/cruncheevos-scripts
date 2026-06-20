@@ -927,6 +927,9 @@ set.addAchievement({
       ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
       ['', 'Mem', '8bit', 0xc0f9, '=', 'Value', '', 5],
     ),
+    alt4: $(
+      ['ResetIf', 'Mem', '8bit', currentLives, '=', 'Value', '', 0xff],
+    ),
   },
 });
 
