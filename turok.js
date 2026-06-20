@@ -1001,6 +1001,7 @@ set.addAchievement({
   title: 'High Energy Diet',
   description: 'Defeat T-Rex while only having the Pulse Rifle as active weapon',
   points: 5,
+  type: 'missable',
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x3c],
     // Require one hit for loading of T-Rex (health from 0 to 240)
