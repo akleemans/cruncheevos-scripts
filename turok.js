@@ -18,6 +18,269 @@ const cheatProtection = () => {
   ];
 };
 
+/* ========= PROGRESSION ========= */
+
+set.addAchievement({
+  id: 593733,
+  badge: '677267',
+  title: 'Welcome, Warrior',
+  description: 'Finish the Hub Ruins',
+  points: 5,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594027,
+  badge: '677174',
+  title: 'Into the Jungle',
+  description: 'Finish the Jungle',
+  points: 5,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594690,
+  badge: '677169',
+  title: 'The Invention of Parkour',
+  description: 'Finish the Ancient City',
+  points: 5,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594695,
+  badge: '677398',
+  title: 'Swimming Upwards',
+  description: 'Finish the Ruins',
+  points: 5,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594701,
+  badge: '677403',
+  title: 'Swinging Knives',
+  description: 'Finish the Catacombs',
+  points: 10,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594707,
+  badge: '677408',
+  title: 'Hoppin\' in the Treetops',
+  description: 'Finish the Treetop Village',
+  points: 10,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595315,
+  badge: '677413',
+  title: 'Lost in the Lands',
+  description: 'Finish the Lost Land',
+  points: 10,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595506,
+  badge: '677418',
+  title: 'Fallen Tyrant',
+  description: 'Beat T-Rex in the Final Confrontation',
+  points: 5,
+  type: 'progression',
+  conditions: $(
+    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 60],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595501,
+  badge: '677419',
+  title: 'Son of Stone',
+  description: 'Finish the Final Confrontation',
+  points: 10,
+  type: 'win_condition',
+  conditions: $(
+    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ...cheatProtection(),
+  ),
+});
+
+
+/* ========= PROGRESSION - HARD ========= */
+
+set.addAchievement({
+  id: 593736,
+  badge: '677268',
+  title: 'Enhanced Portal Activation',
+  description: 'Finish the Hub Ruins on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594028,
+  badge: '677175',
+  title: 'Hunter\'s Peril',
+  description: 'Finish the Jungle on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594693,
+  badge: '677170',
+  title: 'Blessing of the Ancients',
+  description: 'Finish the Ancient City on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594698,
+  badge: '677399',
+  title: 'Trial of the Ruins',
+  description: 'Finish the Ruins on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594704,
+  badge: '677404',
+  title: 'Leap of Faith',
+  description: 'Finish the Catacombs on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594710,
+  badge: '677409',
+  title: 'Canopy Conqueror',
+  description: 'Finish the Treetop Village on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595318,
+  badge: '677414',
+  title: 'Interdimensional Sewer',
+  description: 'Finish the Lost Land on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
+    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
+    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
+    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595505,
+  badge: '677420',
+  title: 'I Am Turok!!!',
+  description: 'Finish the Final Confrontation on Hard difficulty',
+  points: 10,
+  conditions: $(
+    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
+    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
+    ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
+    ...cheatProtection(),
+  ),
+});
+
+
+/* ========= WEAPON COLLECTION ========= */
+
 set.addAchievement({
   id: 593735,
   badge: '677263',
@@ -68,6 +331,195 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 594030,
+  badge: '677171',
+  title: 'Now We\'re Talking',
+  description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 13],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['AndNext', 'Delta', 'Bit0', 0xdc68, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 4],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 4],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 15],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594692,
+  badge: '677166',
+  title: 'Mini Guns, Maxi Effect',
+  description: 'Collect the Pulse Rifle and the Minigun in the Ancient City',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 17],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['AndNext', 'Delta', 'Bit4', 0xdc84, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 21],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594697,
+  badge: '677394',
+  title: 'Anti-Matter Plasma Beams and Grenades',
+  description: 'Collect the Grenade Launcher and Alien Weapon in the Ruins',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
+    ['AndNext', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 31],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['AndNext', 'Delta', 'Bit2', 0xdc6a, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 23],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 32],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594703,
+  badge: '677400',
+  title: 'Four Is Better than One',
+  description: 'Collect the Quad Rocket Launcher in the Catacombs',
+  points: 2,
+  conditions: {
+    core: $(
+      ...cheatProtection(),
+    ),
+    alt1: $(
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 36],
+      ['', 'Delta', 'Bit5', 0xdc79, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit5', 0xdc79, '=', 'Value', '', 1],
+    ),
+    alt2: $(
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 33],
+      ['', 'Delta', 'Bit3', 0xdc66, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit3', 0xdc66, '=', 'Value', '', 1],
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 594709,
+  badge: '677405',
+  title: 'Fusion Kitchen',
+  description: 'Collect the Particle Accelerator and Fusion Cannon in the Treetops',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 50],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['AndNext', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
+    ['AndNext', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
+    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 42],
+    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 40],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 51],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595317,
+  badge: '677410',
+  title: 'Well Prepared',
+  description: 'Collect all seven weapons in the Lost Land',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 52],
+    ['MeasuredIf', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 57],
+    ['AddSource', 'Delta', 'Bit5', 0xdc66],
+    ['AddSource', 'Delta', 'Bit0', 0xdc6a],
+    ['AddSource', 'Delta', 'Bit7', 0xdc6e],
+    ['AddSource', 'Delta', 'Bit2', 0xdc78],
+    ['AddSource', 'Delta', 'Bit1', 0xdc7e],
+    ['AddSource', 'Delta', 'Bit2', 0xdc84],
+    ['', 'Delta', 'Bit0', 0xdc85, '<', 'Value', '', 7],
+    ['AddSource', 'Mem', 'Bit5', 0xdc66],
+    ['AddSource', 'Mem', 'Bit0', 0xdc6a],
+    ['AddSource', 'Mem', 'Bit7', 0xdc6e],
+    ['AddSource', 'Mem', 'Bit2', 0xdc78],
+    ['AddSource', 'Mem', 'Bit1', 0xdc7e],
+    ['AddSource', 'Mem', 'Bit2', 0xdc84],
+    ['Measured', 'Mem', 'Bit0', 0xdc85, '=', 'Value', '', 7],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595504,
+  badge: '677416',
+  title: 'Apparatus of Ultimate Destruction',
+  description: 'Assemble the Chronoscepter',
+  points: 5,
+  type: 'missable',
+  conditions: $(
+    ['', 'Delta', '8bit', 0xc1bb, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 1],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 595503,
+  badge: '677417',
+  title: 'Armed to the Teeth',
+  description: 'Unlock all 14 weapons',
+  points: 10,
+  type: 'missable',
+  conditions: $(
+    ['AddSource', 'Delta', '8bit', 0xc1b0],
+    ['AddSource', 'Delta', '8bit', 0xc1b1],
+    ['AddSource', 'Delta', '8bit', 0xc1b2],
+    ['AddSource', 'Delta', '8bit', 0xc1b3],
+    ['AddSource', 'Delta', '8bit', 0xc1b4],
+    ['AddSource', 'Delta', '8bit', 0xc1b5],
+    ['AddSource', 'Delta', '8bit', 0xc1b6],
+    ['AddSource', 'Delta', '8bit', 0xc1b7],
+    ['AddSource', 'Delta', '8bit', 0xc1b8],
+    ['AddSource', 'Delta', '8bit', 0xc1b9],
+    ['AddSource', 'Delta', '8bit', 0xc1ba],
+    ['', 'Delta', '8bit', 0xc1bb, '<', 'Value', '', 12],
+    ['AddSource', 'Mem', '8bit', 0xc1b0],
+    ['AddSource', 'Mem', '8bit', 0xc1b1],
+    ['AddSource', 'Mem', '8bit', 0xc1b2],
+    ['AddSource', 'Mem', '8bit', 0xc1b3],
+    ['AddSource', 'Mem', '8bit', 0xc1b4],
+    ['AddSource', 'Mem', '8bit', 0xc1b5],
+    ['AddSource', 'Mem', '8bit', 0xc1b6],
+    ['AddSource', 'Mem', '8bit', 0xc1b7],
+    ['AddSource', 'Mem', '8bit', 0xc1b8],
+    ['AddSource', 'Mem', '8bit', 0xc1b9],
+    ['AddSource', 'Mem', '8bit', 0xc1ba],
+    ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 12],
+    ...cheatProtection(),
+  ),
+});
+
+/* ========= OTHER COLLECTION ========= */
+
+set.addAchievement({
   id: 593732,
   badge: '677271',
   title: 'Source of Life',
@@ -81,6 +533,157 @@ set.addAchievement({
     ...cheatProtection(),
   ),
 });
+
+set.addAchievement({
+  id: 602355,
+  badge: '683121',
+  title: 'Old Grounds, New Secrets',
+  description: 'Collect the three Chronoscepter pieces in the Hub Ruins, Jungle and Ancient City',
+  points: 5,
+  conditions: {
+    core: $(
+      ['AddSource', 'Delta', 'Bit3', 0xdf45],
+      ['AddSource', 'Delta', 'Bit3', 0xdf46],
+      ['', 'Delta', 'Bit3', 0xdf47, '<', 'Value', '', 3],
+      ['AddSource', 'Mem', 'Bit3', 0xdf45],
+      ['AddSource', 'Mem', 'Bit3', 0xdf46],
+      ['', 'Mem', 'Bit3', 0xdf47, '=', 'Value', '', 3],
+      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 1],
+      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 14],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 19],
+      ...cheatProtection(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 602356,
+  badge: '683122',
+  title: 'Guarded by Mantis',
+  description: 'Collect the two Chronoscepter pieces in the Ruins and Catacombs',
+  points: 5,
+  conditions: {
+    core: $(
+      ['AddSource', 'Delta', 'Bit3', 0xdf48],
+      ['', 'Delta', 'Bit3', 0xdf49, '<', 'Value', '', 2],
+      ['AddSource', 'Mem', 'Bit3', 0xdf48],
+      ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 2],
+      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 26],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 34],
+      ...cheatProtection(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 602357,
+  badge: '683123',
+  title: 'Assembly Required',
+  description: 'Collect the three Chronoscepter pieces in the Treetops, Lost Land and Final Confrontation',
+  points: 5,
+  conditions: {
+    core: $(
+      ['AddSource', 'Delta', 'Bit3', 0xdf4a],
+      ['AddSource', 'Delta', 'Bit3', 0xdf4b],
+      ['', 'Delta', 'Bit3', 0xdf4c, '<', 'Value', '', 3],
+      ['AddSource', 'Mem', 'Bit3', 0xdf4a],
+      ['AddSource', 'Mem', 'Bit3', 0xdf4b],
+      ['', 'Mem', 'Bit3', 0xdf4c, '=', 'Value', '', 3],
+      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 42],
+      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 54],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 60],
+      ...cheatProtection(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 594700,
+  badge: '677396',
+  title: 'Master Blaster',
+  description: 'Aquire 99 rocket Grenade Launcher ammo',
+  points: 3,
+  conditions: $(
+    ['', 'Delta', '8bit', 0xc1a8, '<', 'Value', '', 99],
+    ['', 'Mem', '8bit', 0xc1a8, '=', 'Value', '', 99],
+    ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  id: 594699,
+  badge: '677397',
+  title: 'Triangulist',
+  description: 'Collect all 30 Lifeforce tokens in the Ruins',
+  points: 5,
+  conditions: $(
+    ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 23],
+    ['MeasuredIf', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 32],
+    ['AddSource', 'Delta', 'Bit0', 0xdc66],
+    ['AddSource', 'Delta', 'Bit3', 0xdc66],
+    ['AddSource', 'Delta', 'Bit0', 0xdc68],
+    ['AddSource', 'Delta', 'Bit7', 0xdc67],
+    ['AddSource', 'Delta', 'Bit1', 0xdc68],
+    ['AddSource', 'Delta', 'Bit3', 0xdc6a],
+    ['AddSource', 'Delta', 'Bit4', 0xdc6a],
+    ['AddSource', 'Delta', 'Bit2', 0xdc6c],
+    ['AddSource', 'Delta', 'Bit0', 0xdc7e],
+    ['AddSource', 'Delta', 'Bit1', 0xdc7e],
+    ['AddSource', 'Delta', 'Bit2', 0xdc7e],
+    ['AddSource', 'Delta', 'Bit3', 0xdc7e],
+    ['AddSource', 'Delta', 'Bit4', 0xdc78],
+    ['AddSource', 'Delta', 'Bit7', 0xdc78],
+    ['AddSource', 'Delta', 'Bit3', 0xdc90],
+    ['AddSource', 'Delta', 'Bit4', 0xdc91],
+    ['AddSource', 'Delta', 'Bit7', 0xdc92],
+    ['AddSource', 'Delta', 'Bit3', 0xdc93],
+    ['AddSource', 'Delta', 'Bit4', 0xdc93],
+    ['AddSource', 'Delta', 'Bit0', 0xdc97],
+    ['AddSource', 'Delta', 'Bit1', 0xdc97],
+    ['AddSource', 'Delta', 'Bit2', 0xdc97],
+    ['AddSource', 'Delta', 'Bit3', 0xdc97],
+    ['AddSource', 'Delta', 'Bit4', 0xdc97],
+    ['AddSource', 'Delta', 'Bit5', 0xdc97],
+    ['AddSource', 'Delta', 'Bit0', 0xdc96],
+    ['AddSource', 'Delta', 'Bit1', 0xdc96],
+    ['AddSource', 'Delta', 'Bit3', 0xdc96],
+    ['AddSource', 'Delta', 'Bit4', 0xdc96],
+    ['', 'Delta', 'Bit7', 0xdc96, '<', 'Value', '', 30],
+    ['AddSource', 'Mem', 'Bit0', 0xdc66],
+    ['AddSource', 'Mem', 'Bit3', 0xdc66],
+    ['AddSource', 'Mem', 'Bit0', 0xdc68],
+    ['AddSource', 'Mem', 'Bit7', 0xdc67],
+    ['AddSource', 'Mem', 'Bit1', 0xdc68],
+    ['AddSource', 'Mem', 'Bit3', 0xdc6a],
+    ['AddSource', 'Mem', 'Bit4', 0xdc6a],
+    ['AddSource', 'Mem', 'Bit2', 0xdc6c],
+    ['AddSource', 'Mem', 'Bit0', 0xdc7e],
+    ['AddSource', 'Mem', 'Bit1', 0xdc7e],
+    ['AddSource', 'Mem', 'Bit2', 0xdc7e],
+    ['AddSource', 'Mem', 'Bit3', 0xdc7e],
+    ['AddSource', 'Mem', 'Bit4', 0xdc78],
+    ['AddSource', 'Mem', 'Bit7', 0xdc78],
+    ['AddSource', 'Mem', 'Bit3', 0xdc90],
+    ['AddSource', 'Mem', 'Bit4', 0xdc91],
+    ['AddSource', 'Mem', 'Bit7', 0xdc92],
+    ['AddSource', 'Mem', 'Bit3', 0xdc93],
+    ['AddSource', 'Mem', 'Bit4', 0xdc93],
+    ['AddSource', 'Mem', 'Bit0', 0xdc97],
+    ['AddSource', 'Mem', 'Bit1', 0xdc97],
+    ['AddSource', 'Mem', 'Bit2', 0xdc97],
+    ['AddSource', 'Mem', 'Bit3', 0xdc97],
+    ['AddSource', 'Mem', 'Bit4', 0xdc97],
+    ['AddSource', 'Mem', 'Bit5', 0xdc97],
+    ['AddSource', 'Mem', 'Bit0', 0xdc96],
+    ['AddSource', 'Mem', 'Bit1', 0xdc96],
+    ['AddSource', 'Mem', 'Bit3', 0xdc96],
+    ['AddSource', 'Mem', 'Bit4', 0xdc96],
+    ['Measured', 'Mem', 'Bit7', 0xdc96, '=', 'Value', '', 30],
+    ...cheatProtection(),
+  ),
+});
+
+/* ========= CHALLENGES ========= */
 
 set.addAchievement({
   id: 593738,
@@ -193,57 +796,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  id: 593733,
-  badge: '677267',
-  title: 'Welcome, Warrior',
-  description: 'Finish the Hub Ruins',
-  points: 5,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 593736,
-  badge: '677268',
-  title: 'Enhanced Portal Activation',
-  description: 'Finish the Hub Ruins on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594030,
-  badge: '677171',
-  title: 'Now We\'re Talking',
-  description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 13],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit0', 0xdc68, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 4],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 4],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 15],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
   id: 594031,
   badge: '677173',
   title: 'Finding the Right Key',
@@ -260,79 +812,6 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(['ResetIf', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 63]),
-  },
-});
-
-set.addAchievement({
-  id: 594027,
-  badge: '677174',
-  title: 'Into the Jungle',
-  description: 'Finish the Jungle',
-  points: 5,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594028,
-  badge: '677175',
-  title: 'Hunter\'s Peril',
-  description: 'Finish the Jungle on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594692,
-  badge: '677166',
-  title: 'Mini Guns, Maxi Effect',
-  description: 'Collect the Pulse Rifle and the Minigun in the Ancient City',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 17],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit4', 0xdc84, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 21],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 602355,
-  badge: '683121',
-  title: 'Old Grounds, New Secrets',
-  description: 'Collect the three Chronoscepter pieces in the Hub Ruins, Jungle and Ancient City',
-  points: 5,
-  conditions: {
-    core: $(
-      ['AddSource', 'Delta', 'Bit3', 0xdf45],
-      ['AddSource', 'Delta', 'Bit3', 0xdf46],
-      ['', 'Delta', 'Bit3', 0xdf47, '<', 'Value', '', 3],
-      ['AddSource', 'Mem', 'Bit3', 0xdf45],
-      ['AddSource', 'Mem', 'Bit3', 0xdf46],
-      ['', 'Mem', 'Bit3', 0xdf47, '=', 'Value', '', 3],
-      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 1],
-      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 14],
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 19],
-      ...cheatProtection(),
-    ),
   },
 });
 
@@ -378,218 +857,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  id: 594690,
-  badge: '677169',
-  title: 'The Invention of Parkour',
-  description: 'Finish the Ancient City',
-  points: 5,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594693,
-  badge: '677170',
-  title: 'Blessing of the Ancients',
-  description: 'Finish the Ancient City on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594697,
-  badge: '677394',
-  title: 'Anti-Matter Plasma Beams and Grenades',
-  description: 'Collect the Grenade Launcher and Alien Weapon in the Ruins',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
-    ['AndNext', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 31],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit2', 0xdc6a, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 23],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 32],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594700,
-  badge: '677396',
-  title: 'Master Blaster',
-  description: 'Aquire 99 rocket Grenade Launcher ammo',
-  points: 3,
-  conditions: $(
-    ['', 'Delta', '8bit', 0xc1a8, '<', 'Value', '', 99],
-    ['', 'Mem', '8bit', 0xc1a8, '=', 'Value', '', 99],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594699,
-  badge: '677397',
-  title: 'Triangulist',
-  description: 'Collect all 30 Lifeforce tokens in the Ruins',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 23],
-    ['MeasuredIf', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 32],
-    ['AddSource', 'Delta', 'Bit0', 0xdc66],
-    ['AddSource', 'Delta', 'Bit3', 0xdc66],
-    ['AddSource', 'Delta', 'Bit0', 0xdc68],
-    ['AddSource', 'Delta', 'Bit7', 0xdc67],
-    ['AddSource', 'Delta', 'Bit1', 0xdc68],
-    ['AddSource', 'Delta', 'Bit3', 0xdc6a],
-    ['AddSource', 'Delta', 'Bit4', 0xdc6a],
-    ['AddSource', 'Delta', 'Bit2', 0xdc6c],
-    ['AddSource', 'Delta', 'Bit0', 0xdc7e],
-    ['AddSource', 'Delta', 'Bit1', 0xdc7e],
-    ['AddSource', 'Delta', 'Bit2', 0xdc7e],
-    ['AddSource', 'Delta', 'Bit3', 0xdc7e],
-    ['AddSource', 'Delta', 'Bit4', 0xdc78],
-    ['AddSource', 'Delta', 'Bit7', 0xdc78],
-    ['AddSource', 'Delta', 'Bit3', 0xdc90],
-    ['AddSource', 'Delta', 'Bit4', 0xdc91],
-    ['AddSource', 'Delta', 'Bit7', 0xdc92],
-    ['AddSource', 'Delta', 'Bit3', 0xdc93],
-    ['AddSource', 'Delta', 'Bit4', 0xdc93],
-    ['AddSource', 'Delta', 'Bit0', 0xdc97],
-    ['AddSource', 'Delta', 'Bit1', 0xdc97],
-    ['AddSource', 'Delta', 'Bit2', 0xdc97],
-    ['AddSource', 'Delta', 'Bit3', 0xdc97],
-    ['AddSource', 'Delta', 'Bit4', 0xdc97],
-    ['AddSource', 'Delta', 'Bit5', 0xdc97],
-    ['AddSource', 'Delta', 'Bit0', 0xdc96],
-    ['AddSource', 'Delta', 'Bit1', 0xdc96],
-    ['AddSource', 'Delta', 'Bit3', 0xdc96],
-    ['AddSource', 'Delta', 'Bit4', 0xdc96],
-    ['', 'Delta', 'Bit7', 0xdc96, '<', 'Value', '', 30],
-    ['AddSource', 'Mem', 'Bit0', 0xdc66],
-    ['AddSource', 'Mem', 'Bit3', 0xdc66],
-    ['AddSource', 'Mem', 'Bit0', 0xdc68],
-    ['AddSource', 'Mem', 'Bit7', 0xdc67],
-    ['AddSource', 'Mem', 'Bit1', 0xdc68],
-    ['AddSource', 'Mem', 'Bit3', 0xdc6a],
-    ['AddSource', 'Mem', 'Bit4', 0xdc6a],
-    ['AddSource', 'Mem', 'Bit2', 0xdc6c],
-    ['AddSource', 'Mem', 'Bit0', 0xdc7e],
-    ['AddSource', 'Mem', 'Bit1', 0xdc7e],
-    ['AddSource', 'Mem', 'Bit2', 0xdc7e],
-    ['AddSource', 'Mem', 'Bit3', 0xdc7e],
-    ['AddSource', 'Mem', 'Bit4', 0xdc78],
-    ['AddSource', 'Mem', 'Bit7', 0xdc78],
-    ['AddSource', 'Mem', 'Bit3', 0xdc90],
-    ['AddSource', 'Mem', 'Bit4', 0xdc91],
-    ['AddSource', 'Mem', 'Bit7', 0xdc92],
-    ['AddSource', 'Mem', 'Bit3', 0xdc93],
-    ['AddSource', 'Mem', 'Bit4', 0xdc93],
-    ['AddSource', 'Mem', 'Bit0', 0xdc97],
-    ['AddSource', 'Mem', 'Bit1', 0xdc97],
-    ['AddSource', 'Mem', 'Bit2', 0xdc97],
-    ['AddSource', 'Mem', 'Bit3', 0xdc97],
-    ['AddSource', 'Mem', 'Bit4', 0xdc97],
-    ['AddSource', 'Mem', 'Bit5', 0xdc97],
-    ['AddSource', 'Mem', 'Bit0', 0xdc96],
-    ['AddSource', 'Mem', 'Bit1', 0xdc96],
-    ['AddSource', 'Mem', 'Bit3', 0xdc96],
-    ['AddSource', 'Mem', 'Bit4', 0xdc96],
-    ['Measured', 'Mem', 'Bit7', 0xdc96, '=', 'Value', '', 30],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594695,
-  badge: '677398',
-  title: 'Swimming Upwards',
-  description: 'Finish the Ruins',
-  points: 5,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594698,
-  badge: '677399',
-  title: 'Trial of the Ruins',
-  description: 'Finish the Ruins on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594703,
-  badge: '677400',
-  title: 'Four Is Better than One',
-  description: 'Collect the Quad Rocket Launcher in the Catacombs',
-  points: 2,
-  conditions: {
-    core: $(
-      ...cheatProtection(),
-    ),
-    alt1: $(
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 36],
-      ['', 'Delta', 'Bit5', 0xdc79, '=', 'Value', '', 0],
-      ['', 'Mem', 'Bit5', 0xdc79, '=', 'Value', '', 1],
-    ),
-    alt2: $(
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 33],
-      ['', 'Delta', 'Bit3', 0xdc66, '=', 'Value', '', 0],
-      ['', 'Mem', 'Bit3', 0xdc66, '=', 'Value', '', 1],
-    ),
-  },
-});
-
-set.addAchievement({
-  id: 602356,
-  badge: '683122',
-  title: 'Guarded by Mantis',
-  description: 'Collect the two Chronoscepter pieces in the Ruins and Catacombs',
-  points: 5,
-  conditions: {
-    core: $(
-      ['AddSource', 'Delta', 'Bit3', 0xdf48],
-      ['', 'Delta', 'Bit3', 0xdf49, '<', 'Value', '', 2],
-      ['AddSource', 'Mem', 'Bit3', 0xdf48],
-      ['', 'Mem', 'Bit3', 0xdf49, '=', 'Value', '', 2],
-      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 26],
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 34],
-      ...cheatProtection(),
-    ),
-  },
-});
-
-set.addAchievement({
   id: 594705,
   badge: '677402',
   title: 'Spirit Protected',
@@ -618,57 +885,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  id: 594701,
-  badge: '677403',
-  title: 'Swinging Knives',
-  description: 'Finish the Catacombs',
-  points: 10,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594704,
-  badge: '677404',
-  title: 'Leap of Faith',
-  description: 'Finish the Catacombs on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 4],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594709,
-  badge: '677405',
-  title: 'Fusion Kitchen',
-  description: 'Collect the Particle Accelerator and Fusion Cannon in the Treetops',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 50],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 42],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 40],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 51],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
   id: 594711,
   badge: '677407',
   title: 'Knives Out',
@@ -688,63 +904,6 @@ set.addAchievement({
       ['ResetIf', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 40],
     ),
   },
-});
-
-set.addAchievement({
-  id: 594707,
-  badge: '677408',
-  title: 'Hoppin\' in the Treetops',
-  description: 'Finish the Treetop Village',
-  points: 10,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 594710,
-  badge: '677409',
-  title: 'Canopy Conqueror',
-  description: 'Finish the Treetop Village on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 5],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595317,
-  badge: '677410',
-  title: 'Well Prepared',
-  description: 'Collect all seven weapons in the Lost Land',
-  points: 5,
-  conditions: $(
-    ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 52],
-    ['MeasuredIf', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 57],
-    ['AddSource', 'Delta', 'Bit5', 0xdc66],
-    ['AddSource', 'Delta', 'Bit0', 0xdc6a],
-    ['AddSource', 'Delta', 'Bit7', 0xdc6e],
-    ['AddSource', 'Delta', 'Bit2', 0xdc78],
-    ['AddSource', 'Delta', 'Bit1', 0xdc7e],
-    ['AddSource', 'Delta', 'Bit2', 0xdc84],
-    ['', 'Delta', 'Bit0', 0xdc85, '<', 'Value', '', 7],
-    ['AddSource', 'Mem', 'Bit5', 0xdc66],
-    ['AddSource', 'Mem', 'Bit0', 0xdc6a],
-    ['AddSource', 'Mem', 'Bit7', 0xdc6e],
-    ['AddSource', 'Mem', 'Bit2', 0xdc78],
-    ['AddSource', 'Mem', 'Bit1', 0xdc7e],
-    ['AddSource', 'Mem', 'Bit2', 0xdc84],
-    ['Measured', 'Mem', 'Bit0', 0xdc85, '=', 'Value', '', 7],
-    ...cheatProtection(),
-  ),
 });
 
 set.addAchievement({
@@ -784,153 +943,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  id: 595315,
-  badge: '677413',
-  title: 'Lost in the Lands',
-  description: 'Finish the Lost Land',
-  points: 10,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595318,
-  badge: '677414',
-  title: 'Interdimensional Sewer',
-  description: 'Finish the Lost Land on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
-    ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 6],
-    ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 7],
-    ['', 'Mem', '8bit', 0xdee4, '=', 'Value', '', 2],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 602357,
-  badge: '683123',
-  title: 'Assembly Required',
-  description: 'Collect the three Chronoscepter pieces in the Treetops, Lost Land and Final Confrontation',
-  points: 5,
-  conditions: {
-    core: $(
-      ['AddSource', 'Delta', 'Bit3', 0xdf4a],
-      ['AddSource', 'Delta', 'Bit3', 0xdf4b],
-      ['', 'Delta', 'Bit3', 0xdf4c, '<', 'Value', '', 3],
-      ['AddSource', 'Mem', 'Bit3', 0xdf4a],
-      ['AddSource', 'Mem', 'Bit3', 0xdf4b],
-      ['', 'Mem', 'Bit3', 0xdf4c, '=', 'Value', '', 3],
-      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 42],
-      ['OrNext', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 54],
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 60],
-      ...cheatProtection(),
-    ),
-  },
-});
-
-set.addAchievement({
-  id: 595504,
-  badge: '677416',
-  title: 'Apparatus of Ultimate Destruction',
-  description: 'Assemble the Chronoscepter',
-  points: 5,
-  type: 'missable',
-  conditions: $(
-    ['', 'Delta', '8bit', 0xc1bb, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 1],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595503,
-  badge: '677417',
-  title: 'Armed to the Teeth',
-  description: 'Unlock all 14 weapons',
-  points: 10,
-  type: 'missable',
-  conditions: $(
-    ['AddSource', 'Delta', '8bit', 0xc1b0],
-    ['AddSource', 'Delta', '8bit', 0xc1b1],
-    ['AddSource', 'Delta', '8bit', 0xc1b2],
-    ['AddSource', 'Delta', '8bit', 0xc1b3],
-    ['AddSource', 'Delta', '8bit', 0xc1b4],
-    ['AddSource', 'Delta', '8bit', 0xc1b5],
-    ['AddSource', 'Delta', '8bit', 0xc1b6],
-    ['AddSource', 'Delta', '8bit', 0xc1b7],
-    ['AddSource', 'Delta', '8bit', 0xc1b8],
-    ['AddSource', 'Delta', '8bit', 0xc1b9],
-    ['AddSource', 'Delta', '8bit', 0xc1ba],
-    ['', 'Delta', '8bit', 0xc1bb, '<', 'Value', '', 12],
-    ['AddSource', 'Mem', '8bit', 0xc1b0],
-    ['AddSource', 'Mem', '8bit', 0xc1b1],
-    ['AddSource', 'Mem', '8bit', 0xc1b2],
-    ['AddSource', 'Mem', '8bit', 0xc1b3],
-    ['AddSource', 'Mem', '8bit', 0xc1b4],
-    ['AddSource', 'Mem', '8bit', 0xc1b5],
-    ['AddSource', 'Mem', '8bit', 0xc1b6],
-    ['AddSource', 'Mem', '8bit', 0xc1b7],
-    ['AddSource', 'Mem', '8bit', 0xc1b8],
-    ['AddSource', 'Mem', '8bit', 0xc1b9],
-    ['AddSource', 'Mem', '8bit', 0xc1ba],
-    ['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 12],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595506,
-  badge: '677418',
-  title: 'Fallen Tyrant',
-  description: 'Beat T-Rex in the Final Confrontation',
-  points: 5,
-  type: 'progression',
-  conditions: $(
-    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 60],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595501,
-  badge: '677419',
-  title: 'Son of Stone',
-  description: 'Finish the Final Confrontation',
-  points: 10,
-  type: 'win_condition',
-  conditions: $(
-    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
-  id: 595505,
-  badge: '677420',
-  title: 'I Am Turok!!!',
-  description: 'Finish the Final Confrontation on Hard difficulty',
-  points: 10,
-  conditions: $(
-    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 62],
-    ['', 'Delta', '8bit', bossLives, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossLives, '=', 'Value', '', 255],
-    ['', 'Mem', '8bit', 0xdee4, '>=', 'Value', '', 1],
-    ...cheatProtection(),
-  ),
-});
-
-set.addAchievement({
   id: 595507,
   badge: '677421',
   title: 'Doing Things the Hard Way',
@@ -950,6 +962,40 @@ set.addAchievement({
     alt2: $(['', 'Mem', '8bit', 0xc1bb, '=', 'Value', '', 0]),
   },
 });
+
+/* ========= LEADERBOARDS ========= */
+
+set.addLeaderboard({
+  id: 158907,
+  title: 'Ancient Ruins Speedrun',
+  description: 'Finish the Ancient Ruins',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
+      ['', 'Delta', '8bit', currentRoomId, '=', 'Value', '', 63],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 16],
+      ...cheatProtection(),
+    ),
+    cancel: $(
+      ['OrNext', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
+      ['', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
+      ['', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
+    ),
+    submit: $(
+      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
+      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
+    ),
+    value: $(
+      ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
+      ['AndNext', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 22],
+      ['Measured', 'Mem', '8bit', 0xc1f4, '!=', 'Value', '', 1],
+    ),
+  },
+});
+
+/* ========= VOID ========= */
 
 set.addAchievement({
   id: 595508,
@@ -1137,39 +1183,10 @@ set.addAchievement({
   ),
 });
 
-set.addLeaderboard({
-  id: 158907,
-  title: 'Ancient Ruins Speedrun',
-  description: 'Finish the Ancient Ruins',
-  lowerIsBetter: true,
-  type: 'FRAMES',
-  conditions: {
-    start: $(
-      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 2],
-      ['', 'Delta', '8bit', currentRoomId, '=', 'Value', '', 63],
-      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 16],
-      ...cheatProtection(),
-    ),
-    cancel: $(
-      ['OrNext', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
-      ['', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
-      ['', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
-    ),
-    submit: $(
-      ['', 'Delta', '8bit', 0xdf59, '=', 'Value', '', 2],
-      ['', 'Mem', '8bit', 0xdf59, '=', 'Value', '', 3],
-    ),
-    value: $(
-      ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
-      ['AndNext', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 22],
-      ['Measured', 'Mem', '8bit', 0xc1f4, '!=', 'Value', '', 1],
-    ),
-  },
-});
-
 export default set;
 
-// Rich presence:
+/* ========= RICH PRESENCE ========= */
+
 /*
 Lookup:CurrentRoom
 0x00-0x03=In the Hub Ruins
