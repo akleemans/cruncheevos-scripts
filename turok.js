@@ -366,19 +366,27 @@ set.addAchievement({
   title: 'Mini Guns, Maxi Effect',
   description: 'Collect the Pulse Rifle and the Minigun in the Ancient City',
   points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 17],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit4', 0xdc84, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 21],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
-    ...cheatProtection(),
-  ),
+  conditions: {
+    core: $(
+      ...cheatProtection(),
+    ),
+    alt1: $(
+      // Pulse Rifle already collected in level
+      ['', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
+      // Minigun collected in roomId 0x15
+      ['', 'Delta', 'Bit4', 0xdc84, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x15],
+    ),
+    alt2: $(
+      // Minigun already collected in level
+      ['', 'Mem', 'Bit4', 0xdc84, '=', 'Value', '', 1],
+      // Pulse Rifle collected in roomId 0x11
+      ['', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x11],
+    )
+  },
 });
 
 set.addAchievement({
