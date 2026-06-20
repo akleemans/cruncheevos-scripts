@@ -996,17 +996,17 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO
-  // badge: '677269', // TODO
+  id: 618283,
+  badge: '702297',
   title: 'High Energy Diet',
   description: 'Defeat T-Rex while only having the Pulse Rifle as active weapon',
   points: 5,
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x3c],
-    // Require one hit for loading of T-Rex (health from 0 to ?)
+    // Require one hit for loading of T-Rex (health from 0 to 240)
     ['AndNext', 'Delta', '8bit', bossHealth, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', bossHealth, '>', 'Value', '', 0, 1], // TODO use exact health value for T-Rex?
-    // Trigger if T-Rex defeated
+    ['', 'Mem', '8bit', bossHealth, '=', 'Value', '', 240, 1],
+    // Trigger on T-Rex defeated
     ['Trigger', 'Mem', '8bit', tRexState, '=', 'Value', '', 0x02],
     // Reset if active weapon is not Pulse Rifle or player left room
     ['ResetIf', 'Mem', '8bit', activeWeaponSelection, '!=', 'Value', '', 0x05],
