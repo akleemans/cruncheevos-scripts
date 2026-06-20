@@ -456,19 +456,28 @@ set.addAchievement({
   title: 'Fusion Kitchen',
   description: 'Collect the Particle Accelerator and Fusion Cannon in the Treetops',
   points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 50],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 42],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 40],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 51],
-    ...cheatProtection(),
-  ),
+  conditions: {
+    core: $(
+      ...cheatProtection(),
+    ),
+    alt1: $(
+      // Particle Accelerator already collected in level
+      ['', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
+      // Fusion Cannon collected in roomId 0x2a
+      ['', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x2a],
+
+    ),
+    alt2: $(
+      // Fusion Cannon already collected in level
+      ['', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
+      // Particle Accelerator collected in roomId 0x32
+      ['', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x32],
+    )
+  },
 });
 
 set.addAchievement({
