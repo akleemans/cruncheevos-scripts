@@ -901,10 +901,15 @@ set.addAchievement({
   id: 594705,
   badge: '677402',
   title: 'Spirit Protected',
-  description: 'Finish the Catacombs with full health',
+  description: 'Finish the Catacombs with full health without dying after the Mantis fight',
   points: 10,
   conditions: {
     core: $(
+      // PauseLock: If Mantis defeated and player dies, lock achievement
+      ['AndNext', 'Mem', 'Bit1', 0x00c0fd, '=', 'Value', '', 1],
+      ['AddHits', 'Mem', '8bit', currentLives, '<', 'Delta', '8bit', currentLives],
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 1],
+      // Pop condition: 3 keys collected, maxLevelUnlocked goes up
       ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 4],
       ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
