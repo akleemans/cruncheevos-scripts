@@ -292,7 +292,7 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      // Either Shotgun in level picked up
+      // Any Shotgun already collected in level
       ['OrNext', 'Mem', 'Bit5', 0xdc69, '=', 'Value', '', 1],
       ['', 'Mem', 'Bit7', 0xdc74, '=', 'Value', '', 1],
       // Pistol collected in roomId 0x00
@@ -301,7 +301,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x00],
     ),
     alt2: $(
-      // Either Shotgun in level picked up
+      // Any Shotgun already collected in level
       ['OrNext', 'Mem', 'Bit5', 0xdc69, '=', 'Value', '', 1],
       ['', 'Mem', 'Bit7', 0xdc74, '=', 'Value', '', 1],
       // Pistol collected in roomId 0x03
@@ -310,7 +310,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x03],
     ),
     alt3: $(
-      // Either Pistol in level picked up
+      // Any Pistol already collected in level
       ['OrNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
       ['', 'Mem', 'Bit2', 0xdc79, '=', 'Value', '', 1],
       // Shotgun collected in roomId 0x00
@@ -319,7 +319,7 @@ set.addAchievement({
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x00],
     ),
     alt4: $(
-      // Either Pistol in level picked up
+      // Any Pistol already collected in level
       ['OrNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
       ['', 'Mem', 'Bit2', 0xdc79, '=', 'Value', '', 1],
       // Shotgun collected in roomId 0x02
@@ -336,19 +336,28 @@ set.addAchievement({
   title: 'Now We\'re Talking',
   description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle',
   points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 13],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit0', 0xdc68, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 4],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 4],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 15],
-    ...cheatProtection(),
-  ),
+  conditions: {
+    core: $(
+      ...cheatProtection(),
+    ),
+    alt1: $(
+      // Assault Rifle already collected in level
+      ['', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
+      // Automatic Shotgun collected in roomId 0x04
+      ['', 'Delta', 'Bit0', 0xdc68, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x04],
+    ),
+    alt2: $(
+      // Automatic Shotgun already collected in level
+      ['', 'Mem', 'Bit0', 0xdc68, '=', 'Value', '', 1],
+      // Assault Rifle collected in roomId 0x0d
+      ['', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x0d],
+
+    )
+  },
 });
 
 set.addAchievement({
