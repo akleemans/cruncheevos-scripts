@@ -8,6 +8,10 @@ const currentRoomId = 0xdf96;
 const bossLives = 0xdcb0;
 const nrOfKeysCollected = 0xc0fb;
 const maxLevelUnlocked = 0xdf59;
+const activeWeaponSelection = 0xfffc;
+
+const bossHealth = 0xdcaf;
+const tRexState = 0xc0fe;
 
 const cheatProtection = () => {
   return [
@@ -889,8 +893,8 @@ set.addAchievement({
   points: 5,
   conditions: $(
     ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 22],
-    ['AndNext', 'Delta', '8bit', 0xdcaf, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', 0xdcaf, '=', 'Value', '', 82, 1],
+    ['AndNext', 'Delta', '8bit', bossHealth, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossHealth, '=', 'Value', '', 82, 1],
     ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '>', 'Delta', '8bit', nrOfKeysCollected],
     ['ResetIf', 'Mem', '8bit', 0xc0f9, '<', 'Delta', '8bit', 0xc0f9],
     ['ResetIf', 'Mem', '8bit', currentRoomId, '!=', 'Value', '', 22],
@@ -945,7 +949,7 @@ set.addAchievement({
       ['Trigger', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 3],
       ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 5],
       ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
-      ['PauseIf', 'Mem', '8bit', 0xfffc, '!=', 'Value', '', 0, 1],
+      ['PauseIf', 'Mem', '8bit', activeWeaponSelection, '!=', 'Value', '', 0, 1],
       ...cheatProtection(),
     ),
     alt1: $(
@@ -988,6 +992,25 @@ set.addAchievement({
     ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', 6],
     ['Trigger', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 7],
     ...cheatProtection(),
+  ),
+});
+
+set.addAchievement({
+  // id: TODO
+  // badge: '677269', // TODO
+  title: 'High Energy Diet',
+  description: 'Defeat T-Rex while only having the Pulse Rifle as active weapon',
+  points: 5,
+  conditions: $(
+    ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x3c],
+    // Require one hit for loading of T-Rex (health from 0 to ?)
+    ['AndNext', 'Delta', '8bit', bossHealth, '=', 'Value', '', 0],
+    ['', 'Mem', '8bit', bossHealth, '>', 'Value', '', 0, 1], // TODO use exact health value for T-Rex?
+    // Trigger if T-Rex defeated
+    ['Trigger', 'Mem', '8bit', tRexState, '=', 'Value', '', 0x02],
+    // Reset if active weapon is not Pulse Rifle or player left room
+    ['ResetIf', 'Mem', '8bit', activeWeaponSelection, '!=', 'Value', '', 0x05],
+    ['ResetIf', 'Mem', '8bit', currentRoomId, '!=', 'Value', '', 0x3c],
   ),
 });
 
