@@ -395,22 +395,36 @@ set.addAchievement({
   title: 'Anti-Matter Plasma Beams and Grenades',
   description: 'Collect the Grenade Launcher and Alien Weapon in the Ruins',
   points: 5,
-  conditions: $(
-    ['AndNext', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
-    ['AndNext', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 31],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['AndNext', 'Delta', 'Bit2', 0xdc6a, '=', 'Value', '', 0],
-    ['AndNext', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
-    ['AddHits', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 23],
-    ['', 'Value', '', 0, '=', 'Value', '', 1, 1],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 23],
-    ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 32],
-    ...cheatProtection(),
-  ),
+  conditions: {
+    core: $(
+      ...cheatProtection(),
+    ),
+    alt1: $(
+      // Any Grenade Launcher already collected in level
+      ['OrNext', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
+      ['', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
+      // Alien Weapon collected in roomId 0x17
+      ['', 'Delta', 'Bit2', 0xdc6a, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x17],
+    ),
+    alt2: $(
+      // Alien Weapon already collected in level
+      ['', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
+      // Grenade Launcher collected in roomId 0x17
+      ['', 'Delta', 'Bit2', 0xdc66, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit2', 0xdc66, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x17],
+    ),
+    alt3: $(
+      // Alien Weapon already collected in level
+      ['', 'Mem', 'Bit2', 0xdc6a, '=', 'Value', '', 1],
+      // Grenade Launcher collected in roomId 0x1f
+      ['', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
+      ['', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
+      ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x1f],
+    )
+  },
 });
 
 set.addAchievement({
