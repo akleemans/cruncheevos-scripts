@@ -1184,8 +1184,32 @@ Lookup:Weapon
 0xc=Fusion Cannon
 0xd=Chronoscepter
 
+Lookup:Cheats
+0x0=
+0x1-0x5= • Codes used:
+
+Lookup:WeaponsCheat
+0x0=
+0x1= WPS
+
+Lookup:LivesCheat
+0x0=
+0x1= LVS
+
+Lookup:EnergyCheat
+0x0=
+0x1= NRG
+
+Lookup:LevelSelectCheat
+0x0=
+0x1= LVL
+
+Lookup:BirdCheat
+0x0=
+0x1= BRD
+
 Display:
 ?0xH00c2d3!=1?In the Menu
-?0xH00c2d3=1?@CurrentRoom(0xH00df96) with @Weapon(0xH00fffc) on @Difficulty(0xH00dee4) • @Number(0xH00c0fb) keys • @Number(0xH00c0fa) lives • @Number(0xH00c0f9) HP
+?0xH00c2d3=1?@CurrentRoom(0xH00df96) with @Weapon(0xH00fffc) on @Difficulty(0xH00dee4) • @Number(0xH00c0fb) keys • @Number(0xH00c0fa) lives • @Number(0xH00c0f9) HP@Cheats(A:0xH00c0e2_A:0xH00c0e3_A:0xH00c0e4_A:0xH00c0e5_A:0xH00c0e6_M:0)@WeaponsCheat(0xH00c0e2)@LivesCheat(0xH00c0e3)@EnergyCheat(0xH00c0e4)@LevelSelectCheat(0xH00c0e5)@BirdCheat(0xH00c0e6)
 Playing Turok: Battle of the Bionosaurs
 */
