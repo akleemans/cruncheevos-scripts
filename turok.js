@@ -290,7 +290,7 @@ set.addAchievement({
   id: 593735,
   badge: '677263',
   title: 'Finally Some Firepower',
-  description: 'Collect the Pistol and Shotgun in the Hub Ruins',
+  description: 'Collect the Pistol and Shotgun in the Hub Ruins without dying',
   points: 5,
   conditions: {
     core: $(
@@ -339,7 +339,7 @@ set.addAchievement({
   id: 594030,
   badge: '677171',
   title: 'Now We\'re Talking',
-  description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle',
+  description: 'Collect the Assault Rifle and Automatic Shotgun in the Jungle without dying',
   points: 5,
   conditions: {
     core: $(
@@ -369,7 +369,7 @@ set.addAchievement({
   id: 594692,
   badge: '677166',
   title: 'Mini Guns, Maxi Effect',
-  description: 'Collect the Pulse Rifle and the Minigun in the Ancient City',
+  description: 'Collect the Pulse Rifle and the Minigun in the Ancient City without dying',
   points: 5,
   conditions: {
     core: $(
@@ -398,7 +398,7 @@ set.addAchievement({
   id: 594697,
   badge: '677394',
   title: 'Anti-Matter Plasma Beams and Grenades',
-  description: 'Collect the Grenade Launcher and Alien Weapon in the Ruins',
+  description: 'Collect the Grenade Launcher and Alien Weapon in the Ruins without dying',
   points: 5,
   conditions: {
     core: $(
@@ -436,7 +436,7 @@ set.addAchievement({
   id: 594703,
   badge: '677400',
   title: 'Four Is Better than One',
-  description: 'Collect the Quad Rocket Launcher in the Catacombs',
+  description: 'Collect the Quad Rocket Launcher in the Catacombs without dying',
   points: 2,
   conditions: {
     core: $(
@@ -459,7 +459,7 @@ set.addAchievement({
   id: 594709,
   badge: '677405',
   title: 'Fusion Kitchen',
-  description: 'Collect the Particle Accelerator and Fusion Cannon in the Treetops',
+  description: 'Collect the Particle Accelerator and Fusion Cannon in the Treetops without dying',
   points: 5,
   conditions: {
     core: $(
@@ -489,7 +489,7 @@ set.addAchievement({
   id: 595317,
   badge: '677410',
   title: 'Well Prepared',
-  description: 'Collect all seven weapons in the Lost Land',
+  description: 'Collect all seven weapons in the Lost Land without dying',
   points: 5,
   conditions: $(
     ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 52],
