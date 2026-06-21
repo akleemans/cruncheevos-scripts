@@ -1,8 +1,7 @@
 cruncheevos-scripts
 ===================
 
-My [cruncheevos](https://github.com/suXinjke/cruncheevos) scripts for
-creating [achievements](https://retroachievements.org/).
+My [cruncheevos](https://github.com/suXinjke/cruncheevos) scripts for [RetroAchievements](https://retroachievements.org/).
 
 Sets:
 
