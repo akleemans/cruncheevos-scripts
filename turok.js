@@ -8,6 +8,7 @@ const currentRoomId = 0xdf96;
 const nrOfKeysCollected = 0xc0fb;
 const maxLevelUnlocked = 0xdf59;
 const activeWeaponSelection = 0xfffc;
+const pauseActive = 0xc1f4;
 
 const bossHealth = 0xdcaf;
 const tRexState = 0xc0fe;
@@ -868,7 +869,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['PauseIf', 'Mem', '8bit', 0xc1f4, '=', 'Value', '', 1],
+      ['PauseIf', 'Mem', '8bit', pauseActive, '=', 'Value', '', 1],
       ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
       ['AddHits', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 22],
       ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 14400],
@@ -877,9 +878,9 @@ set.addAchievement({
       ...cheatProtection(),
     ),
     alt1: $(
-      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
+      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 0],
       ['ResetIf', 'Mem', '8bit', currentRoomId, '<', 'Value', '', 16],
-      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '<', 'Value', '', 3],
+      ['AndNext', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 0],
       ['ResetIf', 'Mem', '8bit', currentRoomId, '>', 'Value', '', 22],
     ),
   },
@@ -1049,6 +1050,7 @@ set.addLeaderboard({
       ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', 2],
       ['', 'Delta', '8bit', currentRoomId, '=', 'Value', '', 63],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 16],
+      ['', 'Mem', '8bit', nrOfKeysCollected, '=', 'Value', '', 0],
       ...cheatProtection(),
     ),
     cancel: $(
@@ -1063,7 +1065,7 @@ set.addLeaderboard({
     value: $(
       ['AndNext', 'Mem', '8bit', currentRoomId, '>=', 'Value', '', 16],
       ['AndNext', 'Mem', '8bit', currentRoomId, '<=', 'Value', '', 22],
-      ['Measured', 'Mem', '8bit', 0xc1f4, '!=', 'Value', '', 1],
+      ['Measured', 'Mem', '8bit', pauseActive, '!=', 'Value', '', 1],
     ),
   },
 });
