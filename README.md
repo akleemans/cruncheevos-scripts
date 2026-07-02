@@ -18,7 +18,7 @@ Sets:
 
 See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packages/cli) for details.
 
-* Import set: `npx cruncheevos generate 13955 monster-force.js` (possibly with `--include-unofficial`)
+* Import set: `npx cruncheevos generate 5260 monster-force.js` (possibly with `--include-unofficial`)
 * Diff set: `npx cruncheevos diff monster-force.js`
 * Save to local: `npx cruncheevos save monster-force.js`
 * Lint: `npx eslint monster-force.js --fix`
