@@ -384,7 +384,7 @@ set.addAchievement({
     core: $(
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryShadow],
       ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
       ['', 'Mem', '16bit', levelTime, '<', 'Value', '', 600],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
