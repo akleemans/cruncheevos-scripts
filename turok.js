@@ -361,8 +361,7 @@ set.addAchievement({
       ['', 'Delta', 'Bit2', 0xdc9c, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit2', 0xdc9c, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x0d],
-
-    )
+    ),
   },
 });
 
@@ -391,7 +390,7 @@ set.addAchievement({
       ['', 'Delta', 'Bit3', 0xdc6d, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit3', 0xdc6d, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x11],
-    )
+    ),
   },
 });
 
@@ -429,7 +428,7 @@ set.addAchievement({
       ['', 'Delta', 'Bit2', 0xdc96, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit2', 0xdc96, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x1f],
-    )
+    ),
   },
 });
 
@@ -473,7 +472,6 @@ set.addAchievement({
       ['', 'Delta', 'Bit6', 0xdc72, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit6', 0xdc72, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x2a],
-
     ),
     alt2: $(
       // Fusion Cannon already collected in level
@@ -482,7 +480,7 @@ set.addAchievement({
       ['', 'Delta', 'Bit1', 0xdca2, '=', 'Value', '', 0],
       ['', 'Mem', 'Bit1', 0xdca2, '=', 'Value', '', 1],
       ['', 'Mem', '8bit', currentRoomId, '=', 'Value', '', 0x32],
-    )
+    ),
   },
 });
 
