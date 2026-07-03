@@ -56,6 +56,9 @@ const maxLevelUnlocked = 0x34df;
 const cemetery1Ranking = 0x35b8;
 const invincibilityCheat = 0x3598;
 
+const atomsInCurrentLevel = 0x35a4;
+const levelTime = 0x359c;
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -272,7 +275,7 @@ set.addAchievement({
 set.addAchievement({
   // id: TODO,
   // badge: 'TODO',
-  title: 'Pumpkin Purée',
+  title: 'Pumpkin Mash',
   description: 'Finish the Castle Zone by defeating Sergeant Smash and beat the game',
   points: 25,
   type: 'win_condition',
@@ -317,6 +320,74 @@ set.addAchievement({
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
       ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  // id: TODO,
+  // badge: 'TODO',
+  title: 'Diagonal Thinking',
+  description: 'Get 800 Atoms or more in the first 5 seconds of Cemetery Level 2',
+  points: 2,
+  conditions: {
+    core: $(
+      // Lock if more than 5 seconds into Cemetery2
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
+      ['AddHits', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 300],
+      // Atoms >= 800 as Trigger condition
+      ['', 'Delta', '32bit', atomsInCurrentLevel, '<', 'Value', '', 800],
+      ['Trigger', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
+      // TODO check if needed, if missing Trigger shows already on start screen
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  // id: TODO,
+  // badge: 'TODO',
+  title: 'Every Atom Counts',
+  description: 'Collect all 100 Atoms in Cemetery Trial',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
+      ['', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  // id: TODO,
+  // badge: 'TODO',
+  title: 'In the Blink of an Eye',
+  description: 'Defeat the Cemetery Shadow in less than 10 seconds',
+  points: 3,
+  conditions: {
+    core: $(
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryShadow],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
+      ['', 'Mem', '16bit', levelTime, '<', 'Value', '', 600],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
