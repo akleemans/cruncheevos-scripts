@@ -7,6 +7,8 @@ const GameStateEnum = {
   LevelSelect: 0x0c,
   InGame: 0x0f,
   LevelEnd: 0x11,
+  ShopOptions: 0x12,
+  SaveGameOption: 0x13,
 };
 
 const LevelEnum = {
@@ -58,18 +60,19 @@ const invincibilityCheat = 0x3598;
 
 const atomsInCurrentLevel = 0x35a4;
 const levelTime = 0x359c;
+const characterActive = 0x0878;
 
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
   return [
-    ['', 'Delta', '8bit', cemetery1Ranking + levelId, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', cemetery1Ranking + levelId, '>', 'Value', '', 0],
-    ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', levelId],
-    // Save protection - must just have finished the level and reached level end screen
-    ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
-    // Save protection - next level was not unlocked before
-    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId+1],
+    ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', levelId+1],
+    // Cheat protection - progression can not be unlocked with Mina or Drew, as they are only unlocked after beating the game
+    ['', 'Mem', '8bit', characterActive, '<=', 'Value', '', 2],
+    // Save protection - must just have finished the level and reached level end / save screen
+    ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.SaveGameOption],
   ];
 };
 
