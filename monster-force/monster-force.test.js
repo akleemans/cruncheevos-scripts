@@ -80,6 +80,31 @@ describe('Progression: Welcome to Monsterland', () => {
     });
 });
 
+
+describe('Progression: Cemetery Zone', () => {
+    const cheevo = achievement('No Time to Die');
+
+    test('pops when Cemetery Shadow is defeated', () => {
+        const s = scenario('cemetery-shadow-beat');
+        const result = runAchievement(cheevo, s);
+
+        expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+        expect(result.triggered).toBe(true);
+        expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    });
+
+    test('should not pop on Cemetery 1 finish', () => {
+        const s = scenario('cemetery1-finish-ranking-crystal');
+        const result = runAchievement(cheevo, s);
+
+        expect(result.triggered).toBe(false);
+    });
+
+    // TODO should not pop on next level
+});
+
+
 describe('Challenge: Diagonal Thinking', () => {
     const cheevo = achievement('Diagonal Thinking');
 
