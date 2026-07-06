@@ -1,13 +1,14 @@
 cruncheevos-scripts
 ===================
 
-My [cruncheevos](https://github.com/suXinjke/cruncheevos) scripts for [RetroAchievements](https://retroachievements.org/).
+My [cruncheevos](https://github.com/suXinjke/cruncheevos) scripts
+for [RetroAchievements](https://retroachievements.org/).
 
 Sets:
 
-* [The Rugrats Movie](https://retroachievements.org/game/2563): rugrats.js
-* [Turok: Battle of the Bionosaurs](https://retroachievements.org/game/13955): turok.js
-* [Monster Force](https://retroachievements.org/game/5260): monster-force.js
+* [The Rugrats Movie](https://retroachievements.org/game/2563)
+* [Turok: Battle of the Bionosaurs](https://retroachievements.org/game/13955)
+* [Monster Force](https://retroachievements.org/game/5260)
 
 ## Setup
 
@@ -22,3 +23,10 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 * Diff set: `npx cruncheevos diff monster-force.js`
 * Save to local: `npx cruncheevos save monster-force.js`
 * Lint: `npx eslint monster-force.js --fix`
+
+## Tests
+
+Some sets have extensive scenario tests (recorded emulator sequences with expectations), based
+on [https://www.npmjs.com/package/cruncheevos-playtest](cruncheevos-playtest).
+
+See for example the Monster Force set.
