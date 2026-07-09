@@ -225,3 +225,27 @@ describe('Challenge: In the Blink of an Eye', () => {
     expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
   });
 });
+
+describe('Challenge: Shadow Business', () => {
+  const cheevo = achievement('Shadow Business');
+
+  test('pops when 1500 Atoms are collected', () => {
+    const s = scenario('village-shadow-with-1500-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop with not enough atoms', () => {
+    const s = scenario('village-shadow-without-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+  });
+});

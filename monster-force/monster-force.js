@@ -6,7 +6,7 @@ const set = new AchievementSet({gameId: 5260, title: 'Monster Force'});
 const GameStateEnum = {
   LevelSelect: 0x0c,
   InGame: 0x0f,
-  LevelEnd: 0x11,
+  ScoreScreen: 0x11,
   ShopOptions: 0x12,
   SaveGameOption: 0x13,
 };
@@ -55,7 +55,6 @@ const gameState = 0x0770;
 const currentLevel = 0x34dd;
 const maxLevelUnlocked = 0x34df;
 
-const cemetery1Ranking = 0x35b8;
 const invincibilityCheat = 0x3598;
 
 const atomsInCurrentLevel = 0x35a4;
@@ -67,8 +66,8 @@ const characterActive = 0x0878;
 const progression = (levelId) => {
   return [
     ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId],
-    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId+1],
-    ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', levelId+1],
+    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId + 1],
+    ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', levelId + 1],
     // Cheat protection - progression can not be unlocked with Mina or Drew, as they are only unlocked after beating the game
     ['', 'Mem', '8bit', characterActive, '<=', 'Value', '', 2],
     // Save protection - must just have finished the level and reached level end / save screen
@@ -345,7 +344,7 @@ set.addAchievement({
       // Atoms >= 800 as Trigger condition
       ['', 'Delta', '32bit', atomsInCurrentLevel, '<', 'Value', '', 800],
       ['Trigger', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
-      // Don't trigger if not in level
+      // TODO check if needed, if missing Trigger shows already on start screen
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
@@ -360,13 +359,13 @@ set.addAchievement({
   // id: TODO,
   // badge: 'TODO',
   title: 'Every Atom Counts',
-  description: 'Collect all 100 Atoms in Cemetery Trial',
+  description: 'Collect all 100 Atoms and finish the Cemetery Trial in time',
   points: 5,
   conditions: {
     core: $(
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
       ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ['', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
@@ -386,9 +385,31 @@ set.addAchievement({
   conditions: {
     core: $(
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryShadow],
+      // Trigger here on reaching score screen (as opposed to progression, when we have to wait for maxLevel to go up at save screen)
       ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelEnd],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ['', 'Mem', '16bit', levelTime, '<', 'Value', '', 600],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  // id: TODO,
+  // badge: 'TODO',
+  title: 'Shadow Business',
+  description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['Measured', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
