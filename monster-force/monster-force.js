@@ -423,9 +423,3 @@ set.addAchievement({
 
 
 export default set;
-
-/* ========= RICH PRESENCE ========= */
-
-/*
-
-*/

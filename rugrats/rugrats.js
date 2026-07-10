@@ -366,26 +366,3 @@ set.addLeaderboard({
 });
 
 export default set;
-
-/* ========= RICH PRESENCE ========= */
-
-/*
-Lookup:Level
-0=Exploring the House
-1=In the Hospital
-2=At the Train Crash
-3=In the Light Woods
-4=In the Dark Woods
-5=At Reptar Ride
-6=In the Ancient Ruins
-
-Lookup:Difficulty
-0=Easy
-1=Medium
-2=Hard
-
-Display:
-?0xH00de09=hff?In the Menu
-?0xH00de09<=6?@Level(0xHde09) on @Difficulty(0xH00de02) • @Number(0xHc276)/@Number(0xHc217) items • Score @Score(A:0xL00d500_A:0xL00d4ff*10_A:0xL00d4fe*100_A:0xL00d4fd*1000_A:0xL00d4fc*10000_A:0xL00d4fb*100000_M:0)
-Playing the game our forefathers played, and our five-fathers and our six-fathers and I'm not stoppin' now.
-*/
