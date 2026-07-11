@@ -1,4 +1,5 @@
 import {AchievementSet, define as $} from '@cruncheevos/core';
+
 const set = new AchievementSet({gameId: 5260, title: 'Monster Force'});
 
 // Addresses and helpers
@@ -101,8 +102,6 @@ const levelSelectReset = () => {
 
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Welcome to Monsterland',
   description: 'Complete the introduction by finishing Cemetery Level 1',
   points: 2,
@@ -122,8 +121,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'No Time to Die',
   description: 'Finish the Cemetery Zone',
   points: 5,
@@ -141,8 +138,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'It Takes a Village',
   description: 'Finish the Village Zone',
   points: 5,
@@ -160,8 +155,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Green Thumb',
   description: 'Finish the Garden Zone',
   points: 5,
@@ -179,8 +172,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Platonic Tale',
   description: 'Finish Atlantis Zone',
   points: 5,
@@ -198,8 +189,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Temple Tantrum',
   description: 'Finish the Temple Zone',
   points: 10,
@@ -217,8 +206,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Rise of the Mummies',
   description: 'Finish the Desert Zone',
   points: 10,
@@ -236,8 +223,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Sky High',
   description: 'Finish the Clouds Zone',
   points: 10,
@@ -255,8 +240,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Industrial Revolution',
   description: 'Finish the Factory Zone',
   points: 10,
@@ -275,8 +258,6 @@ set.addAchievement({
 
 // TODO if this behaves the same - or check Mina unlock?
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Pumpkin Mash',
   description: 'Finish the Castle Zone by defeating Sergeant Smash and beat the game',
   points: 25,
@@ -296,8 +277,6 @@ set.addAchievement({
 /* ========= CHALLENGES ========= */
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Walking Through Walls',
   description: 'Find and destroy all 6 pumpkins in the hidden area in Cemetery Level 1',
   points: 2,
@@ -330,8 +309,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Diagonal Thinking',
   description: 'Get 800 Atoms or more in the first 5 seconds of Cemetery Level 2',
   points: 2,
@@ -344,7 +321,7 @@ set.addAchievement({
       // Atoms >= 800 as Trigger condition
       ['', 'Delta', '32bit', atomsInCurrentLevel, '<', 'Value', '', 800],
       ['Trigger', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
-      // TODO check if needed, if missing Trigger shows already on start screen
+      // Needed, so Trigger shows up in the correct level
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
@@ -356,8 +333,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Every Atom Counts',
   description: 'Collect all 100 Atoms and finish the Cemetery Trial in time',
   points: 5,
@@ -377,8 +352,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'In the Blink of an Eye',
   description: 'Defeat the Cemetery Shadow in less than 10 seconds',
   points: 3,
@@ -399,8 +372,6 @@ set.addAchievement({
 });
 
 set.addAchievement({
-  // id: TODO,
-  // badge: 'TODO',
   title: 'Shadow Business',
   description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
   points: 5,
@@ -410,6 +381,34 @@ set.addAchievement({
       ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ['Measured', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+const liveObjectCount = 0x3544;
+
+set.addAchievement({
+  title: 'Divide & Conquer',
+  description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
+  points: 5,
+  conditions: {
+    core: $(
+      // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
+      // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
+      // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AddHits', 'Mem', '8bit', liveObjectCount, '>', 'Value', '', 5],
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 1],
+      // Pop on score screen
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
