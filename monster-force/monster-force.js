@@ -395,7 +395,7 @@ const liveObjectCount = 0x3544;
 set.addAchievement({
   title: 'Divide & Conquer',
   description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
-  points: 5,
+  points: 3,
   conditions: {
     core: $(
       // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
