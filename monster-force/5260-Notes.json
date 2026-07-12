@@ -7,7 +7,7 @@
   {
     "User": "adrianusk",
     "Address": "0x000778",
-    "Note": "[8-bit] Game state substate (see 0x0770)\r\n=== In game (0x0f) ===\r\n0x02 = Default state\r\n0x03 = Trial lost"
+    "Note": "[8-bit] Game state substate (see 0x0770)\r\n=== In game (0x0f) ===\r\n0x02 = Default state\r\n0x03 = Trial lost\r\n=== Shop (0x12) ===\r\n0x0b = Option screen (\"Igor's Tools & Relics\")\r\n0x15 = Item carousel (Tools or Relics)"
   },
   {
     "User": "adrianusk",
@@ -21,6 +21,16 @@
   },
   {
     "User": "adrianusk",
+    "Address": "0x00078c",
+    "Note": "[32-bit] Player position: X coordinate"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000790",
+    "Note": "[32-bit] Player position: Y coordinate"
+  },
+  {
+    "User": "adrianusk",
     "Address": "0x0007d2",
     "Note": "[8-bit] Weapon charging frame counter (0x00 -> 0x3c for first time shots, 0x00 -> 0x38 for consecutive shots)"
   },
@@ -28,6 +38,21 @@
     "User": "adrianusk",
     "Address": "0x0007e0",
     "Note": "[8-bit] Amount of keys"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0007e5",
+    "Note": "[8-bit] Ailment (debuff) type active\r\n0x00 = No ailment active\r\n0x10 = Confused"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0007e8",
+    "Note": "[16-bit] Ailment (debuff) countdown timer"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0007ea",
+    "Note": "[16-bit] Invincibility frame countdown timer (2s after hit, 10s\/20s\/30s after tool use)"
   },
   {
     "User": "adrianusk",
@@ -42,7 +67,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0007fc",
-    "Note": "[8-bit] Tools slot 1\r\n0x00 = Empty\r\n0x01 = Bomb (red)\r\n0x02 = Invincible (red)\r\n0x03 = Decoy (blue)\r\n0x04 = Uber-Decoy (red)\r\n0x07 = Health Lv. 1 (red)\r\n0x08 = Health Lv. 2 (blue)\r\n0x09 = Health Lv. 3 (green)\r\n0x0a = Health Maximum (black)\r\n0x0b = Armor Scroll (black, +2 HP)\r\n0x0c = Attack Scroll (black, +2% Attack)\r\n0x0d = Force Scroll (black, +4% Force)\r\n0x2c = Reflect Shot 1 (red)\r\n0x2d = Reflect Shot 2 (blue)\r\n0x2e = Reflect Shot 3 (green)\r\n0x2f = X-Ray Shot 1 (red)\r\n0x30 = X-Ray Shot 2 (blue)\r\n0x31 = X-Ray Shot 3 (green)\r\n0x32 = Doom Shot 1 (red)\r\n0x33 = Doom Shot 2 (blue)\r\n0x34 = Doom Shot 3 (green).\r\n0x35 = Leech Shot 1 (red)\r\n0x36 = Leech Shot 2 (blue)\r\n0x37 = Leech Shot 3 (green)\r\n0x3b = Magnet Shot 1 (red)\r\n0x3c = Magnet Shot 2 (blue)\r\n0x3d = Magnet Shot 3 (green)\r\n0x3e = 3 Way Shot 1 (red)\r\n0x3f = 3 Way Shot 2 (blue)\r\n0x40 = 3 Way Shot 3 (green)\r\n0x41 = Double Shot 1 (red)\r\n0x42 = Double Shot 2 (blue)\r\n0x43 = Double Shot 3 (green)\r\n0x44 = Drain Shot 1 (red)\r\n0x45 = Drain Shot 2 (blue)\r\n0x46 = Drain Shot 3 (green)\r\n0x50 = Bomb Level 2 (blue)\r\n0x51 = Bomb Level 3 (green)\r\n0x52 = Invincible 1 (blue)\r\n0x53 = Invincible 2 (green)\r\n0x54 = Medicine (red)"
+    "Note": "[8-bit] Tools slot 1\r\n0x00 = Empty\r\n0x01 = Bomb (red)\r\n0x02 = Invincible (red)\r\n0x03 = Decoy (blue)\r\n0x04 = Uber-Decoy (red)\r\n0x07 = Health Lv. 1 (red)\r\n0x08 = Health Lv. 2 (blue)\r\n0x09 = Health Lv. 3 (green)\r\n0x0a = Health Maximum (black)\r\n0x0b = Armor Scroll (black, +2 HP)\r\n0x0c = Attack Scroll (black, +2% Attack)\r\n0x0d = Force Scroll (black, +4% Force)\r\n0x2c = Reflect Shot 1 (red)\r\n0x2d = Reflect Shot 2 (blue)\r\n0x2e = Reflect Shot 3 (green)\r\n0x2f = X-Ray Shot 1 (red)\r\n0x30 = X-Ray Shot 2 (blue)\r\n0x31 = X-Ray Shot 3 (green)\r\n0x32 = Doom Shot 1 (red)\r\n0x33 = Doom Shot 2 (blue)\r\n0x34 = Doom Shot 3 (green)\r\n0x35 = Leech Shot 1 (red)\r\n0x36 = Leech Shot 2 (blue)\r\n0x37 = Leech Shot 3 (green)\r\n0x3b = Magnet Shot 1 (red)\r\n0x3c = Magnet Shot 2 (blue)\r\n0x3d = Magnet Shot 3 (green)\r\n0x3e = 3 Way Shot 1 (red)\r\n0x3f = 3 Way Shot 2 (blue)\r\n0x40 = 3 Way Shot 3 (green)\r\n0x41 = Double Shot 1 (red)\r\n0x42 = Double Shot 2 (blue)\r\n0x43 = Double Shot 3 (green)\r\n0x44 = Drain Shot 1 (red)\r\n0x45 = Drain Shot 2 (blue)\r\n0x46 = Drain Shot 3 (green)\r\n0x50 = Bomb Level 2 (blue)\r\n0x51 = Bomb Level 3 (green)\r\n0x52 = Invincible 1 (blue)\r\n0x53 = Invincible 2 (green)\r\n0x54 = Medicine (red)"
   },
   {
     "User": "adrianusk",
@@ -62,7 +87,7 @@
   {
     "User": "adrianusk",
     "Address": "0x000800",
-    "Note": "[8-bit] Relics slot 1\r\n0x00 = Empty\r\n0x10 = Reanimator\r\n0x11 = Luck Ring (red)\r\n0x12 = Luck Gauntlet (blue)\r\n0x13 = Luck Amulet (green)\r\n0x14 = Armor Ring (red)\r\n0x15 = Armor Gauntlet (blue)\r\n0x16 = Armor Amulet (green)\r\n0x18 = Attack Ring (red)\r\n0x19 = Attack Gauntlet (blue)\r\n0x1a = Attack Amulet (green)\r\n0x1c = Force Ring (red)\r\n0x1d = Force Gauntlet (blue)\r\n0x1e = Force Amulet (green)"
+    "Note": "[8-bit] Relics slot 1\r\n0x00 = Empty\r\n0x10 = Reanimator\r\n0x11 = Luck Ring (red, +1)\r\n0x12 = Luck Gauntlet (blue, +2)\r\n0x13 = Luck Amulet (green, +3)\r\n0x14 = Armor Ring (red, +4)\r\n0x15 = Armor Gauntlet (blue, +12)\r\n0x16 = Armor Amulet (green, +36)\r\n0x18 = Attack Ring (red, +2)\r\n0x19 = Attack Gauntlet (blue, +6)\r\n0x1a = Attack Amulet (green, +18)\r\n0x1c = Force Ring (red, +4)\r\n0x1d = Force Gauntlet (blue, +12)\r\n0x1e = Force Amulet (green, +36)"
   },
   {
     "User": "adrianusk",
@@ -81,8 +106,28 @@
   },
   {
     "User": "adrianusk",
+    "Address": "0x00080c",
+    "Note": "[8-bit][Bitflags] Shot modifiers 1\r\nBit0 = Unused?\r\nBit1 = Unused?\r\nBit2 = Unused?\r\nBit3 = Unused?\r\nBit4 = Reflect (all tiers)\r\nBit5 = X-Ray\r\nBit6 = Doom tier 1\r\nBit7 = Doom tier 2"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x00080d",
+    "Note": "[8-bit][Bitflags] Shot modifiers 2\r\nBit0 = Doom tier 3\r\nBit1 = Leech tier 1\r\nBit2 = Leech tier 2\r\nBit3 = Leech tier 3\r\nBit4 = Unused (tool not implemented)\r\nBit5 = Unused (tool not implemented)\r\nBit6 = Unused (tool not implemented)\r\nBit7 = Magnet (all tiers)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x00080e",
+    "Note": "[8-bit][Bitflags] Shot modifiers 2\r\nBit0 = 3-Way shot (all tiers)\r\nBit1 = Drain tier 1\r\nBit2 = Drain tier 2\r\nBit3 = Drain tier 3\r\nBit4 = Double (all tiers)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000824",
+    "Note": "[16-bit] Tool use timer (which one?)"
+  },
+  {
+    "User": "adrianusk",
     "Address": "0x00082c",
-    "Note": "[8-bit] Tool selection"
+    "Note": "[8-bit] Current tool selection (will loop through 0 to 3 if no tool available)"
   },
   {
     "User": "adrianusk",
@@ -98,6 +143,26 @@
     "User": "adrianusk",
     "Address": "0x000853",
     "Note": "[8-bit] Force level"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000855",
+    "Note": "[8-bit] Relic bonus: Armor"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000856",
+    "Note": "[8-bit] Relic bonus: Luck"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000857",
+    "Note": "[8-bit] Relic bonus: Attack"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x000858",
+    "Note": "[8-bit] Relic bonus: Force"
   },
   {
     "User": "adrianusk",
@@ -122,62 +187,107 @@
   {
     "User": "adrianusk",
     "Address": "0x000878",
-    "Note": "[8-bit] Character selected\r\n0x00 = Frank\r\n0x01 = Drac\r\n0x02 = Wolfie\r\n0x03 = Mina\r\n0x04 = Drew"
+    "Note": "[8-bit] Character currently active\r\n0x00 = Frank\r\n0x01 = Drac\r\n0x02 = Wolfie\r\n0x03 = Mina\r\n0x04 = Drew"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c0",
+    "Note": "[16-bit] Object 1 type (Start of level object table - pumpkins, enemies, items, switches. 4 bytes per object)\r\n0x00 = Object cleared\r\n0x01 = Small object (pumpkin, item, exit)\r\n0x02 = Enemy\r\n0x03 = Large object"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c2",
+    "Note": "[8-bit] Object 1 subtype\r\n0x1b = Enemy: ghost\r\n0x21 = Pumpkin with \"1\"\r\n0x2c = Metal pumpkin\r\n0x41 = Enemy: walking pumpkin\r\n0x73 = Level exit\r\n0x76 = Door horizontal\r\n0x77 = Door vertical\r\n0x7a = Key\r\n0x7b = Teleporter\r\n0x7d = Switch"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c3",
+    "Note": "[8-bit] Object 1 live slot\r\n0x00-0x0f = Index in live array\r\n0xff = off-screen"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c4",
+    "Note": "[16-bit] Object 2 type (see 0x0017c0)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c6",
+    "Note": "[8-bit] Object 2 subtype (0x17c2)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x0017c7",
+    "Note": "[8-bit] Object 2 live slot (see 0x17c3)"
   },
   {
     "User": "adrianusk",
     "Address": "0x001820",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 1"
+    "Note": "[16-bit] Object 25 (see 0x17c0) - Cemetery 1: hidden pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001824",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 2"
+    "Note": "[16-bit] Object 26 (see 0x17c0) - Cemetery 1: hidden pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001828",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 3"
+    "Note": "[16-bit] Object 27 (see 0x17c0) - Cemetery 1: hidden pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00182c",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 4"
+    "Note": "[16-bit] Object 28 (see 0x17c0) - Cemetery 1: hidden pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001838",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 5"
+    "Note": "[16-bit] Object 31 (see 0x17c0) - Cemetery 1: hidden pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x00183c",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 6"
+    "Note": "[16-bit] Object 32 (see 0x17c0) - Cemetery 1: hidden pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x001840",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 7"
+    "Note": "[16-bit] Object 33 (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001844",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin 8"
+    "Note": "[16-bit] Object 34 (see 0x17c0) - Cemetery 1: hidden pumpkin 8"
   },
   {
     "User": "adrianusk",
-    "Address": "0x0018a4",
-    "Note": "[16-bit] Cemetery 1 - hidden pumpkin in wagon"
+    "Address": "0x001ba4",
+    "Note": "[32-bit] Live object 1 type (see 0x0017c2) (Start of live object array. 144 bytes per object)"
   },
   {
     "User": "adrianusk",
     "Address": "0x001be0",
-    "Note": "[8-bit] Cemetery Shadow boss health"
+    "Note": "[8-bit] Live object 1 health - Boss in Cemetery Shadow"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x001c34",
+    "Note": "[32-bit] Live object 2 type (see 0x1ba4)"
   },
   {
     "User": "adrianusk",
     "Address": "0x001d00",
     "Note": "[8-bit] Village Shadow boss health"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x002fe4",
+    "Note": "[32-bit] Collectible 1 id (Start of Atoms\/collectibles pool, 32 bytes per object)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x002fe8",
+    "Note": "[32-bit] Collectible 1 active flag\r\n0x00000001 = Atom on the ground\r\n0xffffffff = empty"
   },
   {
     "User": "adrianusk",
@@ -252,7 +362,7 @@
   {
     "User": "adrianusk",
     "Address": "0x003544",
-    "Note": "[8-bit] Number of objects (pumpkins, enemies) loaded in extended viewport"
+    "Note": "[8-bit] Number of objects (pumpkins, enemies) loaded in live object array (see 0x1ba4)"
   },
   {
     "User": "adrianusk",
@@ -491,6 +601,11 @@
   },
   {
     "User": "adrianusk",
+    "Address": "0x003604",
+    "Note": "[8-bit][Bitflags] Characters unlocked base (not affected by cheats)\r\nBit2 = Mina unlocked\r\nBit3 = Drew unlocked"
+  },
+  {
+    "User": "adrianusk",
     "Address": "0x00360c",
     "Note": "[8-bit][Bitflags] Buttons pressed\r\nBit0 = A\r\nBit1 = B\r\nBit2 = Select\r\nBit3 = Start\r\nBit4 = Right\r\nBit5 = Left\r\nBit6 = Up\r\nBit7 = Down"
   },
@@ -521,13 +636,43 @@
   },
   {
     "User": "adrianusk",
+    "Address": "0x006834",
+    "Note": "[8-bit] Shop: Item 1 (type)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x00683c",
+    "Note": "[8-bit] Shop: Item 2 (type)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x006844",
+    "Note": "[8-bit] Shop: Item 3 (type)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x00684c",
+    "Note": "[8-bit] Shop: Item 4 (type)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x006859",
+    "Note": "[8-bit] Shop: Active item"
+  },
+  {
+    "User": "adrianusk",
     "Address": "0x0068b0",
     "Note": "[8-bit] Start of shop display text (ASCII)"
   },
   {
     "User": "adrianusk",
     "Address": "0x00692b",
-    "Note": "[8-bit] Amount of characters unlocked\r\n0x03 = Default (Wolfie, Drac, Frank available)\r\n0x04 = Mina unlocked\r\n0x05 = Drew unlocked"
+    "Note": "[8-bit] Selectable character count (can be overridden by cheat)"
+  },
+  {
+    "User": "adrianusk",
+    "Address": "0x006990",
+    "Note": "[8-bit] Score screen: Computed ranking for current stage"
   },
   {
     "User": "adrianusk",
@@ -553,10 +698,5 @@
     "User": "adrianusk",
     "Address": "0x007e8c",
     "Note": "[8-bit] Character in Character Select screen\r\n0x00 = Frank\r\n0x01 = Drac\r\n0x02 = Wolfie\r\n0x03 = Mina\r\n0x04 = Drew"
-  },
-  {
-    "User": "adrianusk",
-    "Address": "0x007eb4",
-    "Note": "[8-bit] (Mirror) Amount of characters available"
   }
 ]
