@@ -249,3 +249,29 @@ describe('Challenge: Shadow Business', () => {
     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
   });
 });
+
+describe('Challenge: Motion Sickness', () => {
+  const cheevo = achievement('Motion Sickness');
+
+  test('pops when only teleporting 2 times', () => {
+    const s = scenario('village2-teleporting-2-times-and-finish');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop with not enough atoms', () => {
+    const s = scenario('village2-teleporting-3-times');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('after-third-teleport'))).toBe('paused');
+  });
+});

@@ -13,6 +13,12 @@ const GameStateEnum = {
   GameOver: 0x14
 };
 
+const PlayerStateEnum = {
+  Standing: 0x02,
+  Moving: 0x03,
+  Teleporting: 0x0c
+};
+
 const LevelEnum = {
   Cemetery1: 0x00,
   Cemetery2: 0x01,
@@ -54,6 +60,7 @@ const LevelEnum = {
 };
 
 const gameState = 0x0770;
+const playerState = 0x077c;
 const currentLevel = 0x34dd;
 const maxLevelUnlocked = 0x34df;
 
@@ -393,12 +400,37 @@ set.addAchievement({
       ...skipLevelCheatProtection(),
     ),
     alt1: $(
-      ...gameOverReset(),
+      ...levelSelectReset(),
     ),
   },
 });
 
-// TODO teleporting cheevo
+set.addAchievement({
+  title: 'Motion Sickness',
+  description: 'Beat the Village Level 1 by carrying at most 1 key at once',
+  points: 5,
+  conditions: {
+    core: $(
+      // Add Hits if player is teleporting, and lock if teleported 3 times
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Delta', '8bit', playerState, '!=', 'Value', '', PlayerStateEnum.Teleporting],
+      ['AddHits', 'Mem', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Teleporting],
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 3],
+      // Pop condition
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+
 
 set.addAchievement({
   title: 'Shadow Business',
