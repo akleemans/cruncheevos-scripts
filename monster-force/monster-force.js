@@ -10,6 +10,7 @@ const GameStateEnum = {
   ScoreScreen: 0x11,
   ShopOptions: 0x12,
   SaveGameOption: 0x13,
+  GameOver: 0x14
 };
 
 const LevelEnum = {
@@ -370,6 +371,34 @@ set.addAchievement({
     ),
   },
 });
+
+const keysCollectedCount = 0x07e0;
+
+set.addAchievement({
+  title: 'One at a Time',
+  description: 'Beat the Village Level 1 by carrying at most 1 key at once',
+  points: 5,
+  conditions: {
+    core: $(
+      // PauseLock if key count ever reaches > 1
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AddHits', 'Mem', '8bit', keysCollectedCount, '>', 'Value', '', 1],
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 1],
+      // Pop condition
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...gameOverReset(),
+    ),
+  },
+});
+
+// TODO teleporting cheevo
 
 set.addAchievement({
   title: 'Shadow Business',
