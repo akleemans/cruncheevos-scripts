@@ -94,7 +94,7 @@
     {
       "address": "0x082c",
       "size": "u8",
-      "label": "Tool selection"
+      "label": "Current tool selection (will loop through 0 to 3 if no tool available)"
     },
     {
       "address": "0x0850",
@@ -134,47 +134,47 @@
     {
       "address": "0x0878",
       "size": "u8",
-      "label": "Character selected"
+      "label": "Character currently active"
     },
     {
       "address": "0x1820",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 1"
+      "label": "Object 25 (see 0x17c0) - Cemetery 1: hidden pumpkin 1"
     },
     {
       "address": "0x1824",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 2"
+      "label": "Object 26 (see 0x17c0) - Cemetery 1: hidden pumpkin 2"
     },
     {
       "address": "0x1828",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 3"
+      "label": "Object 27 (see 0x17c0) - Cemetery 1: hidden pumpkin 3"
     },
     {
       "address": "0x182c",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 4"
+      "label": "Object 28 (see 0x17c0) - Cemetery 1: hidden pumpkin 4"
     },
     {
       "address": "0x1838",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 5"
+      "label": "Object 31 (see 0x17c0) - Cemetery 1: hidden pumpkin 5"
     },
     {
       "address": "0x183c",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 6"
+      "label": "Object 32 (see 0x17c0) - Cemetery 1: hidden pumpkin 6"
     },
     {
       "address": "0x1840",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 7"
+      "label": "Object 33 (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
     },
     {
       "address": "0x1844",
       "size": "u16",
-      "label": "Cemetery 1 - hidden pumpkin 8"
+      "label": "Object 34 (see 0x17c0) - Cemetery 1: hidden pumpkin 8"
     },
     {
       "address": "0x18a4",
@@ -184,7 +184,7 @@
     {
       "address": "0x1be0",
       "size": "u8",
-      "label": "Cemetery Shadow boss health"
+      "label": "Live object 1 health - Boss in Cemetery Shadow"
     },
     {
       "address": "0x1d00",
@@ -264,7 +264,7 @@
     {
       "address": "0x3544",
       "size": "u8",
-      "label": "Number of objects (pumpkins, enemies) loaded in extended viewport"
+      "label": "Number of objects (pumpkins, enemies) loaded in live object array (see 0x1ba4)"
     },
     {
       "address": "0x355c",
@@ -539,7 +539,7 @@
     {
       "address": "0x692b",
       "size": "u8",
-      "label": "Amount of characters unlocked"
+      "label": "Selectable character count (can be overridden by cheat)"
     },
     {
       "address": "0x69e0",
