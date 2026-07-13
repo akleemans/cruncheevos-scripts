@@ -478,8 +478,27 @@ set.addAchievement({
   },
 });
 
-// TODO decoy
+const decoyActive = 0x08dc;
 
+set.addAchievement({
+  title: 'Clone Wars',
+  description: 'Create a shadow clone of yourself in Clouds Level 2',
+  points: 2,
+  conditions: {
+    core: $(
+      // Pop if decoy created
+      ['', 'Delta', '8bit', decoyActive, '=', 'Value', '', 0x00],
+      ['', 'Mem', '8bit', decoyActive, '=', 'Value', '', 0x02],
+      // Context
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Clouds2],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 const objectsEnemiesDestroyed = 0x35a0
 const toolSlot1 = 0x07fc;
@@ -512,7 +531,6 @@ set.addAchievement({
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Garden2],
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
-      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
