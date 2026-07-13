@@ -431,7 +431,6 @@ set.addAchievement({
 });
 
 
-
 set.addAchievement({
   title: 'Shadow Business',
   description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
@@ -475,6 +474,61 @@ set.addAchievement({
     ),
     alt1: $(
       ...levelSelectReset(),
+    ),
+  },
+});
+
+// TODO decoy
+
+
+const objectsEnemiesDestroyed = 0x35a0
+const toolSlot1 = 0x07fc;
+const toolSlot2 = 0x07fd;
+const toolSlot3 = 0x07fe;
+const toolSlot4 = 0x07ff;
+
+const bombUsedInSlot = (toolSlot) => {
+  // Slot is now empty (= used tool) and tool before was one of the bombs (of any tier)
+  return [
+    ['', 'Mem', '8bit', toolSlot, '=', 'Value', '', 0x00],
+    ['OrNext', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x01],
+    ['OrNext', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x50],
+    ['', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x51]
+  ];
+};
+
+set.addAchievement({
+  title: 'Blast Radius',
+  description: 'Defeat 12 enemies at once without shooting, but using an effective tool in Garden Level 2',
+  points: 5,
+  conditions: {
+    core: $(
+      // Using SubSource to check if increase of enemies killed is >= 12.
+      // This should normally only ever be possible by using the bomb, with shooting the counter
+      // will go up in small steps in different frames
+      ['SubSource', 'Delta', '8bit', objectsEnemiesDestroyed],
+      ['', 'Mem', '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 12],
+      // Context conditions
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Garden2],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value', '', 0x0, '=', 'Value', '', 0x01],
+    ),
+    alt2: $(
+      ...bombUsedInSlot(toolSlot1)
+    ),
+    alt3: $(
+      ...bombUsedInSlot(toolSlot2)
+    ),
+    alt4: $(
+      ...bombUsedInSlot(toolSlot3)
+    ),
+    alt5: $(
+      ...bombUsedInSlot(toolSlot4)
     ),
   },
 });
