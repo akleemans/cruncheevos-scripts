@@ -2,7 +2,7 @@
 -- `description`) before each recording session; the rest is per-game.
 return {
     -- this recording session
-    name = "garden-trial-3-switch-activations",
+    name = "garden2-bomb-less-than-12-defeated",
     description = "",
 
     -- this game

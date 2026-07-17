@@ -320,56 +320,55 @@ describe('Challenge: Motion Sickness', () => {
 });
 
 
-// TODO
-// describe('Challenge: Blast Radius', () => {
-//   const cheevo = achievement('Blast Radius');
-//
-//   test('pops when 12 enemies defeated with regular bomb', () => {
-//     const s = scenario('garden2-bomb-12defeated');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
-//   });
-//
-//   test('pops when 12 enemies defeated with level 2 bomb', () => {
-//     const s = scenario('garden2-bomb-12defeated-level2');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
-//   });
-//
-//   test('pops when 12 enemies defeated with level 3 bomb, and player tries to move during explosion', () => {
-//     const s = scenario('garden2-bomb-12defeated-level3-moving');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
-//   });
-//
-//   test('does not pop when not enough enemies where defeated', () => {
-//     const s = scenario('garden2-bomb-11defeated');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//     expect(result.triggered).toBe(false);
-//   });
-//
-//   test('does not pop when enemies where defeated without bomb', () => {
-//     const s = scenario('garden2-12defeated-by-shooting');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//     expect(result.triggered).toBe(false);
-//   });
-// });
+describe('Challenge: Blast Radius', () => {
+  const cheevo = achievement('Blast Radius');
+
+  test('pops when 12 enemies defeated with regular bomb', () => {
+    const s = scenario('garden2-bomb-12defeated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+  });
+
+  test('pops when 12 enemies defeated with level 2 bomb', () => {
+    const s = scenario('garden2-bomb-12defeated-level2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+  });
+
+  test('pops when 12 enemies defeated with level 3 bomb, and player tries to move during explosion', () => {
+    const s = scenario('garden2-bomb-12defeated-level3-moving');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+  });
+
+  test('does not pop when not enough enemies where defeated', () => {
+    const s = scenario('garden2-bomb-less-than-12-defeated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when enemies where defeated without bomb', () => {
+    const s = scenario('garden2-bomb-12defeated-by-shooting');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
 
 
 describe('Challenge: Energy Saver', () => {
