@@ -16,7 +16,17 @@ const GameStateEnum = {
 const PlayerStateEnum = {
   Standing: 0x02,
   Moving: 0x03,
+  Hover: 0x04,
+  BombArmed: 0x05,
   Teleporting: 0x0c
+};
+
+const CharacterActive = {
+  Frank: 0x00,
+  Drac: 0x01,
+  Wolfie: 0x02,
+  Mina: 0x03,
+  Drew: 0x04
 };
 
 const LevelEnum = {
@@ -501,20 +511,7 @@ set.addAchievement({
 });
 
 const objectsEnemiesDestroyed = 0x35a0
-const toolSlot1 = 0x07fc;
-const toolSlot2 = 0x07fd;
-const toolSlot3 = 0x07fe;
-const toolSlot4 = 0x07ff;
-
-const bombUsedInSlot = (toolSlot) => {
-  // Slot is now empty (= used tool) and tool before was one of the bombs (of any tier)
-  return [
-    ['', 'Mem', '8bit', toolSlot, '=', 'Value', '', 0x00],
-    ['OrNext', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x01],
-    ['OrNext', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x50],
-    ['', 'Prior', '8bit', toolSlot, '=', 'Value', '', 0x51]
-  ];
-};
+const invulnerabilityTimer = 0x07ea;
 
 set.addAchievement({
   title: 'Blast Radius',
@@ -522,9 +519,10 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Using SubSource to check if increase of enemies killed is >= 12.
-      // This should normally only ever be possible by using the bomb, with shooting the counter
-      // will go up in small steps in different frames
+      // Make sure bomb was activated and player invulnerability was active in last frame
+      ['', 'Delta', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.BombArmed],
+      ['', 'Delta', '16bit', invulnerabilityTimer, '=', 'Value', '', 0xffff],
+      // Using SubSource to check if increase of enemies killed is >= 12
       ['SubSource', 'Delta', '8bit', objectsEnemiesDestroyed],
       ['', 'Mem', '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 12],
       // Context conditions
@@ -534,22 +532,107 @@ set.addAchievement({
     ),
     alt1: $(
       ...levelSelectReset(),
-      ['', 'Value', '', 0x0, '=', 'Value', '', 0x01],
-    ),
-    alt2: $(
-      ...bombUsedInSlot(toolSlot1)
-    ),
-    alt3: $(
-      ...bombUsedInSlot(toolSlot2)
-    ),
-    alt4: $(
-      ...bombUsedInSlot(toolSlot3)
-    ),
-    alt5: $(
-      ...bombUsedInSlot(toolSlot4)
     ),
   },
 });
+
+const switchTimerActive = 0x3540;
+
+set.addAchievement({
+  title: 'Energy Saver',
+  description: 'Beat the Garden Trial by only activating timer switches 2 times total',
+  points: 10,
+  conditions: {
+    core: $(
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      // Add hit if counter increased (= activated)
+      ['AddHits', 'Delta', '8bit', switchTimerActive, '<', 'Mem', '8bit', switchTimerActive],
+      // Lock if 3 (= allowed+1) activations
+      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 3],
+      // Pop on score screen
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+const gardenTrialDoor = 0x18fc;
+
+set.addAchievement({
+  title: 'Monet\'s Garden',
+  description: 'Visit the locked part in the northwest of the Garden Trial',
+  points: 2,
+  conditions: {
+    core: $(
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      // Pop if door to locked garden part was opened
+      ['', 'Delta', '16bit', gardenTrialDoor, '>', 'Value', '', 0x00],
+      ['', 'Mem', '16bit', gardenTrialDoor, '=', 'Value', '', 0x00],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+const playerPositionX = 0x078c;
+const playerPositionY = 0x0790;
+
+
+// TODO or could also an AddHits be used like in other cheevos? What's the difference?
+// ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+// ['AddHits', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+// ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 120],
+
+set.addAchievement({
+  title: 'Young and Restless',
+  description: 'As Wolfie, beat the Clouds Trial without standing still more than 2 seconds',
+  points: 10,
+  conditions: {
+    core: $(
+      // Lock if standing still for 2 seconds - PauseIf accumulates hits
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '', 1, '=', 'Value', '', 1, 120],
+
+      // Reset if X position changed (in-game needed, else ResetIf kicks in the same frame as cheevo would pop)
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['ResetIf', 'Mem', '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
+      // Reset if Y position changed
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['ResetIf', 'Mem', '32bit', playerPositionY, '!=', 'Delta', '32bit', playerPositionY],
+
+      // Pop on score screen - TODO trigger is currently flickering
+      // Add later: ['', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection()
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value', '', 0, '=', 'Value', '', 1],
+    ),
+  },
+});
+
+
+// Heart of the Clouds: Checkpoint logic?
+// 1. Destroy pumpkin which contains heart
+// 2. Have one of the tool slots jump from non-heart to heart
 
 /* ========= LEADERBOARDS ========= */
 
