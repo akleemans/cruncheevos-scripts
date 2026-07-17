@@ -2,7 +2,7 @@
 -- `description`) before each recording session; the rest is per-game.
 return {
     -- this recording session
-    name = "village2-teleporting-2-times-and-finish",
+    name = "garden-trial-3-switch-activations",
     description = "",
 
     -- this game

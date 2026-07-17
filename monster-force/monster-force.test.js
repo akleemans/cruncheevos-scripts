@@ -36,7 +36,7 @@ describe('Progression: Welcome to Monsterland', () => {
     expect(result.stateAt(s.marker('level-select-screen'))).toBe('paused');
   });
 
-  test('stays locked when the cheat is disabled again before the finish', () => {
+  test('stays locked even when the invincibility cheat is disabled again before the finish', () => {
     const s = scenario('cemetery1-finish-cheat-invincibility-inactive');
     const result = runAchievement(cheevo, s);
 
@@ -61,8 +61,8 @@ describe('Progression: Welcome to Monsterland', () => {
     expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
   });
 
-  /* Mina protection: the core requires character <= 2 (Frank/Drac/Wolfie);
-   * this run plays as cheat-unlocked Mina (0x0878 = 3) throughout. */
+  // As it is not possible to play with Mina (which is much stronger) without beating the game first,
+  // Mina is not allowed for progression achievements
   test('does not pop when playing as cheat-unlocked Mina', () => {
     const s = scenario('cemetery1-finish-cheat-mina');
     const result = runAchievement(cheevo, s);
@@ -70,8 +70,7 @@ describe('Progression: Welcome to Monsterland', () => {
     expect(result.triggered).toBe(false);
   });
 
-  /* Save protection: loading an in-game save that already has Cemetery 1
-   * beaten bumps maxLevelUnlocked 0->1 during the load sequence, that should not trigger the cheevo */
+  // Save protection: Loading a save which already has Cemetery 1 beaten should not unlock the achievement
   test('does not pop when loading a save where the level is already beaten', () => {
     const s = scenario('cemetery1-unlocked-save-state-loaded');
     const result = runAchievement(cheevo, s);
@@ -94,7 +93,47 @@ describe('Progression: Cemetery', () => {
     expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
   });
 
-  test('does not pop on Cemetery 1 finish', () => {
+  test('pops when playing in French', () => {
+    const s = scenario('cemetery-shadow-beat-french');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('pops when playing in Spanish', () => {
+    const s = scenario('cemetery-shadow-beat-spanish');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('pops when playing in German', () => {
+    const s = scenario('cemetery-shadow-beat-german');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('pops when playing in Italian', () => {
+    const s = scenario('cemetery-shadow-beat-italian');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('does not pop on Cemetery Level 1 finish', () => {
     const s = scenario('cemetery1-finish-ranking-crystal');
     const result = runAchievement(cheevo, s);
 
@@ -179,7 +218,7 @@ describe('Challenge: Diagonal Thinking', () => {
     expect(result.triggeredFrame).toBe(s.marker('score-800'));
   });
 
-  test('does not pop when too late', () => {
+  test('does not pop when collected, but too late', () => {
     const s = scenario('cemetery2-challenge-too-late');
     const result = runAchievement(cheevo, s);
 
@@ -250,6 +289,10 @@ describe('Challenge: Shadow Business', () => {
   });
 });
 
+// TODO Divide & Conquer
+
+// TODO Clone Wars
+
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
 
@@ -264,7 +307,7 @@ describe('Challenge: Motion Sickness', () => {
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
-  test('does not pop with not enough atoms', () => {
+  test('does not pop when teleported three times', () => {
     const s = scenario('village2-teleporting-3-times');
 
     const result = runAchievement(cheevo, s);
@@ -273,5 +316,84 @@ describe('Challenge: Motion Sickness', () => {
     expect(result.triggered).toBe(false);
 
     expect(result.stateAt(s.marker('after-third-teleport'))).toBe('paused');
+  });
+});
+
+
+// TODO
+// describe('Challenge: Blast Radius', () => {
+//   const cheevo = achievement('Blast Radius');
+//
+//   test('pops when 12 enemies defeated with regular bomb', () => {
+//     const s = scenario('garden2-bomb-12defeated');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+//   });
+//
+//   test('pops when 12 enemies defeated with level 2 bomb', () => {
+//     const s = scenario('garden2-bomb-12defeated-level2');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+//   });
+//
+//   test('pops when 12 enemies defeated with level 3 bomb, and player tries to move during explosion', () => {
+//     const s = scenario('garden2-bomb-12defeated-level3-moving');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('bomb-explosion'));
+//   });
+//
+//   test('does not pop when not enough enemies where defeated', () => {
+//     const s = scenario('garden2-bomb-11defeated');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//     expect(result.triggered).toBe(false);
+//   });
+//
+//   test('does not pop when enemies where defeated without bomb', () => {
+//     const s = scenario('garden2-12defeated-by-shooting');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//     expect(result.triggered).toBe(false);
+//   });
+// });
+
+
+describe('Challenge: Energy Saver', () => {
+  const cheevo = achievement('Energy Saver');
+
+  test('pops when activating switches only 2 times', () => {
+    const s = scenario('garden-trial-2-switch-activations');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop with 3 activations', () => {
+    const s = scenario('garden-trial-3-switch-activations');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('after-third-activation'))).toBe('paused');
   });
 });
