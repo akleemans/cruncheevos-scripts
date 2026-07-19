@@ -633,6 +633,29 @@ set.addAchievement({
 // 1. Destroy pumpkin which contains heart
 // 2. Have one of the tool slots jump from non-heart to heart
 
+
+/* ========= DUMMY ========= */
+
+// const countBadges = (tier) => {
+//   const conditions = [];
+//   for (let i = 0; i <= LevelEnum.CastleSergeantSmash; i++) {
+//     conditions.push(['AddSource', 'Mem', '8bit', 0x35b8 + i, '/', 'Value', '', tier]);
+//   }
+//   conditions.push(['Measured', 'Value', '', 0, '!=', 'Value', '', 0]);
+//   return conditions;
+// };
+//
+// set.addAchievement({
+//   title: '(dummy) Calculate amount of Silver/Gold/Crystal rankings',
+//   description: '',
+//   points: 0,
+//   conditions: {
+//     core: $(
+//       ...countBadges(4)
+//     ),
+//   },
+// });
+
 /* ========= LEADERBOARDS ========= */
 
 
