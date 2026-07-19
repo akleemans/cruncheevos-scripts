@@ -6,6 +6,7 @@ const set = new AchievementSet({gameId: 5260, title: 'Monster Force'});
 
 const GameStateEnum = {
   LevelSelect: 0x0c,
+  LevelStart: 0x0e,
   InGame: 0x0f,
   ScoreScreen: 0x11,
   ShopOptions: 0x12,
@@ -587,37 +588,31 @@ set.addAchievement({
 const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
-
-// TODO or could also an AddHits be used like in other cheevos? What's the difference?
-// ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-// ['AddHits', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-// ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 120],
-
 set.addAchievement({
   title: 'Young and Restless',
   description: 'As Wolfie, beat the Clouds Trial without standing still more than 2 seconds',
   points: 10,
   conditions: {
     core: $(
-      // Lock if standing still for 2 seconds - PauseIf accumulates hits
+      // Add a checkpoint hit when starting the level
       ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '',     1,            '=', 'Value', '', 1,                     120],
+      ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
+      ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
 
-      // Reset if X position changed (in-game needed, else ResetIf kicks in the same frame as cheevo would pop)
-      ['AndNext', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
-      ['ResetIf', 'Mem', '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
-      // Reset if Y position changed
-      ['AndNext', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
-      ['ResetIf', 'Mem', '32bit', playerPositionY, '!=', 'Delta', '32bit', playerPositionY],
+      // Reset hits of global ResetIf below (so it restarts accumulating hits) if moving
+      ['OrNext',      'Mem', '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
+      ['AndNext',     'Mem', '32bit', playerPositionY, '!=', 'Delta', '32bit', playerPositionY],
+      ['ResetNextIf', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
 
-      // Pop on score screen - TODO trigger is currently flickering
-      // Add later: ['', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
-      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      // Reset checkpoint hit if accumulated enough hits
+      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['ResetIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,  120],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
+      ['',        'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['',        'Delta', '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.ScoreScreen],
 
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection()
