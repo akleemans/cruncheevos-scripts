@@ -16,8 +16,8 @@ const itemsCollected = 0xc276;
 const levelFinished = (level) => {
   return [
     ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', level],
+    ['', 'Mem',   '8bit', stageCompletion, '=', 'Value', '', 1],
+    ['', 'Mem',   '8bit', levelId,         '=', 'Value', '', level],
   ];
 };
 
@@ -43,11 +43,11 @@ set.addAchievement({
   points: 3,
   type: 'progression',
   conditions: $(
-    ['', 'Delta', '8bit', specialItemNeeded, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', specialItemNeeded, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', subLevelId, '!=', 'Value', '', 8],
-    ['', 'Mem', '8bit', subLevelId, '=', 'Mem', '8bit', 0xc21f],
+    ['', 'Delta', '8bit', specialItemNeeded, '=',  'Value', '',     2],
+    ['', 'Mem',   '8bit', specialItemNeeded, '=',  'Value', '',     3],
+    ['', 'Mem',   '8bit', levelId,           '=',  'Value', '',     1],
+    ['', 'Mem',   '8bit', subLevelId,        '!=', 'Value', '',     8],
+    ['', 'Mem',   '8bit', subLevelId,        '=',  'Mem',   '8bit', 0xc21f],
   ),
 });
 
@@ -60,9 +60,9 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Delta', '8bit', specialItemNeeded, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', specialItemNeeded, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', subLevelId, '=', 'Value', '', 8],
+    ['', 'Mem',   '8bit', specialItemNeeded, '=', 'Value', '', 3],
+    ['', 'Mem',   '8bit', levelId,           '=', 'Value', '', 1],
+    ['', 'Mem',   '8bit', subLevelId,        '=', 'Value', '', 8],
   ),
 });
 
@@ -90,8 +90,8 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Delta', '8bit', specialItemNeeded, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', specialItemNeeded, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 2],
+    ['', 'Mem',   '8bit', specialItemNeeded, '=', 'Value', '', 3],
+    ['', 'Mem',   '8bit', levelId,           '=', 'Value', '', 2],
   ),
 });
 
@@ -130,11 +130,11 @@ set.addAchievement({
   type: 'progression',
   conditions: $(
     ['', 'Delta', '8bit', specialItemNeeded, '=', 'Value', '', 2],
-    ['', 'Mem', '8bit', specialItemNeeded, '=', 'Value', '', 3],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 4],
+    ['', 'Mem',   '8bit', specialItemNeeded, '=', 'Value', '', 3],
+    ['', 'Mem',   '8bit', levelId,           '=', 'Value', '', 4],
     // After collecting Dil (the baby), the sprite literally moves up into the top bar.
     // This seems to be the only way to distinguish it from riding the minecart, which also triggers specialItemNeeded.
-    ['', 'Mem', '8bit', babyPosition, '=', 'Value', '', 142],
+    ['', 'Mem',   '8bit', babyPosition,      '=', 'Value', '', 142],
   ),
 });
 
@@ -272,11 +272,11 @@ set.addAchievement({
   points: 5,
   conditions: $(
     ['SubSource', 'Delta', '8bit', itemsNeeded],
-    ['', 'Delta', '8bit', itemsCollected, '<', 'Value', '', 20],
-    ['SubSource', 'Mem', '8bit', itemsNeeded],
-    ['', 'Mem', '8bit', itemsCollected, '=', 'Value', '', 20],
-    ['', 'Mem', '8bit', itemsCollected, '>=', 'Value', '', 20],
-    ['', 'Mem', '8bit', levelId, '<', 'Value', '', 7],
+    ['',          'Delta', '8bit', itemsCollected, '<',  'Value', '', 20],
+    ['SubSource', 'Mem',   '8bit', itemsNeeded],
+    ['',          'Mem',   '8bit', itemsCollected, '=',  'Value', '', 20],
+    ['',          'Mem',   '8bit', itemsCollected, '>=', 'Value', '', 20],
+    ['',          'Mem',   '8bit', levelId,        '<',  'Value', '', 7],
   ),
 });
 
@@ -290,8 +290,8 @@ set.addAchievement({
   points: 1,
   conditions: $(
     ['', 'Delta', '8bit', cellarMachineActivated, '=', 'Value', '', 0],
-    ['', 'Mem', '8bit', cellarMachineActivated, '=', 'Value', '', 1],
-    ['', 'Mem', '8bit', levelId, '=', 'Value', '', 0],
+    ['', 'Mem',   '8bit', cellarMachineActivated, '=', 'Value', '', 1],
+    ['', 'Mem',   '8bit', levelId,                '=', 'Value', '', 0],
   ),
 });
 
@@ -302,21 +302,21 @@ set.addAchievement({
   description: 'Beat Tommy\'s high score of 124,000 and reach the top of the high score board',
   points: 10,
   conditions: $(
-    ['', 'Mem', 'Lower4', 0xde29, '<', 'Value', '', 15],
-    ['AddSource', 'Mem', 'Lower4', 0xde2e],
-    ['AddSource', 'Mem', 'Lower4', 0xde2d, '*', 'Value', '', 10],
-    ['AddSource', 'Mem', 'Lower4', 0xde2c, '*', 'Value', '', 100],
-    ['AddSource', 'Mem', 'Lower4', 0xde2b, '*', 'Value', '', 1000],
-    ['AddSource', 'Mem', 'Lower4', 0xde2a, '*', 'Value', '', 10000],
-    ['AddSource', 'Mem', 'Lower4', 0xde29, '*', 'Value', '', 0x186a0],
-    ['', 'Value', '', 0, '>', 'Value', '', 0x1e460],
+    ['',          'Mem',   'Lower4', 0xde29, '<', 'Value', '', 15],
+    ['AddSource', 'Mem',   'Lower4', 0xde2e],
+    ['AddSource', 'Mem',   'Lower4', 0xde2d, '*', 'Value', '', 10],
+    ['AddSource', 'Mem',   'Lower4', 0xde2c, '*', 'Value', '', 100],
+    ['AddSource', 'Mem',   'Lower4', 0xde2b, '*', 'Value', '', 1000],
+    ['AddSource', 'Mem',   'Lower4', 0xde2a, '*', 'Value', '', 10000],
+    ['AddSource', 'Mem',   'Lower4', 0xde29, '*', 'Value', '', 0x186a0],
+    ['',          'Value', '',       0,      '>', 'Value', '', 0x1e460],
     ['AddSource', 'Delta', 'Lower4', 0xde2e],
     ['AddSource', 'Delta', 'Lower4', 0xde2d, '*', 'Value', '', 10],
     ['AddSource', 'Delta', 'Lower4', 0xde2c, '*', 'Value', '', 100],
     ['AddSource', 'Delta', 'Lower4', 0xde2b, '*', 'Value', '', 1000],
     ['AddSource', 'Delta', 'Lower4', 0xde2a, '*', 'Value', '', 10000],
     ['AddSource', 'Delta', 'Lower4', 0xde29, '*', 'Value', '', 0x186a0],
-    ['', 'Value', '', 0, '=', 'Value', '', 0x1e460],
+    ['',          'Value', '',       0,      '=', 'Value', '', 0x1e460],
   ),
 });
 
@@ -328,10 +328,10 @@ set.addAchievement(
     description: 'Finish the Reptar Ride level with only 1 item collected',
     points: 5,
     conditions: $(
-      ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-      ['Trigger', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-      ['', 'Mem', '8bit', levelId, '=', 'Value', '', 5],
-      ['', 'Mem', '8bit', itemsCollected, '<=', 'Value', '', 1],
+      ['',        'Delta', '8bit', stageCompletion, '=',  'Value', '', 0],
+      ['Trigger', 'Mem',   '8bit', stageCompletion, '=',  'Value', '', 1],
+      ['',        'Mem',   '8bit', levelId,         '=',  'Value', '', 5],
+      ['',        'Mem',   '8bit', itemsCollected,  '<=', 'Value', '', 1],
     ),
   },
 );
@@ -348,19 +348,19 @@ set.addLeaderboard({
   conditions: {
     start: $(
       ['', 'Delta', '8bit', stageCompletion, '=', 'Value', '', 0],
-      ['', 'Mem', '8bit', stageCompletion, '=', 'Value', '', 1],
-      ['', 'Mem', '8bit', levelId, '=', 'Value', '', 6],
+      ['', 'Mem',   '8bit', stageCompletion, '=', 'Value', '', 1],
+      ['', 'Mem',   '8bit', levelId,         '=', 'Value', '', 6],
     ),
     cancel: '0=1',
     submit: '0=0',
     value: $(
       ['AddSource', 'Mem', 'Lower4', 0xd500],
-      ['AddSource', 'Mem', 'Lower4', 0xd4ff, '*', 'Value', '', 10],
-      ['AddSource', 'Mem', 'Lower4', 0xd4fe, '*', 'Value', '', 100],
-      ['AddSource', 'Mem', 'Lower4', 0xd4fd, '*', 'Value', '', 1000],
-      ['AddSource', 'Mem', 'Lower4', 0xd4fc, '*', 'Value', '', 10000],
-      ['AddSource', 'Mem', 'Lower4', 0xd4fb, '*', 'Value', '', 0x186a0],
-      ['Measured', 'Mem', '8bit', itemsCollected, '*', 'Value', '', 500],
+      ['AddSource', 'Mem', 'Lower4', 0xd4ff,         '*', 'Value', '', 10],
+      ['AddSource', 'Mem', 'Lower4', 0xd4fe,         '*', 'Value', '', 100],
+      ['AddSource', 'Mem', 'Lower4', 0xd4fd,         '*', 'Value', '', 1000],
+      ['AddSource', 'Mem', 'Lower4', 0xd4fc,         '*', 'Value', '', 10000],
+      ['AddSource', 'Mem', 'Lower4', 0xd4fb,         '*', 'Value', '', 0x186a0],
+      ['Measured',  'Mem', '8bit',   itemsCollected, '*', 'Value', '', 500],
     ),
   },
 });
