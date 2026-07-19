@@ -624,7 +624,6 @@ set.addAchievement({
     ),
     alt1: $(
       ...levelSelectReset(),
-      ['', 'Value', '', 0, '=', 'Value', '', 1],
     ),
   },
 });
