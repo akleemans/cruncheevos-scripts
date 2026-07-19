@@ -14,6 +14,7 @@
     "vitest": "^4.1.9"
   },
   "scripts": {
+    "format": "node scripts/align-conditions.js",
     "test": "vitest run",
     "viewer": "cruncheevos-playtest viewer",
     "sync": "cruncheevos-playtest sync monster-force"

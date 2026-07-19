@@ -84,13 +84,13 @@ const characterActive = 0x0878;
 
 const progression = (levelId) => {
   return [
-    ['', 'Delta', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId],
-    ['', 'Mem', '8bit', maxLevelUnlocked, '=', 'Value', '', levelId + 1],
-    ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', levelId + 1],
+    ['', 'Delta', '8bit', maxLevelUnlocked, '=',  'Value', '', levelId],
+    ['', 'Mem',   '8bit', maxLevelUnlocked, '=',  'Value', '', levelId + 1],
+    ['', 'Mem',   '8bit', currentLevel,     '=',  'Value', '', levelId + 1],
     // Cheat protection - progression can not be unlocked with Mina or Drew, as they are only unlocked after beating the game
-    ['', 'Mem', '8bit', characterActive, '<=', 'Value', '', 2],
+    ['', 'Mem',   '8bit', characterActive,  '<=', 'Value', '', 2],
     // Save protection - must just have finished the level and reached level end / save screen
-    ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.SaveGameOption],
+    ['', 'Mem',   '8bit', gameState,        '=',  'Value', '', GameStateEnum.SaveGameOption],
   ];
 };
 
@@ -108,9 +108,9 @@ const skipLevelCheatProtection = () => {
   return [
     // 0x41 = A + Up pressed. Other buttons can be pressed too (and the cheat will still work),
     // so we have to apply a bitmask. Needs levelSelectReset in alt.
-    ['AddSource', 'Mem', '8bit', buttonsPressed, '&', 'Value', '', 0x41],
-    ['AndNext', 'Value', '', 0, '=', 'Value', '', 0x41],
-    ['PauseIf', 'Mem', '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff, 1],
+    ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
+    ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+    ['PauseIf',   'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff, 1],
   ];
 };
 
@@ -307,17 +307,17 @@ set.addAchievement({
       ['AddSource', 'Delta', '16bit', 0x1838],
       ['AddSource', 'Delta', '16bit', 0x183c],
       ['AddSource', 'Delta', '16bit', 0x1840],
-      ['', 'Delta', '16bit', 0x1844, '>', 'Value', '', 0],
-      ['AddSource', 'Mem', '16bit', 0x1820],
-      ['AddSource', 'Mem', '16bit', 0x1824],
-      ['AddSource', 'Mem', '16bit', 0x1828],
-      ['AddSource', 'Mem', '16bit', 0x182c],
-      ['AddSource', 'Mem', '16bit', 0x1838],
-      ['AddSource', 'Mem', '16bit', 0x183c],
-      ['AddSource', 'Mem', '16bit', 0x1840],
-      ['', 'Mem', '16bit', 0x1844, '=', 'Value', '', 0],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
+      ['',          'Delta', '16bit', 0x1844,       '>', 'Value', '', 0],
+      ['AddSource', 'Mem',   '16bit', 0x1820],
+      ['AddSource', 'Mem',   '16bit', 0x1824],
+      ['AddSource', 'Mem',   '16bit', 0x1828],
+      ['AddSource', 'Mem',   '16bit', 0x182c],
+      ['AddSource', 'Mem',   '16bit', 0x1838],
+      ['AddSource', 'Mem',   '16bit', 0x183c],
+      ['AddSource', 'Mem',   '16bit', 0x1840],
+      ['',          'Mem',   '16bit', 0x1844,       '=', 'Value', '', 0],
+      ['',          'Mem',   '8bit',  gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['',          'Mem',   '8bit',  currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -333,15 +333,15 @@ set.addAchievement({
   conditions: {
     core: $(
       // Lock if more than 5 seconds into Cemetery2
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
-      ['AddHits', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 300],
+      ['AndNext', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Cemetery2],
+      ['AddHits', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '',      0,                   '=',  'Value', '', 1,                    300],
       // Atoms >= 800 as Trigger condition
-      ['', 'Delta', '32bit', atomsInCurrentLevel, '<', 'Value', '', 800],
-      ['Trigger', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
+      ['',        'Delta', '32bit', atomsInCurrentLevel, '<',  'Value', '', 800],
+      ['Trigger', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
       // Needed, so Trigger shows up in the correct level
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery2],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',        'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Cemetery2],
+      ['',        'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -356,10 +356,10 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
-      ['', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
+      ['', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.CemeteryTrial],
+      ['', 'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -375,11 +375,11 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryShadow],
+      ['',        'Mem',   '8bit',  currentLevel, '=', 'Value', '', LevelEnum.CemeteryShadow],
       // Trigger here on reaching score screen (as opposed to progression, when we have to wait for maxLevel to go up at save screen)
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
-      ['', 'Mem', '16bit', levelTime, '<', 'Value', '', 600],
+      ['',        'Delta', '8bit',  gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit',  gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '16bit', levelTime,    '<', 'Value', '', 600],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -398,14 +398,14 @@ set.addAchievement({
   conditions: {
     core: $(
       // PauseLock if key count ever reaches > 1
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['AddHits', 'Mem', '8bit', keysCollectedCount, '>', 'Value', '', 1],
-      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 1],
+      ['AndNext', 'Mem',   '8bit', currentLevel,       '=', 'Value', '', LevelEnum.Village1],
+      ['AndNext', 'Mem',   '8bit', gameState,          '=', 'Value', '', GameStateEnum.InGame],
+      ['AddHits', 'Mem',   '8bit', keysCollectedCount, '>', 'Value', '', 1],
+      ['PauseIf', 'Value', '',     0,                  '=', 'Value', '', 1,                         1],
       // Pop condition
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel,       '=', 'Value', '', LevelEnum.Village1],
+      ['',        'Delta', '8bit', gameState,          '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,          '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -422,15 +422,15 @@ set.addAchievement({
   conditions: {
     core: $(
       // Add Hits if player is teleporting, and lock if teleported 3 times
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['AndNext', 'Delta', '8bit', playerState, '!=', 'Value', '', PlayerStateEnum.Teleporting],
-      ['AddHits', 'Mem', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Teleporting],
-      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 3],
+      ['AndNext', 'Mem',   '8bit', currentLevel, '=',  'Value', '', LevelEnum.Village2],
+      ['AndNext', 'Mem',   '8bit', gameState,    '=',  'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Delta', '8bit', playerState,  '!=', 'Value', '', PlayerStateEnum.Teleporting],
+      ['AddHits', 'Mem',   '8bit', playerState,  '=',  'Value', '', PlayerStateEnum.Teleporting],
+      ['PauseIf', 'Value', '',     0,            '=',  'Value', '', 1,                           3],
       // Pop condition
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel, '=',  'Value', '', LevelEnum.Village2],
+      ['',        'Delta', '8bit', gameState,    '=',  'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=',  'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -447,10 +447,10 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
-      ['Measured', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
+      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.VillageShadow],
+      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
+      ['',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['Measured', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -471,14 +471,14 @@ set.addAchievement({
       // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
       // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
       // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['AddHits', 'Mem', '8bit', liveObjectCount, '>', 'Value', '', 5],
-      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 1],
+      ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+      ['AddHits', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5],
+      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1,                         1],
       // Pop on score screen
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      ['',        'Delta', '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -497,11 +497,11 @@ set.addAchievement({
   conditions: {
     core: $(
       // Pop if decoy created
-      ['', 'Delta', '8bit', decoyActive, '=', 'Value', '', 0x00],
-      ['', 'Mem', '8bit', decoyActive, '=', 'Value', '', 0x02],
+      ['', 'Delta', '8bit', decoyActive,  '=', 'Value', '', 0x00],
+      ['', 'Mem',   '8bit', decoyActive,  '=', 'Value', '', 0x02],
       // Context
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Clouds2],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Clouds2],
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -520,14 +520,14 @@ set.addAchievement({
   conditions: {
     core: $(
       // Make sure bomb was activated and player invulnerability was active in last frame
-      ['', 'Delta', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.BombArmed],
-      ['', 'Delta', '16bit', invulnerabilityTimer, '=', 'Value', '', 0xffff],
+      ['',          'Delta', '8bit',  playerState,             '=',  'Value', '', PlayerStateEnum.BombArmed],
+      ['',          'Delta', '16bit', invulnerabilityTimer,    '=',  'Value', '', 0xffff],
       // Using SubSource to check if increase of enemies killed is >= 12
-      ['SubSource', 'Delta', '8bit', objectsEnemiesDestroyed],
-      ['', 'Mem', '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 12],
+      ['SubSource', 'Delta', '8bit',  objectsEnemiesDestroyed],
+      ['',          'Mem',   '8bit',  objectsEnemiesDestroyed, '>=', 'Value', '', 12],
       // Context conditions
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Garden2],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',          'Mem',   '8bit',  currentLevel,            '=',  'Value', '', LevelEnum.Garden2],
+      ['',          'Mem',   '8bit',  gameState,               '=',  'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -544,16 +544,16 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Mem',   '8bit', currentLevel,      '=', 'Value', '',     LevelEnum.GardenTrial],
+      ['AndNext', 'Mem',   '8bit', gameState,         '=', 'Value', '',     GameStateEnum.InGame],
       // Add hit if counter increased (= activated)
-      ['AddHits', 'Delta', '8bit', switchTimerActive, '<', 'Mem', '8bit', switchTimerActive],
+      ['AddHits', 'Delta', '8bit', switchTimerActive, '<', 'Mem',   '8bit', switchTimerActive],
       // Lock if 3 (= allowed+1) activations
-      ['PauseIf', 'Value', '', 0, '=', 'Value', '', 1, 3],
+      ['PauseIf', 'Value', '',     0,                 '=', 'Value', '',     1,                         3],
       // Pop on score screen
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel,      '=', 'Value', '',     LevelEnum.GardenTrial],
+      ['',        'Delta', '8bit', gameState,         '=', 'Value', '',     GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,         '=', 'Value', '',     GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -571,11 +571,11 @@ set.addAchievement({
   points: 2,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit',  currentLevel,    '=', 'Value', '', LevelEnum.GardenTrial],
+      ['', 'Mem',   '8bit',  gameState,       '=', 'Value', '', GameStateEnum.InGame],
       // Pop if door to locked garden part was opened
       ['', 'Delta', '16bit', gardenTrialDoor, '>', 'Value', '', 0x00],
-      ['', 'Mem', '16bit', gardenTrialDoor, '=', 'Value', '', 0x00],
+      ['', 'Mem',   '16bit', gardenTrialDoor, '=', 'Value', '', 0x00],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -600,24 +600,24 @@ set.addAchievement({
   conditions: {
     core: $(
       // Lock if standing still for 2 seconds - PauseIf accumulates hits
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '', 1, '=', 'Value', '', 1, 120],
+      ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '',     1,            '=', 'Value', '', 1,                     120],
 
       // Reset if X position changed (in-game needed, else ResetIf kicks in the same frame as cheevo would pop)
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
       ['ResetIf', 'Mem', '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
       // Reset if Y position changed
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
+      ['AndNext', 'Mem', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
       ['ResetIf', 'Mem', '32bit', playerPositionY, '!=', 'Delta', '32bit', playerPositionY],
 
       // Pop on score screen - TODO trigger is currently flickering
       // Add later: ['', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
 
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection()

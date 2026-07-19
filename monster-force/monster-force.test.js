@@ -289,7 +289,30 @@ describe('Challenge: Shadow Business', () => {
   });
 });
 
-// TODO Divide & Conquer
+// TODO
+// describe('Challenge: Divide & Conquer', () => {
+//   const cheevo = achievement('Divide & Conquer');
+//
+//   test('pops no more than 4 pumpkin heads were active', () => {
+//     const s = scenario('castle3-4-pumpkin-heads');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+//   });
+//
+//   test('does not pop with more pumpkin heads', () => {
+//     const s = scenario('castle3-5-pumpkin-heads');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//     expect(result.triggered).toBe(false);
+//
+//     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+//   });
+// });
 
 // TODO Clone Wars
 
@@ -396,3 +419,31 @@ describe('Challenge: Energy Saver', () => {
     expect(result.stateAt(s.marker('after-third-activation'))).toBe('paused');
   });
 });
+
+// describe('Challenge: Young and Restless', () => {
+//   const cheevo = achievement('Young and Restless');
+//
+//   test('pops when finishing the level without standing still as Wolfie', () => {
+//     const s = scenario('clouds-trial-wolfie-fast');
+//
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+//   });
+//
+//   test('does not pop with different character', () => {
+//     const s = scenario('clouds-trial-drac-fast');
+//
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+//     expect(result.triggered).toBe(false);
+//
+//     expect(result.stateAt(s.marker('after-third-activation'))).toBe('paused');
+//   });
+//
+//   // TODO does not pop if slow
+// });

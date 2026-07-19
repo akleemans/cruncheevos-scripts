@@ -36,7 +36,8 @@ export default defineConfig([
       '@stylistic/new-parens': ['error', 'never'],
       '@stylistic/no-mixed-operators': ['error'],
       '@stylistic/no-mixed-spaces-and-tabs': ['error'],
-      '@stylistic/no-multi-spaces': ['error'],
+      // Condition arrays are column-aligned by scripts/align-conditions.js
+      '@stylistic/no-multi-spaces': ['error', {exceptions: {ArrayExpression: true}}],
       '@stylistic/no-multiple-empty-lines': ['error', {max: 2}],
       '@stylistic/no-trailing-spaces': ['error'],
       '@stylistic/no-whitespace-before-property': ['error'],
