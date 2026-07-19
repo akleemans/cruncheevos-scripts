@@ -54,6 +54,10 @@ Lookup:CheatActive
 0x03= • Codes: Invincibility
 
 Display:
-?0xH000770!=h0f?In the Menu
-?0xH000770=h0f?@Action(0xH0034dd) the @Level(0xH0034dd) as @Character(0xH000878) • @Number(0xH0007f0)/@Number(0xH000830) HP - @Number(0xH000832) AP - @Number(0xH000834) FP • @Number(0xX0035a4) Atoms@CheatActive(0xH003598)
-Playing Monster Force
+?0xH000770<h0c?Starting up Monster Force
+?0xH000770=h0c?In Level select screen as @Character(0xH000878) • Progression: 🥉@Number(0xH0034df) 🥈@Number(A:0xH0035b8/6_A:0xH0035b9/6_M:0) 🥇3 💎1
+?0xH000770<h0f?In the Menu • Progression: 🥉12 🥈5 🥇3 💎1
+?0xH000770=h0f?@Action(0xH0034dd) the @Level(0xH0034dd) as @Character(0xH000878) • @Number(0xH0007f0)/@Number(0xH000830) HP - @Number(0xH000832) AP - @Number(0xH000834) FP • @Number(0xX0035a4) Atoms • Progression: 🥉12 🥈5 🥇3 💎1@CheatActive(0xH003598)
+?0xH000770<h12?In the Menu • Progression: 🥉12 🥈5 🥇3 💎1
+?0xH000770=h12?In Igor's shop with a total of @Number(0xX0007f8) Atoms • Progression: 🥉12 🥈5 🥇3 💎1
+In the Menu
