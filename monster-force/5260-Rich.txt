@@ -35,7 +35,7 @@ Lookup:Level
 0x21=Castle Level 2
 0x22=Castle Level 3
 0x23=Castle Level 4
-0x24=Seargeant Smash
+0x24=Sergeant Smash
 
 Lookup:Action
 0x02,0x06,0x0a,0x0e,0x12,0x16,0x1a,0x1e=Attempting
@@ -49,7 +49,11 @@ Lookup:Character
 0x03=Mina
 0x04=Drew
 
+Lookup:CheatActive
+0x02=
+0x03= • Codes: Invincibility
+
 Display:
 ?0xH000770!=h0f?In the Menu
-?0xH000770=h0f?@Action(0xH0034dd) the @Level(0xH0034dd) as @Character(0xH000878) • @Number(0xX0035a4) Atoms
+?0xH000770=h0f?@Action(0xH0034dd) the @Level(0xH0034dd) as @Character(0xH000878) • @Number(0xH0007f0)/@Number(0xH000830) HP - @Number(0xH000832) AP - @Number(0xH000834) FP • @Number(0xX0035a4) Atoms@CheatActive(0xH003598)
 Playing Monster Force
