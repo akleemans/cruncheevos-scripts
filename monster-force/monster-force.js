@@ -434,7 +434,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625444,
   title: 'Motion Sickness',
-  description: 'Beat the Village Level 1 by carrying at most 1 key at once',
+  description: 'Beat Village Level 2 while teleporting at most twice',
   points: 5,
   conditions: {
     core: $(
