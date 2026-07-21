@@ -121,6 +121,7 @@ const levelSelectReset = () => {
 
 
 set.addAchievement({
+  id: 625427,
   title: 'Welcome to Monsterland',
   description: 'Complete the introduction by finishing Cemetery Level 1',
   points: 2,
@@ -140,6 +141,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625428,
   title: 'No Time to Die',
   description: 'Finish the Cemetery Zone',
   points: 5,
@@ -157,6 +159,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625429,
   title: 'It Takes a Village',
   description: 'Finish the Village Zone',
   points: 5,
@@ -174,6 +177,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625430,
   title: 'Green Thumb',
   description: 'Finish the Garden Zone',
   points: 5,
@@ -191,6 +195,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625431,
   title: 'Platonic Tale',
   description: 'Finish Atlantis Zone',
   points: 5,
@@ -208,6 +213,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625432,
   title: 'Temple Tantrum',
   description: 'Finish the Temple Zone',
   points: 10,
@@ -225,6 +231,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625433,
   title: 'Rise of the Mummies',
   description: 'Finish the Desert Zone',
   points: 10,
@@ -242,6 +249,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625434,
   title: 'Sky High',
   description: 'Finish the Clouds Zone',
   points: 10,
@@ -259,6 +267,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625435,
   title: 'Industrial Revolution',
   description: 'Finish the Factory Zone',
   points: 10,
@@ -277,6 +286,7 @@ set.addAchievement({
 
 // TODO if this behaves the same - or check Mina unlock?
 set.addAchievement({
+  id: 625436,
   title: 'Pumpkin Mash',
   description: 'Finish the Castle Zone by defeating Sergeant Smash and beat the game',
   points: 25,
@@ -296,6 +306,7 @@ set.addAchievement({
 /* ========= CHALLENGES ========= */
 
 set.addAchievement({
+  id: 625437,
   title: 'Walking Through Walls',
   description: 'Find and destroy all 6 pumpkins in the hidden area in Cemetery Level 1',
   points: 2,
@@ -328,6 +339,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625438,
   title: 'Diagonal Thinking',
   description: 'Get 800 Atoms or more in the first 5 seconds of Cemetery Level 2',
   points: 2,
@@ -352,6 +364,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625439,
   title: 'Every Atom Counts',
   description: 'Collect all 100 Atoms and finish the Cemetery Trial in time',
   points: 5,
@@ -371,6 +384,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625440,
   title: 'In the Blink of an Eye',
   description: 'Defeat the Cemetery Shadow in less than 10 seconds',
   points: 3,
@@ -393,6 +407,7 @@ set.addAchievement({
 const keysCollectedCount = 0x07e0;
 
 set.addAchievement({
+  id: 625443,
   title: 'One at a Time',
   description: 'Beat the Village Level 1 by carrying at most 1 key at once',
   points: 5,
@@ -417,6 +432,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 625444,
   title: 'Motion Sickness',
   description: 'Beat the Village Level 1 by carrying at most 1 key at once',
   points: 5,
@@ -443,6 +459,7 @@ set.addAchievement({
 
 
 set.addAchievement({
+  id: 625441,
   title: 'Shadow Business',
   description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
   points: 5,
@@ -464,6 +481,7 @@ set.addAchievement({
 const liveObjectCount = 0x3544;
 
 set.addAchievement({
+  id: 625442,
   title: 'Divide & Conquer',
   description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
   points: 3,
@@ -492,6 +510,7 @@ set.addAchievement({
 const decoyActive = 0x08dc;
 
 set.addAchievement({
+  id: 625446,
   title: 'Clone Wars',
   description: 'Create a shadow clone of yourself in Clouds Level 2',
   points: 2,
@@ -515,6 +534,7 @@ const objectsEnemiesDestroyed = 0x35a0
 const invulnerabilityTimer = 0x07ea;
 
 set.addAchievement({
+  id: 625445,
   title: 'Blast Radius',
   description: 'Defeat 12 enemies at once without shooting, but using an effective tool in Garden Level 2',
   points: 5,
@@ -540,6 +560,7 @@ set.addAchievement({
 const switchTimerActive = 0x3540;
 
 set.addAchievement({
+  id: 625447,
   title: 'Energy Saver',
   description: 'Beat the Garden Trial by only activating timer switches 2 times total',
   points: 10,
@@ -567,6 +588,7 @@ set.addAchievement({
 const gardenTrialDoor = 0x18fc;
 
 set.addAchievement({
+  id: 625448,
   title: 'Monet\'s Garden',
   description: 'Visit the locked part in the northwest of the Garden Trial',
   points: 2,
@@ -589,6 +611,7 @@ const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
 set.addAchievement({
+  id: 625449,
   title: 'Young and Restless',
   description: 'As Wolfie, beat the Clouds Trial without standing still more than 2 seconds',
   points: 10,
