@@ -478,34 +478,9 @@ set.addAchievement({
   },
 });
 
-const liveObjectCount = 0x3544;
-
-set.addAchievement({
-  id: 625442,
-  title: 'Divide & Conquer',
-  description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
-  points: 3,
-  conditions: {
-    core: $(
-      // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
-      // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
-      // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
-      ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
-      ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
-      ['AddHits', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5],
-      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1,                         1],
-      // Pop on score screen
-      ['',        'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
-      ['',        'Delta', '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.ScoreScreen],
-      ...invincibilityCheatProtection(),
-      ...skipLevelCheatProtection(),
-    ),
-    alt1: $(
-      ...levelSelectReset(),
-    ),
-  },
-});
+// Heart of the Clouds: Checkpoint logic?
+// 1. Destroy pumpkin which contains heart
+// 2. Have one of the tool slots jump from non-heart to heart
 
 const decoyActive = 0x08dc;
 
@@ -646,10 +621,34 @@ set.addAchievement({
   },
 });
 
+const liveObjectCount = 0x3544;
 
-// Heart of the Clouds: Checkpoint logic?
-// 1. Destroy pumpkin which contains heart
-// 2. Have one of the tool slots jump from non-heart to heart
+set.addAchievement({
+  id: 625442,
+  title: 'Divide & Conquer',
+  description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
+  points: 3,
+  conditions: {
+    core: $(
+      // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
+      // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
+      // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
+      ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+      ['AddHits', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5],
+      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1,                         1],
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      ['',        'Delta', '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 
 /* ========= DUMMY ========= */
