@@ -420,6 +420,8 @@ describe('Challenge: Energy Saver', () => {
   });
 });
 
+// TODO Heart of the Clouds, collecting the heart directly when shooting & collecting it later
+
 // describe('Challenge: Young and Restless', () => {
 //   const cheevo = achievement('Young and Restless');
 //

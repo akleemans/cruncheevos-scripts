@@ -81,6 +81,11 @@ const atomsInCurrentLevel = 0x35a4;
 const levelTime = 0x359c;
 const characterActive = 0x0878;
 
+const toolSlot1 = 0x07fc;
+const toolSlot2 = 0x07fd;
+const toolSlot3 = 0x07fe;
+const toolSlot4 = 0x07ff;
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -481,6 +486,53 @@ set.addAchievement({
 // Heart of the Clouds: Checkpoint logic?
 // 1. Destroy pumpkin which contains heart
 // 2. Have one of the tool slots jump from non-heart to heart
+const clouds1Pumpkin = 0x1884;
+
+// TODO check if there's no other green heart to collect in Clouds1
+
+const greenHeartCollectedInSlot = (toolSlot) => {
+  // Slot was empty and is now Health lvl. 3 (checkpoint hit)
+  return [
+    ['AndNext', 'Delta', '8bit', toolSlot, '=', 'Value', '', 0x00],
+    ['AddHits', 'Mem',   '8bit', toolSlot, '=', 'Value', '', 0x09],
+    ['',        'Value', '',     0,        '=', 'Value', '', 1,    1],
+  ];
+};
+
+// As it is possible to pick up heart before the pumpkin is marked as destroyed,
+// we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
+// This way the cheevo will pop regardless of what happened first.
+set.addAchievement({
+  title: 'Heart of the Clouds',
+  description: 'Collect the secluded Heart in Clouds Level 1',
+  points: 2,
+  conditions: {
+    core: $(
+      // Pumpkin with heart must be destroyed
+      ['', 'Mem', '16bit', clouds1Pumpkin, '=', 'Value', '', 0x00],
+      // Context
+      ['', 'Mem', '8bit',  currentLevel,   '=', 'Value', '', LevelEnum.Clouds1],
+      ['', 'Mem', '8bit',  gameState,      '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value', '',  0, '=', 'Value', '', 1],
+    ),
+    alt2: $(
+      ...greenHeartCollectedInSlot(toolSlot1)
+    ),
+    alt3: $(
+      ...greenHeartCollectedInSlot(toolSlot2)
+    ),
+    alt4: $(
+      ...greenHeartCollectedInSlot(toolSlot3)
+    ),
+    alt5: $(
+      ...greenHeartCollectedInSlot(toolSlot4)
+    ),
+  },
+});
 
 const decoyActive = 0x08dc;
 
