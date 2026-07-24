@@ -503,6 +503,7 @@ const greenHeartCollectedInSlot = (toolSlot) => {
 // we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
 // This way the cheevo will pop regardless of what happened first.
 set.addAchievement({
+  id: 626068,
   title: 'Heart of the Clouds',
   description: 'Collect the secluded Heart in Clouds Level 1',
   points: 2,
@@ -701,6 +702,52 @@ set.addAchievement({
     ),
   },
 });
+
+const atlantis2pumpkinAddresses = [
+  0x17d8, 0x17dc, 0x17e0, 0x17e4, 0x17e8, 0x17ec, 0x17f0, 0x17f4, 0x17f8,
+  0x17fc, 0x1800, 0x1804, 0x1808, 0x180c, 0x1820, 0x1824, 0x1828, 0x182c,
+  0x1830, 0x1834, 0x1838, 0x183c, 0x1844, 0x1848, 0x1870, 0x1874, 0x1878,
+  0x187c, 0x1888, 0x1898, 0x189c, 0x18a0, 0x18a8, 0x18ac, 0x18b0, 0x18b4,
+  0x18e4, 0x18fc, 0x1918, 0x1924, 0x1928, 0x192c, 0x1930, 0x1934, 0x1938,
+  0x193c, 0x1940, 0x1944, 0x1948, 0x194c, 0x1950, 0x1954, 0x1958, 0x195c,
+  0x1964, 0x1968, 0x196c, 0x1970, 0x1980, 0x1984, 0x1988, 0x1990, 0x199c,
+  0x19a0, 0x19a8, 0x19ac, 0x1a00, 0x1a30, 0x1a34, 0x1a38, 0x1a40, 0x1a44,
+  0x1a48,
+];
+
+const addHitsPerAddress = (addresses) => {
+  const result = [];
+  for (let address of addresses) {
+    result.push(['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],);
+    result.push(['AndNext', 'Delta', '16bit', address, '>', 'Value', '', 0]);
+    result.push(['AddHits', 'Mem', '16bit', address, '=', 'Value', '', 0]);
+  }
+  return result;
+};
+
+set.addAchievement({
+  id: 626069,
+  title: 'Halloween\'s Over',
+  description: 'Find and destroy all pumpkins in Atlantis Level 2',
+  points: 5,
+  conditions: {
+    core: $(
+      // We have to use AddHits here, because only on destruction the level object type will go to 0x0000 (from 1, 2 or 3).
+      // After that, it might become 0xfffa, so we can not just use AddSource = 0.
+      // Instead, we add a hit for every pumpkin destroyed,
+      ...addHitsPerAddress(atlantis2pumpkinAddresses),
+      ['Measured%', 'Value', '',     0,            '=', 'Value', '', 1,                    atlantis2pumpkinAddresses.length],
+      // Context
+      ['',          'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
+      ['',          'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+// TODO tests: 1. entering level should not pop cheevo (AddHits without ingame-check)
 
 
 /* ========= DUMMY ========= */
