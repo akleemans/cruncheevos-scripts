@@ -23,6 +23,11 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 * Diff set: `npx cruncheevos diff monster-force/monster-force.js`
 * Save to local: `npx cruncheevos save monster-force/monster-force.js`
 * Lint: `npx eslint monster-force/monster-force.js --fix`
+* Format: `npm run format`
+* Run tests: `npm run test`
+* Open viewer: `npm run viewer`
+* Run tests: `npm run test`
+* Sync code notes to scenarios: `npm run sync`
 
 ## Tests
 
