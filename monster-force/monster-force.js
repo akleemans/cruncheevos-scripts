@@ -483,12 +483,8 @@ set.addAchievement({
   },
 });
 
-// Heart of the Clouds: Checkpoint logic?
-// 1. Destroy pumpkin which contains heart
-// 2. Have one of the tool slots jump from non-heart to heart
-const clouds1Pumpkin = 0x1884;
 
-// TODO check if there's no other green heart to collect in Clouds1
+const clouds1Pumpkin = 0x1884;
 
 const greenHeartCollectedInSlot = (toolSlot) => {
   // Slot was empty and is now Health lvl. 3 (checkpoint hit)
@@ -534,6 +530,8 @@ set.addAchievement({
     ),
   },
 });
+// TODO check if there's no other green heart to collect in Clouds1
+// TODO test cases: 1. Destroy pumpkin, collect heart. 2. Collect heart before pumpkin is marked as destroyed
 
 const decoyActive = 0x08dc;
 
