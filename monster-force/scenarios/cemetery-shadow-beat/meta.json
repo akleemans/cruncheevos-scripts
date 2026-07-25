@@ -23,12 +23,12 @@
     {
       "address": "0x077c",
       "size": "u8",
-      "label": "Player status"
+      "label": "Player state"
     },
     {
       "address": "0x0780",
       "size": "u8",
-      "label": "Fire action substate (if 0x077c = 7)"
+      "label": "Player substate (see 0x077c)"
     },
     {
       "address": "0x07d2",
@@ -98,7 +98,7 @@
     {
       "address": "0x0850",
       "size": "u8",
-      "label": "Max. health"
+      "label": "Max. base health (without relics)"
     },
     {
       "address": "0x0852",
@@ -138,42 +138,42 @@
     {
       "address": "0x1820",
       "size": "u16",
-      "label": "Object 25 (see 0x17c0) - Cemetery 1: hidden pumpkin 1"
+      "label": "Level object 25 type (see 0x17c0) - Cemetery 1: hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
     },
     {
       "address": "0x1824",
       "size": "u16",
-      "label": "Object 26 (see 0x17c0) - Cemetery 1: hidden pumpkin 2"
+      "label": "Level object 26 type (see 0x17c0) - Cemetery 1: hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
     },
     {
       "address": "0x1828",
       "size": "u16",
-      "label": "Object 27 (see 0x17c0) - Cemetery 1: hidden pumpkin 3"
+      "label": "Level object 27 type (see 0x17c0) - Cemetery 1: hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
     },
     {
       "address": "0x182c",
       "size": "u16",
-      "label": "Object 28 (see 0x17c0) - Cemetery 1: hidden pumpkin 4"
+      "label": "Level object 28 type (see 0x17c0) - Cemetery 1: hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
     },
     {
       "address": "0x1838",
       "size": "u16",
-      "label": "Object 31 (see 0x17c0) - Cemetery 1: hidden pumpkin 5"
+      "label": "Level object 31 type (see 0x17c0) - Cemetery 1: hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
     },
     {
       "address": "0x183c",
       "size": "u16",
-      "label": "Object 32 (see 0x17c0) - Cemetery 1: hidden pumpkin 6"
+      "label": "Level object 32 type (see 0x17c0) - Cemetery 1: hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
     },
     {
       "address": "0x1840",
       "size": "u16",
-      "label": "Object 33 (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
+      "label": "Level object 33 type (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
     },
     {
       "address": "0x1844",
       "size": "u16",
-      "label": "Object 34 (see 0x17c0) - Cemetery 1: hidden pumpkin 8"
+      "label": "Level object 34 type (see 0x17c0) - Cemetery 1: hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
     },
     {
       "address": "0x18a4",
@@ -258,7 +258,7 @@
     {
       "address": "0x3540",
       "size": "u8",
-      "label": "(wip) Timed switch (Garden Trial)"
+      "label": "Timed switch global timer (e.g. Garden Trial)"
     },
     {
       "address": "0x3544",
@@ -303,7 +303,7 @@
     {
       "address": "0x35a0",
       "size": "u8",
-      "label": "Amount of objects (pumpkins, enemies) destroyed"
+      "label": "Amount of objects (pumpkins, enemies) destroyed in current level"
     },
     {
       "address": "0x35a4",
@@ -498,7 +498,7 @@
     {
       "address": "0x35dc",
       "size": "u8",
-      "label": "Seargant Smash ranking (ladder 3, see 0x35bb)"
+      "label": "Sergeant Smash ranking (ladder 3, see 0x35bb)"
     },
     {
       "address": "0x360c",
