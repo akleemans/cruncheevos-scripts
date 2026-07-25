@@ -204,6 +204,33 @@ describe('Progression: Atlantis', () => {
   });
 });
 
+describe('Progression: Temple', () => {
+  const cheevo = achievement('Temple Tantrum');
+
+  test('pops when Temple Shadow is defeated', () => {
+    const s = scenario('temple-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('does not pop on cheated finish', () => {
+    const s = scenario('temple-shadow-cheat-finish');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
+  });
+});
+
+
 describe('Challenge: Diagonal Thinking', () => {
   const cheevo = achievement('Diagonal Thinking');
 
@@ -289,7 +316,6 @@ describe('Challenge: Shadow Business', () => {
   });
 });
 
-// TODO
 // describe('Challenge: Divide & Conquer', () => {
 //   const cheevo = achievement('Divide & Conquer');
 //
@@ -305,6 +331,16 @@ describe('Challenge: Shadow Business', () => {
 //
 //   test('does not pop with more pumpkin heads', () => {
 //     const s = scenario('castle3-5-pumpkin-heads');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//     expect(result.triggered).toBe(false);
+//
+//     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+//   });
+//
+//   test('does not pop if level finished with cheat', () => {
+//     const s = scenario('castle3-finished-cheat');
 //     const result = runAchievement(cheevo, s);
 //
 //     expect(result.stateAt(s.marker('level-start'))).toBe('active');
