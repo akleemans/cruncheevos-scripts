@@ -6,7 +6,8 @@
   "firstFrame": 239638,
   "markers": {
     "level-start": 239759,
-    "level-select-screen": 240365
+    "level-select-screen": 240365,
+    "continue-screen": 240286
   },
   "addresses": [
     {
