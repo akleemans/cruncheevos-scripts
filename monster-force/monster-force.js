@@ -289,7 +289,9 @@ set.addAchievement({
   },
 });
 
-// TODO if this behaves the same - or check Mina unlock?
+// TODO Doesnt work yet - maximum level doesn't go over 0x24.
+// Maybe use "max. characters unlocked"? (Problem: If cheated once, this might be locked for good)
+// TODO find good conditions
 set.addAchievement({
   id: 625436,
   title: 'Pumpkin Mash',

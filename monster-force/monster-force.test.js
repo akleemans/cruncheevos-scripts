@@ -230,6 +230,109 @@ describe('Progression: Temple', () => {
   });
 });
 
+describe('Progression: Desert', () => {
+  const cheevo = achievement('Rise of the Mummies');
+
+  test('pops when Desert Shadow is defeated', () => {
+    const s = scenario('desert-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('does not pop on cheated finish, but properly resets', () => {
+    const s = scenario('desert-shadow-cheat-finish');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
+  });
+
+  test('does not pop on game over', () => {
+    const s = scenario('desert-shadow-game-over');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('continue-screen'))).toBe('active');
+  });
+});
+
+describe('Progression: Clouds', () => {
+  const cheevo = achievement('Sky High');
+
+  test('pops when Clouds Shadow is defeated', () => {
+    const s = scenario('clouds-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+});
+
+describe('Progression: Factory', () => {
+  const cheevo = achievement('Industrial Revolution');
+
+  test('pops when Factory Shadow is defeated', () => {
+    const s = scenario('factory-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+});
+
+describe('Progression: Castle', () => {
+  const cheevo = achievement('Pumpkin Mash');
+
+  test('pops when Sergeant Smash is defeated', () => {
+    const s = scenario('castle-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    // TODO define trigger
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+  });
+
+  test('does not pop on game over', () => {
+    const s = scenario('castle-shadow-game-over');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('continue-screen'))).toBe('active');
+  });
+
+  test('does not pop on cheated finish', () => {
+    const s = scenario('castle-shadow-cheat-finish');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+  });
+  // TODO
+});
+
 
 describe('Challenge: Diagonal Thinking', () => {
   const cheevo = achievement('Diagonal Thinking');
