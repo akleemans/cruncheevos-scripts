@@ -5,7 +5,8 @@
   "console": "GBA",
   "firstFrame": 240052,
   "markers": {
-    "level-start": 240234
+    "level-start": 240234,
+    "score-screen": 240888
   },
   "addresses": [
     {
