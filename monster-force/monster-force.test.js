@@ -12,17 +12,14 @@ describe('Progression: Welcome to Monsterland', () => {
     const s = scenario('cemetery1-finish-ranking-crystal');
     const result = runAchievement(cheevo, s);
 
-    expect(result.triggeredFrame).toBe(s.marker('save-screen'));
-
-    // The trigger happens later than the score screen's rank is written (can be 0)
-    expect(result.triggeredFrame).toBeGreaterThan(s.marker('rank-written'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('pops on a rank-0 finish too (lowest Bronze)', () => {
     const s = scenario('cemetery1-finish-ranking-0');
     const result = runAchievement(cheevo, s);
 
-    expect(result.triggeredFrame).toBe(s.marker('save-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('locks (paused) from the moment the invincibility cheat is enabled', () => {
@@ -90,7 +87,7 @@ describe('Progression: Cemetery', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('pops when playing in French', () => {
@@ -100,7 +97,7 @@ describe('Progression: Cemetery', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('pops when playing in Spanish', () => {
@@ -110,7 +107,7 @@ describe('Progression: Cemetery', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('pops when playing in German', () => {
@@ -120,7 +117,7 @@ describe('Progression: Cemetery', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('pops when playing in Italian', () => {
@@ -130,7 +127,7 @@ describe('Progression: Cemetery', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('does not pop on Cemetery Level 1 finish', () => {
@@ -172,7 +169,7 @@ describe('Progression: Village', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 });
 
@@ -186,7 +183,7 @@ describe('Progression: Garden', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 });
 
@@ -200,7 +197,7 @@ describe('Progression: Atlantis', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 });
 
@@ -214,7 +211,7 @@ describe('Progression: Temple', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('does not pop on cheated finish', () => {
@@ -240,7 +237,7 @@ describe('Progression: Desert', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('does not pop on cheated finish, but properly resets', () => {
@@ -277,7 +274,7 @@ describe('Progression: Clouds', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 });
 
@@ -291,7 +288,7 @@ describe('Progression: Factory', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 });
 
@@ -304,9 +301,8 @@ describe('Progression: Castle', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
-    // TODO define trigger
     expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('save-game-screen'));
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
   test('does not pop on game over', () => {
