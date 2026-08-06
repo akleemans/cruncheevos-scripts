@@ -464,6 +464,30 @@ set.addAchievement({
   },
 });
 
+set.addAchievement({
+  id: 629000,
+  title: 'Slowly But Steady',
+  description: 'Pass the Village Trial as Frank within the given time limit',
+  points: 5,
+  conditions: {
+    core: $(
+      ['', 'Mem', '8bit',  characterActive, '=',  'Value', '', CharacterActive.Frank],
+      // Use the timer directly, "time bonus" only gets set later.
+      // 0x0e10 = 3600 frames = 60 seconds, which is the required time limit to get the bonus
+      ['', 'Mem', '16bit', levelTime,       '<=', 'Value', '', 0x0e10],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageTrial],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 set.addAchievement({
   id: 625441,
