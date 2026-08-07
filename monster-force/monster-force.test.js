@@ -879,3 +879,39 @@ describe('Challenge: Five of a Kind', () => {
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
 });
+
+describe('Challenge: Different Perspective', () => {
+  const cheevo = achievement('Different Perspective');
+
+  test('pops when Cemetery Shadow was defeated using Mina', () => {
+    const s = scenario('cemetery-shadow-mina');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('pops when Cemetery Shadow was defeated using Drew', () => {
+    const s = scenario('cemetery-shadow-drew');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+});
+
+describe('Challenge: New Game Plus', () => {
+  const cheevo = achievement('New Game Plus');
+
+  test('pops when Cemetery Shadow was defeated using Mina', () => {
+    const s = scenario('castle-sergeant-smash-mina');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+});
+

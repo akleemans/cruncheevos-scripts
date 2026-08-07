@@ -1008,7 +1008,12 @@ set.addAchievement({
       // Character must be Mina or Drew
       ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
       ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
-      ...progression(LevelEnum.CemeteryShadow),
+
+      // Pop on score screen
+      ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CemeteryShadow],
+      ['', 'Mem',   '8bit', currentLevel,     '=', 'Value', '', LevelEnum.CemeteryShadow],
+      ['', 'Delta', '8bit', gameState,        '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', gameState,        '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -1028,7 +1033,12 @@ set.addAchievement({
       // Character must be Mina or Drew
       ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
       ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
-      ...progression(LevelEnum.CastleSergeantSmash),
+
+      // Pop on score screen
+      ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
+      ['', 'Mem',   '8bit', currentLevel,     '=', 'Value', '', LevelEnum.CastleSergeantSmash],
+      ['', 'Delta', '8bit', gameState,        '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', gameState,        '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
