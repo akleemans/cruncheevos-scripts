@@ -722,7 +722,7 @@ describe('Challenge: Energy Saver', () => {
 //     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
 //   });
 //
-//   test('does not pop with different character', () => {
+//   test('does not prime with different character', () => {
 //     const s = scenario('clouds-trial-drac-fast');
 //
 //     const result = runAchievement(cheevo, s);
@@ -732,8 +732,17 @@ describe('Challenge: Energy Saver', () => {
 //
 //     expect(result.stateAt(s.marker('after-third-activation'))).toBe('paused');
 //   });
+
+//   test('does not pop if too slow', () => {
+//     const s = scenario('clouds-trial-drac-fast');
 //
-//   // TODO does not pop if slow
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+//     expect(result.triggered).toBe(false);
+//
+//     expect(result.stateAt(s.marker('standing-still'))).toBe('paused');
+//   });
 // });
 
 
@@ -794,6 +803,30 @@ describe('Challenge: Gold Medal', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     expect(result.triggered).toBe(false);
+  });
+});
+
+describe('Challenge: Gold Standard', () => {
+  const cheevo = achievement('Gold Standard');
+
+  test('pops when last Gold/Crystal ranking was reached on score screen', () => {
+    const s = scenario('crystal-reach-37-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+});
+
+describe('Challenge: Gold Rush', () => {
+  const cheevo = achievement('Gold Rush');
+
+  test('pops when ', () => {
+    const s = scenario('gold-last-time-trial');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
 });
 

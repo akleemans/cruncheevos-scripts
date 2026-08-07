@@ -1,11 +1,11 @@
 {
-  "name": "crystal-reach-37-rankings",
+  "name": "gold-last-time-trial",
   "description": "",
   "game": "Monster Force",
   "console": "GBA",
-  "firstFrame": 305307,
+  "firstFrame": 316970,
   "markers": {
-    "rank-written": 305462
+    "rank-written": 317096
   },
   "addresses": [
     {
