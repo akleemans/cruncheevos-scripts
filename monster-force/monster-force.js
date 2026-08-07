@@ -372,14 +372,17 @@ set.addAchievement({
 set.addAchievement({
   id: 625439,
   title: 'Every Atom Counts',
-  description: 'Collect all 100 Atoms and finish the Cemetery Trial in time',
+  description: 'Collect 100 Atoms and finish the Cemetery Trial in time',
   points: 5,
   conditions: {
     core: $(
+      // Only Atoms need to be checked, Trial will fail (and not reach Score screen) if not within time limit
+      ['', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
+
+      // Pop on score screen
       ['', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.CemeteryTrial],
       ['', 'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
-      ['', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
+      ['Trigger', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -469,7 +472,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629000,
   title: 'Slowly But Steady',
-  description: 'Pass the Village Trial as Frank within the given time limit',
+  description: 'Pass the Village Trial as Frank within the given bonus time limit',
   points: 5,
   conditions: {
     core: $(

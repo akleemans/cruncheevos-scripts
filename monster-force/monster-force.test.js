@@ -396,6 +396,41 @@ describe('Challenge: Diagonal Thinking', () => {
   });
 });
 
+describe('Challenge: Every Atom Counts', () => {
+  const cheevo = achievement('Every Atom Counts');
+
+  test('pops when finished level with at least 100 Atoms collected', () => {
+    const s = scenario('cemetery-trial-with-100-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('collected-100-atoms'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop when Trial failed, even if 100 Atoms collected', () => {
+    const s = scenario('cemetery-trial-failed');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('collected-100-atoms'))).toBe('primed');
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when Trial successful, but Atoms not collected', () => {
+    const s = scenario('cemetery-trial-with-less-than-100-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+  });
+});
+
 describe('Challenge: In the Blink of an Eye', () => {
   const cheevo = achievement('In the Blink of an Eye');
 
