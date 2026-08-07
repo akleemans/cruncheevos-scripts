@@ -706,8 +706,33 @@ describe('Challenge: Energy Saver', () => {
   });
 });
 
-// TODO Heart of the Clouds, collecting the heart directly when shooting & collecting it later
+describe('Challenge: Heart of the Clouds', () => {
+  const cheevo = achievement('Heart of the Clouds');
 
+  test('pops when collecting the heart after shooting pumpkin', () => {
+    const s = scenario('clouds1-pick-up-heart');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('heart-collected'));
+  });
+
+  test('pops when heart is collected before pumpkin is marked as destroyed', () => {
+    const s = scenario('clouds1-pick-up-heart-before-pumpkin-destroyed');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('heart-collected'));
+  });
+});
+
+// TODO
 // describe('Challenge: Young and Restless', () => {
 //   const cheevo = achievement('Young and Restless');
 //

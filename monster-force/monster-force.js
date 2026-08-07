@@ -547,9 +547,9 @@ set.addAchievement({
 const clouds1Pumpkin = 0x1884;
 
 const greenHeartCollectedInSlot = (toolSlot) => {
-  // Slot was empty and is now Health lvl. 3 (checkpoint hit)
+  // Slot was empty (or contained another item - immediate switching is possible) and is now Health lvl. 3 (checkpoint hit)
   return [
-    ['AndNext', 'Delta', '8bit', toolSlot, '=', 'Value', '', 0x00],
+    ['AndNext', 'Delta', '8bit', toolSlot, '!=', 'Value', '', 0x09],
     ['AddHits', 'Mem',   '8bit', toolSlot, '=', 'Value', '', 0x09],
     ['',        'Value', '',     0,        '=', 'Value', '', 1,    1],
   ];
@@ -558,6 +558,7 @@ const greenHeartCollectedInSlot = (toolSlot) => {
 // As it is possible to pick up heart before the pumpkin is marked as destroyed,
 // we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
 // This way the cheevo will pop regardless of what happened first.
+// TODO check if there's no other green heart to collect in Clouds1
 set.addAchievement({
   id: 626068,
   title: 'Heart of the Clouds',
@@ -591,8 +592,6 @@ set.addAchievement({
     ),
   },
 });
-// TODO check if there's no other green heart to collect in Clouds1
-// TODO test cases: 1. Destroy pumpkin, collect heart. 2. Collect heart before pumpkin is marked as destroyed
 
 const decoyActive = 0x08dc;
 
