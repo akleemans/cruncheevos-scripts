@@ -16,6 +16,7 @@
   "scripts": {
     "format": "node scripts/align-conditions.js",
     "test": "vitest run",
+    "check-coverage": "node scripts/test-coverage.js",
     "viewer": "cruncheevos-playtest viewer",
     "sync": "cruncheevos-playtest sync monster-force"
   }

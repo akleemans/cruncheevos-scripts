@@ -25,8 +25,8 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 * Lint: `npx eslint monster-force/monster-force.js --fix`
 * Format: `npm run format`
 * Run tests: `npm run test`
+* Check test coverage: `npm run check-coverage`
 * Open viewer: `npm run viewer`
-* Run tests: `npm run test`
 * Sync code notes to scenarios: `npm run sync`
 
 ## Tests
