@@ -559,8 +559,6 @@ describe('Challenge: Shadow Business', () => {
 //   });
 // });
 
-// TODO Clone Wars
-
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
 
@@ -739,6 +737,66 @@ describe('Challenge: Energy Saver', () => {
 // });
 
 
+describe('Challenge: Silver Lining', () => {
+  const cheevo = achievement('Silver Lining');
+
+  test('pops when all regular levels are Silver or better', () => {
+    const s = scenario('cemetery1-finish-silver-or-better');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+});
+
+describe('Challenge: Silver Sweep', () => {
+  const cheevo = achievement('Silver Sweep');
+
+  test('pops when all trials & boss levels are Silver or better, even if achieved Crystal', () => {
+    const s = scenario('silver-for-all-trials-and-boss-levels');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  test('does not pop if Silver in wrong level', () => {
+    const s = scenario('cemetery1-finish-silver-or-better');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+  });
+});
+
+describe('Challenge: Gold Medal', () => {
+  const cheevo = achievement('Gold Medal');
+
+  test('pops when all regular levels are Gold or better', () => {
+    const s = scenario('gold-for-all-regular-levels');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  test('does not pop if not enough Gold levels', () => {
+    const s = scenario('gold-one-missing');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+  });
+});
+
 describe('Challenge: First Crystal', () => {
   const cheevo = achievement('First Crystal');
 
@@ -751,4 +809,40 @@ describe('Challenge: First Crystal', () => {
   });
 
   // TODO test: loading save state does not pop cheevo
+});
+
+describe('Challenge: Crystal Collection', () => {
+  const cheevo = achievement('Crystal Collection');
+
+  test('pops when 10th Crystal ranking was reached on score screen', () => {
+    const s = scenario('crystal-reach-10-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+});
+
+describe('Challenge: Crystallized', () => {
+  const cheevo = achievement('Crystallized');
+
+  test('pops when 20th Crystal ranking was reached on score screen', () => {
+    const s = scenario('crystal-reach-20-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+});
+
+describe('Challenge: Five of a Kind', () => {
+  const cheevo = achievement('Five of a Kind');
+
+  test('pops when last Crystal ranking was reached on score screen', () => {
+    const s = scenario('crystal-reach-37-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
 });

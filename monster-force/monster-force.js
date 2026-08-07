@@ -408,9 +408,9 @@ set.addAchievement({
       ['', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 100],
 
       // Pop on score screen
-      ['', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.CemeteryTrial],
-      ['', 'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['Trigger', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -986,7 +986,7 @@ set.addAchievement({
   points: 25,
   conditions: {
     core: $(
-      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, 1),
+      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, regularLevels.length + timeTrialLevels.length + bossLevels.length),
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
@@ -1007,7 +1007,7 @@ set.addAchievement({
     core: $(
       // Character must be Mina or Drew
       ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
-      ['', 'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
       ...progression(LevelEnum.CemeteryShadow),
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
@@ -1027,7 +1027,7 @@ set.addAchievement({
     core: $(
       // Character must be Mina or Drew
       ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
-      ['', 'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
       ...progression(LevelEnum.CastleSergeantSmash),
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
