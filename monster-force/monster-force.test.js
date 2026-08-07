@@ -587,8 +587,8 @@ describe('Challenge: Motion Sickness', () => {
   });
 });
 
-describe('Challenge: Slowly But Steady', () => {
-  const cheevo = achievement('Slowly But Steady');
+describe('Challenge: Slowly but Steady', () => {
+  const cheevo = achievement('Slowly but Steady');
 
   test('pops when finishing within time limit with Frank', () => {
     const s = scenario('village-trial-with-time-bonus');
@@ -737,3 +737,18 @@ describe('Challenge: Energy Saver', () => {
 //
 //   // TODO does not pop if slow
 // });
+
+
+describe('Challenge: First Crystal', () => {
+  const cheevo = achievement('First Crystal');
+
+  test('pops when first Crystal ranking was reached', () => {
+    const s = scenario('cemetery1-finish-ranking-crystal');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  // TODO test: loading save state does not pop cheevo
+});

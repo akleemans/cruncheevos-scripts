@@ -30,6 +30,12 @@ const CharacterActive = {
   Drew: 0x04
 };
 
+const BadgeTier = {
+  Silver: 0x04,
+  Gold: 0x05,
+  Crystal: 0x06
+};
+
 const LevelEnum = {
   Cemetery1: 0x00,
   Cemetery2: 0x01,
@@ -69,6 +75,28 @@ const LevelEnum = {
   Castle4: 0x23,
   CastleSergeantSmash: 0x24,
 };
+
+// 16 regular levels (8x Level 1 + 2, Cemetery-Factory)
+const regularLevels = [
+  LevelEnum.Cemetery1, LevelEnum.Cemetery2, LevelEnum.Village1, LevelEnum.Village2,
+  LevelEnum.Garden1, LevelEnum.Garden2, LevelEnum.Atlantis1, LevelEnum.Atlantis2,
+  LevelEnum.Temple1, LevelEnum.Temple2, LevelEnum.Desert1, LevelEnum.Desert2,
+  LevelEnum.Clouds1, LevelEnum.Clouds2, LevelEnum.Factory1, LevelEnum.Factory2,
+];
+
+// 8 time trial levels (Cemetery-Factory)
+const timeTrialLevels = [
+  LevelEnum.CemeteryTrial, LevelEnum.VillageTrial, LevelEnum.GardenTrial, LevelEnum.AtlantisTrial,
+  LevelEnum.TempleTrial, LevelEnum.DesertTrial, LevelEnum.CloudsTrial, LevelEnum.FactoryTrial,
+];
+
+// 13 boss levels (8 + 5 boss levels in Castle)
+const bossLevels = [
+  LevelEnum.CemeteryShadow, LevelEnum.VillageShadow, LevelEnum.GardenShadow, LevelEnum.AtlantisShadow,
+  LevelEnum.TempleShadow, LevelEnum.DesertShadow, LevelEnum.CloudsShadow, LevelEnum.FactoryShadow,
+  LevelEnum.Castle1, LevelEnum.Castle2, LevelEnum.Castle3, LevelEnum.Castle4,
+  LevelEnum.CastleSergeantSmash,
+];
 
 const gameState = 0x0770;
 const playerState = 0x077c;
@@ -471,7 +499,7 @@ set.addAchievement({
 
 set.addAchievement({
   id: 629000,
-  title: 'Slowly But Steady',
+  title: 'Slowly but Steady',
   description: 'Pass the Village Trial as Frank within the given bonus time limit',
   points: 5,
   conditions: {
@@ -788,6 +816,227 @@ set.addAchievement({
 });
 // TODO tests: 1. entering level should not pop cheevo (AddHits without ingame-check)
 
+
+
+const countBadges = (levelIds, tier, amount) => {
+  const conditions = [];
+  // Delta
+  for (let levelId of levelIds) {
+    conditions.push(['AddSource', 'Delta', '8bit', 0x35b8 + levelId, '/', 'Value', '', tier]);
+  }
+  conditions.push(['', 'Value', '', 0, '=', 'Value', '', amount-1]);
+
+  // Mem
+  for (let levelId of levelIds) {
+    conditions.push(['AddSource', 'Mem', '8bit', 0x35b8 + levelId, '/', 'Value', '', tier]);
+  }
+  conditions.push(['', 'Value', '', 0, '=', 'Value', '', amount]);
+  return conditions;
+};
+
+
+set.addAchievement({
+  id: 629093,
+  title: 'Silver Lining',
+  description: 'Finish all 16 regular levels on Silver or higher',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges(regularLevels, BadgeTier.Silver, regularLevels.length),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629094,
+  title: 'Silver Sweep',
+  description: 'Finish all 8 time trials and 13 boss levels on Silver or higher',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges([...timeTrialLevels, ...bossLevels], BadgeTier.Silver, timeTrialLevels.length + bossLevels.length),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629095,
+  title: 'Gold Medal',
+  description: 'Finish all 16 regular levels on Gold or higher',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges(regularLevels, BadgeTier.Gold, regularLevels.length),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629096,
+  title: 'Gold Rush',
+  description: 'Finish all 8 time trials on Gold or higher',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges(timeTrialLevels, BadgeTier.Gold, timeTrialLevels.length),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629097,
+  title: 'Gold Standard',
+  description: 'Finish all 13 boss levels on Gold or higher',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges(bossLevels, BadgeTier.Gold, bossLevels.length),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629092,
+  title: 'First Crystal',
+  description: 'Achieve your first Crystal ranking',
+  points: 2,
+  conditions: {
+    core: $(
+      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, 1),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629098,
+  title: 'Crystal Collection',
+  description: 'Achieve 10 Crystal ranking',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, 10),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629099,
+  title: 'Crystallized',
+  description: 'Achieve 20 Crystal ranking',
+  points: 10,
+  conditions: {
+    core: $(
+      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, 20),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629100,
+  title: 'Five of a Kind',
+  description: 'Achieve all Crystal rankings and unlock a new character',
+  points: 25,
+  conditions: {
+    core: $(
+      ...countBadges([...regularLevels, ...timeTrialLevels, ...bossLevels], BadgeTier.Crystal, 1),
+      // Pop on score screen
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+
+set.addAchievement({
+  id: 629101,
+  title: 'Different Perspective',
+  description: 'Beat a Zone with an unlocked character',
+  points: 3,
+  conditions: {
+    core: $(
+      // Character must be Mina or Drew
+      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
+      ['', 'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ...progression(LevelEnum.CemeteryShadow),
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  id: 629102,
+  title: 'New Game Plus',
+  description: 'Beat the game with an unlocked character',
+  points: 25,
+  conditions: {
+    core: $(
+      // Character must be Mina or Drew
+      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
+      ['', 'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ...progression(LevelEnum.CastleSergeantSmash),
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 /* ========= DUMMY ========= */
 
