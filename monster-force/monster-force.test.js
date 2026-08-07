@@ -76,7 +76,6 @@ describe('Progression: Welcome to Monsterland', () => {
   });
 });
 
-
 describe('Progression: Cemetery', () => {
   const cheevo = achievement('No Time to Die');
 
@@ -326,9 +325,49 @@ describe('Progression: Castle', () => {
 
     expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
   });
-  // TODO
+
+  test('does not pop on loading save-state', () => {
+    const s = scenario('load-completed-save-state');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(false);
+  });
 });
 
+/* ========= CHALLENGES ========= */
+
+describe('Challenge: Walking Through Walls', () => {
+  const cheevo = achievement('Walking Through Walls');
+
+  test('pops when pumpkins are destroyed', () => {
+    const s = scenario('cemetery1-hidden-pumpkins');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
+  test('does not pop with only 5 destroyed pumpins', () => {
+    const s = scenario('cemetery1-hidden-pumpkins-only-5');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+  });
+
+  test('does not pop on level finish without pumpkins destroyed', () => {
+    const s = scenario('cemetery1-finish-ranking-0');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+
+    expect(result.triggered).toBe(false);
+  });
+});
 
 describe('Challenge: Diagonal Thinking', () => {
   const cheevo = achievement('Diagonal Thinking');
