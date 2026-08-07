@@ -465,6 +465,42 @@ describe('Challenge: In the Blink of an Eye', () => {
   });
 });
 
+describe('Challenge: One at a Time', () => {
+  const cheevo = achievement('One at a Time');
+
+  test('pops when boss beaten in 10 seconds', () => {
+    const s = scenario('village1-only-one-key');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.stateAt(s.marker('pause-menu'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop (and no longer prime) if picked up second key before using first', () => {
+    const s = scenario('village1-picked-up-2-keys');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.stateAt(s.marker('picked-up-second-key'))).toBe('paused');
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when cheat was used', () => {
+    const s = scenario('village1-cheated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(false);
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+  });
+});
+
 describe('Challenge: Shadow Business', () => {
   const cheevo = achievement('Shadow Business');
 
