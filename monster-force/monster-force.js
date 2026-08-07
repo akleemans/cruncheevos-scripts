@@ -478,8 +478,8 @@ set.addAchievement({
     core: $(
       ['', 'Mem', '8bit',  characterActive, '=',  'Value', '', CharacterActive.Frank],
       // Use the timer directly, "time bonus" only gets set later.
-      // 0x0e10 = 3600 frames = 60 seconds, which is the required time limit to get the bonus
-      ['', 'Mem', '16bit', levelTime,       '<=', 'Value', '', 0x0e10],
+      // 7200 frames = 120 seconds, which is the required time limit to get the bonus
+      ['', 'Mem', '16bit', levelTime,       '<=', 'Value', '', 7200],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageTrial],

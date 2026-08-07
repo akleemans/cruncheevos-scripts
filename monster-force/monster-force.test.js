@@ -587,6 +587,49 @@ describe('Challenge: Motion Sickness', () => {
   });
 });
 
+describe('Challenge: Slowly But Steady', () => {
+  const cheevo = achievement('Slowly But Steady');
+
+  test('pops when finishing within time limit with Frank', () => {
+    const s = scenario('village-trial-with-time-bonus');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop when trial failed', () => {
+    const s = scenario('village-trial-failed');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when cheated', () => {
+    const s = scenario('village-trial-cheated');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+  });
+
+  test('does not prime when not using Frank', () => {
+    const s = scenario('village-trial-drac');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
 
 describe('Challenge: Blast Radius', () => {
   const cheevo = achievement('Blast Radius');
