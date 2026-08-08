@@ -820,7 +820,7 @@ set.addAchievement({
     core: $(
       // Pop if 50 or more enemies & pumpkins destroyed
       ['',         'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
-      ['Measured', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
+      ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple1],
