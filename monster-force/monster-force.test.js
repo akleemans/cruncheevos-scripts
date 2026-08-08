@@ -818,6 +818,31 @@ describe('Challenge: Wolfskin', () => {
   });
 });
 
+describe('Challenge: Metal Detector', () => {
+  const cheevo = achievement('Metal Detector');
+
+  test('pops when finishing Atlantis Trial without taking damage', () => {
+    const s = scenario('atlantis-trial-no-damage');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+
+  test('does not pop if damage was taken', () => {
+    const s = scenario('atlantis-trial-damage-taken');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('damage-taken'))).toBe('paused');
+  });
+});
+
 describe('Challenge: Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 

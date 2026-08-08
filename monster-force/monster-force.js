@@ -764,15 +764,40 @@ set.addAchievement({
     core: $(
       // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
       ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
-      ['AddHits', 'Delta', '8bit', currentHealth, '<', 'Mem',   '8bit', currentHealth],
+      ['AddHits', 'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth],
       // Lock if healing occurred
-      ['PauseIf', 'Value', '',     0,             '=', 'Value', '',     1,                    1],
+      ['PauseIf', 'Value', '',      0,             '=',  'Value', '',     1,             1],
 
       // Character must be Wolfie
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis1],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Metal Detector',
+  description: 'Beat the Atlantis Trial without getting damaged by mines',
+  points: 10,
+  conditions: {
+    core: $(
+      // Add hit if damage occurred - needs timer > 2 check, in the first two frames the health is initialized
+      ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
+      ['AddHits', 'Delta', '8bit',  currentHealth, '>',  'Mem',   '8bit', currentHealth],
+      // Lock if damage occurred
+      ['PauseIf', 'Value', '',      0,             '=',  'Value', '',     1,             1],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.AtlantisTrial],
       ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
