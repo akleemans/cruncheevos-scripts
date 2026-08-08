@@ -730,6 +730,44 @@ describe('Challenge: Heart of the Clouds', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('heart-collected'));
   });
+
+  // TODO test: does not pop if only heart picked up without pumpkin destroyed
+});
+
+describe('Challenge: Clone Wars', () => {
+  const cheevo = achievement('Clone Wars');
+
+  test('pops when creating a decoy', () => {
+    const s = scenario('clouds2-create-decoy');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('decoy-created'));
+  });
+
+  test('pops when creating an uber-decoy & walking away', () => {
+    const s = scenario('clouds2-uber-decoy-walking');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('decoy-created'));
+  });
+
+
+  test('does not pop if wrong level', () => {
+    const s = scenario('clouds1-decoy');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Challenge: Young and Restless', () => {
