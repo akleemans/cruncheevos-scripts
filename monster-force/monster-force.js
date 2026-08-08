@@ -785,6 +785,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 629349,
   title: 'Metal Detector',
   description: 'Beat the Atlantis Trial without getting damaged by mines',
   points: 10,
