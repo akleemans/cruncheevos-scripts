@@ -114,6 +114,9 @@ const toolSlot2 = 0x07fd;
 const toolSlot3 = 0x07fe;
 const toolSlot4 = 0x07ff;
 
+const objectsEnemiesDestroyed = 0x35a0
+const invulnerabilityTimer = 0x07ea;
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -673,8 +676,7 @@ set.addAchievement({
   },
 });
 
-const objectsEnemiesDestroyed = 0x35a0
-const invulnerabilityTimer = 0x07ea;
+
 
 set.addAchievement({
   id: 625445,
@@ -803,6 +805,27 @@ set.addAchievement({
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Blood Thirst',
+  description: 'Destroy at least 50 enemies and pumpkins as Drac in Temple Level 1',
+  points: 3,
+  conditions: {
+    core: $(
+      // Pop if 50 or more enemies & pumpkins destroyed
+      ['',         'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
+      ['Measured', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
+
+      // Context
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple1],
+      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),

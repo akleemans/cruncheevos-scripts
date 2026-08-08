@@ -843,6 +843,20 @@ describe('Challenge: Metal Detector', () => {
   });
 });
 
+describe('Challenge: Blood Thirst', () => {
+  const cheevo = achievement('Blood Thirst');
+
+  test('pops when finishing Atlantis Trial without taking damage', () => {
+    const s = scenario('temple1-enemies-killed');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('50-enemies-killed'));
+  });
+});
+
 describe('Challenge: Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 
