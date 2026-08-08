@@ -768,11 +768,53 @@ describe('Challenge: Monet\'s Garden', () => {
 
   test('does not pop if finished level without visiting hidden garden', () => {
     const s = scenario('garden-trial-2-switch-activations');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(false);
+  });
+});
+
+describe('Challenge: Wolfskin', () => {
+  const cheevo = achievement('Wolfskin');
+
+  test('pops when finishing Atlantis 1 as Wolfie without healing', () => {
+    const s = scenario('atlantis1-wolfie-no-healing');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does no longer prime if healed', () => {
+    const s = scenario('atlantis1-wolfie-healed');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('after-healing'))).toBe('paused');
+  });
+
+  test('does not prime if wrong character', () => {
+    const s = scenario('atlantis1-drac-start');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop if level end cheat is used, but pause and reset on level select', () => {
+    const s = scenario('atlantis1-wolfie-cheat');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('cheat-used'))).toBe('paused');
+    expect(result.stateAt(s.marker('level-select-after'))).toBe('active');
   });
 });
 

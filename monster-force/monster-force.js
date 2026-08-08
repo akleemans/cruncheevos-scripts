@@ -751,6 +751,36 @@ set.addAchievement({
   },
 });
 
+const currentHealth = 0x07f0;
+
+set.addAchievement({
+  title: 'Wolfskin',
+  description: 'Beat Atlantis Level 1 as Wolfie without healing',
+  points: 3,
+  conditions: {
+    core: $(
+      // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
+      ['AndNext', 'Mem',   '8bit', levelTime,     '>=', 'Value', '',     2],
+      ['AddHits', 'Delta', '8bit', currentHealth, '<', 'Mem',   '8bit', currentHealth],
+      // Lock if healing occurred
+      ['PauseIf', 'Value', '',     0,             '=', 'Value', '',     1,                    1],
+
+      // Character must be Wolfie
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis1],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
