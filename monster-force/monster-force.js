@@ -700,10 +700,11 @@ set.addAchievement({
 const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
+// Wolfie's level finish animation takes 143 frames, so we go with 2.5 seconds (150 frames)
 set.addAchievement({
   id: 625449,
   title: 'Young and Restless',
-  description: 'As Wolfie, beat the Clouds Trial without standing still more than 2 seconds',
+  description: 'As Wolfie, beat the Clouds Trial without standing still more than 2.5 seconds',
   points: 10,
   conditions: {
     core: $(
@@ -719,7 +720,7 @@ set.addAchievement({
 
       // Reset checkpoint hit if accumulated enough hits
       ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['ResetIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,  120],
+      ['ResetIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,  150],
 
       // Character must be Wolfie
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],

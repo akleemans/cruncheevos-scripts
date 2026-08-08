@@ -732,43 +732,62 @@ describe('Challenge: Heart of the Clouds', () => {
   });
 });
 
-// TODO
-// describe('Challenge: Young and Restless', () => {
-//   const cheevo = achievement('Young and Restless');
-//
-//   test('pops when finishing the level without standing still as Wolfie', () => {
-//     const s = scenario('clouds-trial-wolfie-fast');
-//
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
-//   });
-//
-//   test('does not prime with different character', () => {
-//     const s = scenario('clouds-trial-drac-fast');
-//
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
-//     expect(result.triggered).toBe(false);
-//
-//     expect(result.stateAt(s.marker('after-third-activation'))).toBe('paused');
-//   });
+describe('Challenge: Young and Restless', () => {
+  const cheevo = achievement('Young and Restless');
 
-//   test('does not pop if too slow', () => {
-//     const s = scenario('clouds-trial-drac-fast');
-//
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('primed');
-//     expect(result.triggered).toBe(false);
-//
-//     expect(result.stateAt(s.marker('standing-still'))).toBe('paused');
-//   });
-// });
+  test('pops when finishing the level without standing still as Wolfie', () => {
+    const s = scenario('clouds-trial-wolfie-fast');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('pops when finishing the level without standing still as Wolfie, take 2', () => {
+    const s = scenario('clouds-trial-wolfie-fast2');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime with different character', () => {
+    const s = scenario('clouds-trial-drac');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop if too slow', () => {
+    const s = scenario('clouds-trial-wolfie-slow');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('standing-still'))).toBe('active');
+  });
+
+  test('does not pop if trials failed', () => {
+    const s = scenario('clouds-trial-wolfie-failed');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('trial-lost'))).toBe('active');
+  });
+});
 
 
 describe('Challenge: Silver Lining', () => {
