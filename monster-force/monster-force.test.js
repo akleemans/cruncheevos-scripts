@@ -973,7 +973,7 @@ describe('Challenge: Gold Standard', () => {
 describe('Challenge: Gold Rush', () => {
   const cheevo = achievement('Gold Rush');
 
-  test('pops when ', () => {
+  test('pops when all trials have Gold ranking', () => {
     const s = scenario('gold-last-time-trial');
     const result = runAchievement(cheevo, s);
 
@@ -993,7 +993,13 @@ describe('Challenge: First Crystal', () => {
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
 
-  // TODO test: loading save state does not pop cheevo
+  test('does not pop if save state is loaded with 1 Crystal ranking', () => {
+    const s = scenario('load-save-state-with-1-crystal-ranking');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-select'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Challenge: Crystal Collection', () => {

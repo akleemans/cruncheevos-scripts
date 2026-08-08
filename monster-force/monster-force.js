@@ -554,11 +554,11 @@ set.addAchievement({
   conditions: {
     core: $(
       // Total shots fired (=normal + power shots) must be at most 1.
-      ['', 'Mem',   '16bit', totalShotsFired, '<=', 'Value', '', 1],
+      ['',        'Mem',   '16bit', totalShotsFired, '<=', 'Value', '', 1],
       // Pop on score screen
-      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Garden1],
-      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['Trigger',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit',  currentLevel,    '=',  'Value', '', LevelEnum.Garden1],
+      ['',        'Delta', '8bit',  gameState,       '=',  'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit',  gameState,       '=',  'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -580,14 +580,14 @@ set.addAchievement({
   conditions: {
     core: $(
       // Base Drac levels must be untouched
-      ['', 'Mem',   '8bit', baseHealth, '=', 'Value', '', 9],
-      ['', 'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
-      ['', 'Mem',   '8bit', baseForcePower, '=', 'Value', '', 3],
+      ['', 'Mem', '8bit', baseHealth,      '=', 'Value', '', 9],
+      ['', 'Mem', '8bit', baseAttackPower, '=', 'Value', '', 2],
+      ['', 'Mem', '8bit', baseForcePower,  '=', 'Value', '', 3],
 
       // Pop on score screen
-      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Garden2],
-      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['Trigger',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Garden2],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -604,8 +604,8 @@ const greenHeartCollectedInSlot = (toolSlot) => {
   // Slot was empty (or contained another item - immediate switching is possible) and is now Health lvl. 3 (checkpoint hit)
   return [
     ['AndNext', 'Delta', '8bit', toolSlot, '!=', 'Value', '', 0x09],
-    ['AddHits', 'Mem',   '8bit', toolSlot, '=', 'Value', '', 0x09],
-    ['',        'Value', '',     0,        '=', 'Value', '', 1,    1],
+    ['AddHits', 'Mem',   '8bit', toolSlot, '=',  'Value', '', 0x09],
+    ['',        'Value', '',     0,        '=',  'Value', '', 1,    1],
   ];
 };
 
