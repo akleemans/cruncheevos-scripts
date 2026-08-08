@@ -801,7 +801,14 @@ describe('Challenge: Heart of the Clouds', () => {
     expect(result.triggeredFrame).toBe(s.marker('heart-collected'));
   });
 
-  // TODO test: does not pop if only heart picked up without pumpkin destroyed
+  test('does not pop if pumpkin is not destroyed', () => {
+    const s = scenario('clouds1-heart-dropped-picked-up-again');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Challenge: Clone Wars', () => {
@@ -828,7 +835,6 @@ describe('Challenge: Clone Wars', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('decoy-created'));
   });
-
 
   test('does not pop if wrong level', () => {
     const s = scenario('clouds1-decoy');
