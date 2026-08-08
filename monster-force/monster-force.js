@@ -548,6 +548,7 @@ const totalShotsFired = 0x35a8;
 
 // There are multiple barriers which can be passed by using bombs.
 set.addAchievement({
+  id: 629236,
   title: 'You Only Got One Shot',
   description: 'Beat the Garden Level 1 by firing a single shot at most',
   points: 5,
@@ -573,6 +574,7 @@ const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
 
 set.addAchievement({
+  id: 629237,
   title: 'Dracula\'s Favorite',
   description: 'Beat the Garden Level 2 as Drac with initial base stats',
   points: 5,
@@ -754,13 +756,14 @@ set.addAchievement({
 const currentHealth = 0x07f0;
 
 set.addAchievement({
+  id: 629238,
   title: 'Wolfskin',
   description: 'Beat Atlantis Level 1 as Wolfie without healing',
   points: 3,
   conditions: {
     core: $(
       // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
-      ['AndNext', 'Mem',   '8bit', levelTime,     '>=', 'Value', '',     2],
+      ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
       ['AddHits', 'Delta', '8bit', currentHealth, '<', 'Mem',   '8bit', currentHealth],
       // Lock if healing occurred
       ['PauseIf', 'Value', '',     0,             '=', 'Value', '',     1,                    1],
