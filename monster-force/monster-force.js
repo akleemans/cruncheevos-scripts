@@ -813,6 +813,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 629351,
   title: 'Blood Thirst',
   description: 'Destroy at least 50 enemies and pumpkins as Drac in Temple Level 1',
   points: 3,
