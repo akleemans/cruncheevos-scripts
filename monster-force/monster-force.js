@@ -568,6 +568,35 @@ set.addAchievement({
   },
 });
 
+const baseHealth = 0x0850;
+const baseAttackPower = 0x0852;
+const baseForcePower = 0x0853;
+
+set.addAchievement({
+  title: 'Dracula\'s Favorite',
+  description: 'Beat the Garden Level 2 as Drac with initial base stats',
+  points: 5,
+  type: 'missable',
+  conditions: {
+    core: $(
+      // Base Drac levels must be untouched
+      ['', 'Mem',   '8bit', baseHealth, '=', 'Value', '', 9],
+      ['', 'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
+      ['', 'Mem',   '8bit', baseForcePower, '=', 'Value', '', 3],
+
+      // Pop on score screen
+      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Garden2],
+      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
+      ['Trigger',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 
 const clouds1Pumpkin = 0x1884;
 

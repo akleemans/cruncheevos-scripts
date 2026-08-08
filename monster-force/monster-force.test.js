@@ -549,6 +549,27 @@ describe('Challenge: You Only Got One Shot', () => {
   });
 });
 
+describe('Challenge: Dracula\'s Favorite', () => {
+  const cheevo = achievement('Dracula\'s Favorite');
+
+  test('pops when defeating Garden 2 as Drac with initial stats', () => {
+    const s = scenario('garden2-drac-initial-stats');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime/pop if stats were upgraded', () => {
+    const s = scenario('garden2-drac-upgraded-attack-power');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
 
 // describe('Challenge: Divide & Conquer', () => {
 //   const cheevo = achievement('Divide & Conquer');
