@@ -525,6 +525,31 @@ describe('Challenge: Shadow Business', () => {
   });
 });
 
+describe('Challenge: You Only Got One Shot', () => {
+  const cheevo = achievement('You Only Got One Shot');
+
+  test('pops when level finished with only 1 shot fired', () => {
+    const s = scenario('garden1-one-shot');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime/pop when multiple shots fired', () => {
+    const s = scenario('garden1-multiple-shots');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('multiple-shots-fired'))).toBe('active');
+  });
+});
+
+
 // describe('Challenge: Divide & Conquer', () => {
 //   const cheevo = achievement('Divide & Conquer');
 //

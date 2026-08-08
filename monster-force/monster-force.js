@@ -541,6 +541,31 @@ set.addAchievement({
       ...levelSelectReset(),
     ),
   },
+})
+
+
+const totalShotsFired = 0x35a8;
+
+// There are multiple barriers which can be passed by using bombs.
+set.addAchievement({
+  title: 'You Only Got One Shot',
+  description: 'Beat the Garden Level 1 by firing a single shot at most',
+  points: 5,
+  conditions: {
+    core: $(
+      // Total shots fired (=normal + power shots) must be at most 1.
+      ['', 'Mem',   '16bit', totalShotsFired, '<=', 'Value', '', 1],
+      // Pop on score screen
+      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Garden1],
+      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
+      ['Trigger',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
 });
 
 
