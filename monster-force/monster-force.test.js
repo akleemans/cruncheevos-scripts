@@ -752,6 +752,30 @@ describe('Challenge: Energy Saver', () => {
   });
 });
 
+describe('Challenge: Monet\'s Garden', () => {
+  const cheevo = achievement('Monet\'s Garden');
+
+  test('pops when opening door to hidden garden area', () => {
+    const s = scenario('garden-trial-hidden-garden');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('door-opened'));
+  });
+
+  test('does not pop if finished level without visiting hidden garden', () => {
+    const s = scenario('garden-trial-2-switch-activations');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
+
 describe('Challenge: Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 
