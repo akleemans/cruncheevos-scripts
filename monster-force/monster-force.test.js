@@ -571,39 +571,40 @@ describe('Challenge: Dracula\'s Favorite', () => {
   });
 });
 
-// describe('Challenge: Divide & Conquer', () => {
-//   const cheevo = achievement('Divide & Conquer');
-//
-//   test('pops no more than 4 pumpkin heads were active', () => {
-//     const s = scenario('castle3-4-pumpkin-heads');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
-//   });
-//
-//   test('does not pop with more pumpkin heads', () => {
-//     const s = scenario('castle3-5-pumpkin-heads');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//     expect(result.triggered).toBe(false);
-//
-//     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
-//   });
-//
-//   test('does not pop if level finished with cheat', () => {
-//     const s = scenario('castle3-finished-cheat');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//     expect(result.triggered).toBe(false);
-//
-//     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
-//   });
-// });
+describe('Challenge: Divide & Conquer', () => {
+  const cheevo = achievement('Divide & Conquer');
+
+  test('pops if only 4 pumpkin heads are active', () => {
+    const s = scenario('castle3-4-pumpkin-heads');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop with more pumpkin heads', () => {
+    const s = scenario('castle3-5-pumpkin-heads');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-select-before'))).toBe('active');
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('5-pumpkin-heads'))).toBe('paused');
+  });
+
+  test('does not pop if level finished with cheat', () => {
+    const s = scenario('castle3-finished-cheat');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('cheat-used'))).toBe('paused');
+  });
+});
 
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
