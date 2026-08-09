@@ -906,6 +906,31 @@ describe('Challenge: Minimal Force', () => {
   });
 });
 
+describe('Challenge: Power Is All You Need', () => {
+  const cheevo = achievement('Power Is All You Need');
+
+  test('pops when finished Desert 1 without normal shots', () => {
+    const s = scenario('desert1-no-normal-shots');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime anymore if normal shot fired', () => {
+    const s = scenario('desert1-normal-shot-fired');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('normal-shot-fired'))).toBe('active');
+  });
+});
+
 describe('Challenge: Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 

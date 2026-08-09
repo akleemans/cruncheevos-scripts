@@ -863,6 +863,30 @@ set.addAchievement({
   },
 });
 
+const normalShotsFired = 0x085a;
+
+set.addAchievement({
+  title: 'Power Is All You Need',
+  description: 'Beat Desert Level 1 by only firing power shots, no normal shots',
+  points: 10,
+  conditions: {
+    core: $(
+      // No normal shots allowed
+      ['',   'Mem', '8bit', normalShotsFired, '=',  'Value', '', 0],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Desert1],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
