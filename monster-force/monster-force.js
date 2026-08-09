@@ -106,6 +106,7 @@ const maxLevelUnlocked = 0x34df;
 const invincibilityCheat = 0x3598;
 
 const atomsInCurrentLevel = 0x35a4;
+const totalAtomsInBank = 0x07f8;
 const levelTime = 0x359c;
 const characterActive = 0x0878;
 
@@ -1058,7 +1059,35 @@ set.addAchievement({
 });
 // TODO tests: 1. entering level should not pop cheevo (AddHits without ingame-check)
 
-
+// No pause-lock here, doesn't matter if player reached shop via skip-level
+set.addAchievement({
+  title: 'Cloak of Safety',
+  description: 'Acquire the Cloak of Safety, the ultimate defense',
+  points: 3,
+  conditions: {
+    core: $(
+      // Context: Either picked up in game, or bought in shop
+      ['OrNext',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.ShopOptions],
+    ),
+    alt1: $(
+      ['',   'Delta',   '8bit', relicSlot1, '!=', 'Value', '', 0x23],
+      ['',   'Mem',   '8bit', relicSlot1, '=', 'Value', '', 0x23],
+    ),
+    alt2: $(
+      ['',   'Delta',   '8bit', relicSlot2, '!=', 'Value', '', 0x23],
+      ['',   'Mem',   '8bit', relicSlot2, '=', 'Value', '', 0x23],
+    ),
+    alt3: $(
+      ['',   'Delta',   '8bit', relicSlot3, '!=', 'Value', '', 0x23],
+      ['',   'Mem',   '8bit', relicSlot3, '=', 'Value', '', 0x23],
+    ),
+    alt4: $(
+      ['',   'Delta',   '8bit', relicSlot4, '!=', 'Value', '', 0x23],
+      ['',   'Mem',   '8bit', relicSlot4, '=', 'Value', '', 0x23],
+    ),
+  },
+});
 
 const countBadges = (levelIds, tier, amount) => {
   const conditions = [];

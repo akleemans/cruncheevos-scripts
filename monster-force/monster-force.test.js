@@ -1106,6 +1106,26 @@ describe('Challenge: Marksman', () => {
   });
 });
 
+describe('Challenge: Cloak of Safety', () => {
+  const cheevo = achievement('Cloak of Safety');
+
+  test('pops when bought Cloak in shop', () => {
+    const s = scenario('shop-bought-cloak-slot1');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('bought-cloak'));
+  });
+
+  test('pops when bought Cloak in shop in slot 3', () => {
+    const s = scenario('shop-bought-cloak-slot3');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('bought-cloak'));
+  });
+});
+
 describe('Challenge: Silver Lining', () => {
   const cheevo = achievement('Silver Lining');
 
