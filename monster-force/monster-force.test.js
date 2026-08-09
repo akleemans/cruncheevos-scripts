@@ -1081,6 +1081,30 @@ describe('Challenge: Young and Restless', () => {
   });
 });
 
+describe('Challenge: Marksman', () => {
+  const cheevo = achievement('Marksman');
+
+  test('pops when beating Clouds Shadow with 8 shots only', () => {
+    const s = scenario('clouds-shadow-8-shots');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime anymore if too many shots', () => {
+    const s = scenario('clouds-shadow-9-shots');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('9-shots-fired'))).toBe('active');
+  });
+});
 
 describe('Challenge: Silver Lining', () => {
   const cheevo = achievement('Silver Lining');

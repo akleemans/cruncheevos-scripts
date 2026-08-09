@@ -117,6 +117,8 @@ const toolSlot4 = 0x07ff;
 const objectsEnemiesDestroyed = 0x35a0
 const invulnerabilityTimer = 0x07ea;
 
+const totalShotsFired = 0x35a8;
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -546,9 +548,6 @@ set.addAchievement({
   },
 })
 
-
-const totalShotsFired = 0x35a8;
-
 // There are multiple barriers which can be passed by using bombs.
 set.addAchievement({
   id: 629236,
@@ -952,6 +951,28 @@ set.addAchievement({
 
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection()
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Marksman',
+  description: 'Beat the 4 Clouds Shadow Mini-bosses with a total of 8 shots or less',
+  points: 5,
+  conditions: {
+    core: $(
+      // Require total shots to be at max 8
+      ['',   'Mem',   '8bit', totalShotsFired, '<=', 'Value', '', 8],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsShadow],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
