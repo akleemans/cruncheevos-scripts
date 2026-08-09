@@ -931,6 +931,29 @@ describe('Challenge: Power Is All You Need', () => {
   });
 });
 
+describe('Challenge: Relicless', () => {
+  const cheevo = achievement('Relicless');
+
+  test('pops when beating Desert Shadow with no relics', () => {
+    const s = scenario('desert-shadow-no-relics');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime or pop if carrying relics', () => {
+    const s = scenario('desert-shadow-with-relics');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+});
+
 describe('Challenge: Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 

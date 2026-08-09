@@ -887,6 +887,36 @@ set.addAchievement({
   },
 });
 
+const relicSlot1 = 0x0800;
+const relicSlot2 = 0x0801;
+const relicSlot3 = 0x0802;
+const relicSlot4 = 0x0803;
+
+set.addAchievement({
+  title: 'Relicless',
+  description: 'Beat the Desert Shadow without carrying any relics at any time',
+  points: 5,
+  conditions: {
+    core: $(
+      // Lock if any relic slot not empty
+      ['OrNext',   'Mem',   '8bit', relicSlot1, '!=', 'Value', '', 0],
+      ['OrNext',   'Mem',   '8bit', relicSlot2, '!=', 'Value', '', 0],
+      ['OrNext',   'Mem',   '8bit', relicSlot3, '!=', 'Value', '', 0],
+      ['PauseIf',   'Mem',   '8bit', relicSlot4, '!=', 'Value', '', 0, 1],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertShadow],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const playerPositionX = 0x078c;
 const playerPositionY = 0x0790;
 
