@@ -820,7 +820,7 @@ set.addAchievement({
   conditions: {
     core: $(
       // Pop if 50 or more enemies & pumpkins destroyed
-      ['',         'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
+      ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
       ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
       // Context
@@ -928,6 +928,7 @@ const addHitsPerAddress = (addresses) => {
   return result;
 };
 
+// TODO doesnt work yet if bomb is used
 set.addAchievement({
   id: 626069,
   title: 'Halloween\'s Over',
@@ -939,7 +940,7 @@ set.addAchievement({
       // After that, it might become 0xfffa, so we can not just use AddSource = 0.
       // Instead, we add a hit for every pumpkin destroyed,
       ...addHitsPerAddress(atlantis2pumpkinAddresses),
-      ['Measured%', 'Value', '',     0,            '=', 'Value', '', 1,                    atlantis2pumpkinAddresses.length],
+      ['Measured%', 'Value', '', 0, '=', 'Value', '', 1, atlantis2pumpkinAddresses.length],
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],

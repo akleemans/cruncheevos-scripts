@@ -606,6 +606,20 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
+describe('Challenge: Halloween\'s Over', () => {
+  const cheevo = achievement('Halloween\'s Over');
+
+  test('pops if all pumpkins destroyed', () => {
+    const s = scenario('atlantis2-all-pumpkins-destroyed');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('last-pumpkin-destroyed'));
+  });
+});
+
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
 
