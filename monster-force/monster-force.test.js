@@ -1126,6 +1126,20 @@ describe('Challenge: Cloak of Safety', () => {
   });
 });
 
+describe('Challenge: Igor\'s Favorite', () => {
+  const cheevo = achievement('Igor\'s Favorite');
+
+  test('pops when 50k Atoms reached', () => {
+    const s = scenario('50k-atoms-reached');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('50k-atoms-reached'));
+  });
+});
+
 describe('Challenge: Silver Lining', () => {
   const cheevo = achievement('Silver Lining');
 

@@ -846,9 +846,9 @@ set.addAchievement({
   conditions: {
     core: $(
       // Total health/attack/force must be <= 15
-      ['',   'Mem', '8bit', totalMaxHealth, '<=',  'Value', '', 15],
-      ['',   'Mem', '8bit', totalAttackPower, '<=',  'Value', '', 15],
-      ['',   'Mem', '8bit', totalForcePower, '<=',  'Value', '', 15],
+      ['', 'Mem', '8bit', totalMaxHealth,   '<=', 'Value', '', 15],
+      ['', 'Mem', '8bit', totalAttackPower, '<=', 'Value', '', 15],
+      ['', 'Mem', '8bit', totalForcePower,  '<=', 'Value', '', 15],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple2],
@@ -899,10 +899,10 @@ set.addAchievement({
   conditions: {
     core: $(
       // Lock if any relic slot not empty
-      ['OrNext',   'Mem',   '8bit', relicSlot1, '!=', 'Value', '', 0],
-      ['OrNext',   'Mem',   '8bit', relicSlot2, '!=', 'Value', '', 0],
-      ['OrNext',   'Mem',   '8bit', relicSlot3, '!=', 'Value', '', 0],
-      ['PauseIf',   'Mem',   '8bit', relicSlot4, '!=', 'Value', '', 0, 1],
+      ['OrNext',  'Mem', '8bit', relicSlot1, '!=', 'Value', '', 0],
+      ['OrNext',  'Mem', '8bit', relicSlot2, '!=', 'Value', '', 0],
+      ['OrNext',  'Mem', '8bit', relicSlot3, '!=', 'Value', '', 0],
+      ['PauseIf', 'Mem', '8bit', relicSlot4, '!=', 'Value', '', 0, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertShadow],
@@ -1067,24 +1067,44 @@ set.addAchievement({
   conditions: {
     core: $(
       // Context: Either picked up in game, or bought in shop
-      ['OrNext',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.ShopOptions],
+      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
     ),
     alt1: $(
-      ['',   'Delta',   '8bit', relicSlot1, '!=', 'Value', '', 0x23],
-      ['',   'Mem',   '8bit', relicSlot1, '=', 'Value', '', 0x23],
+      ['', 'Delta', '8bit', relicSlot1, '!=', 'Value', '', 0x23],
+      ['', 'Mem',   '8bit', relicSlot1, '=',  'Value', '', 0x23],
     ),
     alt2: $(
-      ['',   'Delta',   '8bit', relicSlot2, '!=', 'Value', '', 0x23],
-      ['',   'Mem',   '8bit', relicSlot2, '=', 'Value', '', 0x23],
+      ['', 'Delta', '8bit', relicSlot2, '!=', 'Value', '', 0x23],
+      ['', 'Mem',   '8bit', relicSlot2, '=',  'Value', '', 0x23],
     ),
     alt3: $(
-      ['',   'Delta',   '8bit', relicSlot3, '!=', 'Value', '', 0x23],
-      ['',   'Mem',   '8bit', relicSlot3, '=', 'Value', '', 0x23],
+      ['', 'Delta', '8bit', relicSlot3, '!=', 'Value', '', 0x23],
+      ['', 'Mem',   '8bit', relicSlot3, '=',  'Value', '', 0x23],
     ),
     alt4: $(
-      ['',   'Delta',   '8bit', relicSlot4, '!=', 'Value', '', 0x23],
-      ['',   'Mem',   '8bit', relicSlot4, '=', 'Value', '', 0x23],
+      ['', 'Delta', '8bit', relicSlot4, '!=', 'Value', '', 0x23],
+      ['', 'Mem',   '8bit', relicSlot4, '=',  'Value', '', 0x23],
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Igor\'s Favorite',
+  description: 'Hold a bank total of 50k Atom',
+  points: 5,
+  conditions: {
+    core: $(
+      // Pop if total atoms reached 50k
+      ['', 'Delta', '32bit', totalAtomsInBank, '<',  'Value', '', 50000],
+      ['', 'Mem',   '32bit', totalAtomsInBank, '>=', 'Value', '', 50000],
+
+      // Context - total number of atoms is updated on score screen
+      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
     ),
   },
 });
