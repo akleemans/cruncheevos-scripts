@@ -832,6 +832,35 @@ set.addAchievement({
       ...levelSelectReset(),
     ),
   },
+})
+
+const totalMaxHealth = 0x0830;
+const totalAttackPower = 0x0832;
+const totalForcePower = 0x0834;
+
+set.addAchievement({
+  title: 'Minimal Force',
+  description: 'Beat the Temple Level 2 with all stats including relics below 15%/HP',
+  points: 5,
+  type: 'missable',
+  conditions: {
+    core: $(
+      // Total health/attack/force must be <= 15
+      ['',   'Mem', '8bit', totalMaxHealth, '<=',  'Value', '', 15],
+      ['',   'Mem', '8bit', totalAttackPower, '<=',  'Value', '', 15],
+      ['',   'Mem', '8bit', totalForcePower, '<=',  'Value', '', 15],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple2],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
 });
 
 const playerPositionX = 0x078c;

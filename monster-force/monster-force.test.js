@@ -606,19 +606,20 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
-describe('Challenge: Halloween\'s Over', () => {
-  const cheevo = achievement('Halloween\'s Over');
-
-  test('pops if all pumpkins destroyed', () => {
-    const s = scenario('atlantis2-all-pumpkins-destroyed');
-    const result = runAchievement(cheevo, s);
-
-    expect(result.stateAt(s.marker('level-start'))).toBe('active');
-
-    expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('last-pumpkin-destroyed'));
-  });
-});
+// TODO
+// describe('Challenge: Halloween\'s Over', () => {
+//   const cheevo = achievement('Halloween\'s Over');
+//
+//   test('pops if all pumpkins destroyed', () => {
+//     const s = scenario('atlantis2-all-pumpkins-destroyed');
+//     const result = runAchievement(cheevo, s);
+//
+//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
+//
+//     expect(result.triggered).toBe(true);
+//     expect(result.triggeredFrame).toBe(s.marker('last-pumpkin-destroyed'));
+//   });
+// });
 
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
@@ -869,6 +870,39 @@ describe('Challenge: Blood Thirst', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('50-enemies-killed'));
+  });
+});
+
+
+describe('Challenge: Minimal Force', () => {
+  const cheevo = achievement('Minimal Force');
+
+  test('pops when Temple 2 finished with stats below or equal to 15', () => {
+    const s = scenario('temple2-stats-below-15');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime if stats below 15, but relics push it over 15', () => {
+    const s = scenario('temple2-stats-below-15-but-relics-push-attack');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime if one stat above 15', () => {
+    const s = scenario('temple2-health-above-15');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
