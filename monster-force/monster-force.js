@@ -120,6 +120,10 @@ const invulnerabilityTimer = 0x07ea;
 
 const totalShotsFired = 0x35a8;
 
+const baseHealth = 0x0850;
+const baseAttackPower = 0x0852;
+const baseForcePower = 0x0853;
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -571,10 +575,6 @@ set.addAchievement({
     ),
   },
 });
-
-const baseHealth = 0x0850;
-const baseAttackPower = 0x0852;
-const baseForcePower = 0x0853;
 
 set.addAchievement({
   id: 629237,
@@ -1085,6 +1085,66 @@ set.addAchievement({
     alt4: $(
       ['', 'Delta', '8bit', relicSlot4, '!=', 'Value', '', 0x23],
       ['', 'Mem',   '8bit', relicSlot4, '=',  'Value', '', 0x23],
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Using the Force',
+  description: 'Reach a base Force Level stat of at least 20% without Relics',
+  points: 5,
+  conditions: {
+    core: $(
+      // Pop if base force level was increased to >= 20%
+      ['', 'Delta', '8bit', baseForcePower, '<',  'Value', '', 20],
+      ['', 'Mem',   '8bit', baseForcePower, '>=', 'Value', '', 20],
+
+      // Context - upgrade is always applied in-game
+      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'This Isn\'t Even My Final Form',
+  description: 'Reach an base Attack Level stat of at least 30% without Relics',
+  points: 5,
+  conditions: {
+    core: $(
+      // Pop if base attack level was increased to >= 30%
+      ['', 'Delta', '8bit', baseAttackPower, '<',  'Value', '', 30],
+      ['', 'Mem',   '8bit', baseAttackPower, '>=', 'Value', '', 30],
+
+      // Context - upgrade is always applied in-game
+      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'A Pumpkin a Day',
+  description: 'Increase your base health stat to at least 40 HP without Relics',
+  points: 5,
+  conditions: {
+    core: $(
+      // Pop if base force level was increased to >= 40%
+      ['', 'Delta', '8bit', baseHealth, '<',  'Value', '', 40],
+      ['', 'Mem',   '8bit', baseHealth, '>=', 'Value', '', 40],
+
+      // Context - upgrade is always applied in-game
+      ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
     ),
   },
 });

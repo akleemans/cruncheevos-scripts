@@ -1140,6 +1140,48 @@ describe('Challenge: Igor\'s Favorite', () => {
   });
 });
 
+describe('Challenge: Using the Force', () => {
+  const cheevo = achievement('Using the Force');
+
+  test('pops when Force level of 20% is reached', () => {
+    const s = scenario('upgrade-stats');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('force-level-upgraded'));
+  });
+});
+
+describe('Challenge: This Isn\'t Even My Final Form', () => {
+  const cheevo = achievement('This Isn\'t Even My Final Form');
+
+  test('pops when Attack level of 30% is reached', () => {
+    const s = scenario('upgrade-stats');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('attack-level-upgraded'));
+  });
+});
+
+describe('Challenge: A Pumpkin a Day', () => {
+  const cheevo = achievement('A Pumpkin a Day');
+
+  test('pops when Health of 40 HP is reached', () => {
+    const s = scenario('upgrade-stats');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('health-upgraded'));
+  });
+});
+
 describe('Challenge: Silver Lining', () => {
   const cheevo = achievement('Silver Lining');
 
