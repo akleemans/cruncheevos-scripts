@@ -124,6 +124,9 @@ const baseHealth = 0x0850;
 const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
 
+const relicAttackBonus = 0x0857;
+const relicForceBonus = 0x0858;
+
 const relicSlot1 = 0x0800;
 const relicSlot2 = 0x0801;
 const relicSlot3 = 0x0802;
@@ -1057,7 +1060,30 @@ set.addAchievement({
     ),
   },
 });
-// TODO tests: 1. entering level should not pop cheevo (AddHits without ingame-check)
+
+set.addAchievement({
+  title: 'Relics to the Rescue',
+  description: 'Use Relics to improve your stats by either +20% Attack Power or +40% Force Power',
+  points: 3,
+  conditions: {
+    core: $(
+      // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
+      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+    ),
+    alt1: $(
+      // Attack power
+      ['', 'Delta', '8bit', relicAttackBonus, '<',  'Value', '', 20],
+      ['', 'Mem',   '8bit', relicAttackBonus, '>=', 'Value', '', 20],
+    ),
+    alt2: $(
+      // Force power
+      ['', 'Delta', '8bit', relicForceBonus, '<',  'Value', '', 40],
+      ['', 'Mem',   '8bit', relicForceBonus, '>=', 'Value', '', 40],
+    ),
+  },
+});
+
 
 const getAllGreenConditions = () => {
   const conditions =  {

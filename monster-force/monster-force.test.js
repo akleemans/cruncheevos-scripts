@@ -1106,6 +1106,39 @@ describe('Challenge: Marksman', () => {
   });
 });
 
+describe('Challenge: Relics to the Rescue', () => {
+  const cheevo = achievement('Relics to the Rescue');
+
+  test('pops when having attack bonus of +20%', () => {
+    const s = scenario('relics-attack-bonus');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('relic-collected'));
+  });
+
+  test('pops when having force bonus of +40%', () => {
+    const s = scenario('relics-force-bonus');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('relic-collected'));
+  });
+
+  test('does not pop if bonus not high enough', () => {
+    const s = scenario('relics-not-enough-bonus');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
+
 describe('Challenge: All Green', () => {
   const cheevo = achievement('All Green');
 
