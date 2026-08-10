@@ -606,7 +606,7 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
-// TODO
+// TODO - does not work yet, especially if some are destroyed with bomb
 // describe('Challenge: Halloween\'s Over', () => {
 //   const cheevo = achievement('Halloween\'s Over');
 //
@@ -1103,6 +1103,50 @@ describe('Challenge: Marksman', () => {
     expect(result.triggered).toBe(false);
 
     expect(result.stateAt(s.marker('9-shots-fired'))).toBe('active');
+  });
+});
+
+describe('Challenge: All Green', () => {
+  const cheevo = achievement('All Green');
+
+  test('pops when first slot is filled with 4th green relic', () => {
+    const s = scenario('all-green-relics-1st-slot');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot1'));
+  });
+
+  test('pops when 2nd slot is filled green relic', () => {
+    const s = scenario('all-green-relics-2nd-slot');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot2'));
+  });
+
+  test('pops when 3rd slot is filled green relic', () => {
+    const s = scenario('all-green-relics-3rd-slot');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot3'));
+  });
+
+  test('pops when 4th slot is filled green relic', () => {
+    const s = scenario('all-green-relics-4th-slot');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot4'));
   });
 });
 

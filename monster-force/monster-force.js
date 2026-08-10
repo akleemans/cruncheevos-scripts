@@ -124,6 +124,12 @@ const baseHealth = 0x0850;
 const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
 
+const relicSlot1 = 0x0800;
+const relicSlot2 = 0x0801;
+const relicSlot3 = 0x0802;
+const relicSlot4 = 0x0803;
+const relicSlots = [relicSlot1, relicSlot2, relicSlot3, relicSlot4];
+
 /* ========= PROGRESSION ========= */
 
 const progression = (levelId) => {
@@ -617,7 +623,6 @@ const greenHeartCollectedInSlot = (toolSlot) => {
 // As it is possible to pick up heart before the pumpkin is marked as destroyed,
 // we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
 // This way the cheevo will pop regardless of what happened first.
-// TODO check if there's no other green heart to collect in Clouds1
 set.addAchievement({
   id: 626068,
   title: 'Heart of the Clouds',
@@ -887,11 +892,6 @@ set.addAchievement({
   },
 });
 
-const relicSlot1 = 0x0800;
-const relicSlot2 = 0x0801;
-const relicSlot3 = 0x0802;
-const relicSlot4 = 0x0803;
-
 set.addAchievement({
   title: 'Relicless',
   description: 'Beat the Desert Shadow without carrying any relics at any time',
@@ -1059,6 +1059,53 @@ set.addAchievement({
 });
 // TODO tests: 1. entering level should not pop cheevo (AddHits without ingame-check)
 
+const getAllGreenConditions = () => {
+  const conditions =  {
+    core: $(
+      // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
+      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+    )
+  };
+  let count = 1;
+  const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
+
+  for (let currentSlot of relicSlots) {
+    for (let currentRelic of greenRelics) {
+      // currentRelic was picked up in currentSlot
+      const arr = [
+        ['', 'Delta', '8bit', currentSlot, '!=', 'Value', '', currentRelic],
+        ['', 'Mem',   '8bit', currentSlot, '=',  'Value', '', currentRelic],
+      ];
+
+      // Other slots can have any green relic
+      const otherSlots = relicSlots.filter(s => s !== currentSlot);
+      for (let otherSlot of otherSlots) {
+        arr.push(...[
+          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[0]],
+          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[1]],
+          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[2]],
+          ['', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[3]],
+        ]);
+      }
+
+      conditions['alt' + count] = $(...arr);
+      count += 1;
+    }
+  }
+
+  return conditions;
+};
+
+// 4x4 Alts: 4 slots where last green relic can be picked up (Mem/Delta check), with 4 possible different green relics
+set.addAchievement({
+  title: 'All Green',
+  description: 'Have a full set of 4 maxed-out green relics',
+  points: 10,
+  conditions: getAllGreenConditions()
+});
+
+
 // No pause-lock here, doesn't matter if player reached shop via skip-level
 set.addAchievement({
   title: 'Cloak of Safety',
@@ -1066,7 +1113,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Context: Either picked up in game, or bought in shop
+      // Context: Either picked up in game (via "???" Amulet drop), or bought in shop
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
     ),
