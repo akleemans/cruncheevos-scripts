@@ -1157,6 +1157,40 @@ describe('Challenge: Second Life', () => {
   });
 });
 
+describe('Challenge: Self Improvement', () => {
+  const cheevo = achievement('Self Improvement');
+
+  test('pops when consuming Attack Scroll', () => {
+    const s = scenario('scroll-consumed-attack');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('scroll-consumed'));
+  });
+
+  test('pops when consuming Force Scroll', () => {
+    const s = scenario('scroll-consumed-force');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('scroll-consumed'));
+  });
+
+  test('pops when consuming Health Scroll', () => {
+    const s = scenario('scroll-consumed-health');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('scroll-consumed'));
+  });
+});
+
 
 describe('Challenge: Relics to the Rescue', () => {
   const cheevo = achievement('Relics to the Rescue');

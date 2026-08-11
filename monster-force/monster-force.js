@@ -125,6 +125,8 @@ const baseHealth = 0x0850;
 const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
 
+const relicHealthBonus = 0x0855;
+const relicLuckBonus = 0x0856;
 const relicAttackBonus = 0x0857;
 const relicForceBonus = 0x0858;
 
@@ -1121,6 +1123,61 @@ set.addAchievement({
 //     ),
 //     alt1: $(
 //       ...levelSelectReset(),
+//     ),
+//   },
+// });
+
+set.addAchievement({
+  title: 'Self Improvement',
+  description: 'Consume a stat-increasing Scroll',
+  points: 2,
+  conditions: {
+    core: $(
+      // Context: Must be in-game
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+    ),
+    alt1: $(
+      // Attack power: +2%
+      ['SubSource', 'Delta', '8bit', baseAttackPower],
+      ['', 'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
+    ),
+    alt2: $(
+      // Force power: +4%
+      ['SubSource', 'Delta', '8bit', baseForcePower],
+      ['', 'Mem',   '8bit', baseForcePower, '=', 'Value', '', 4],
+    ),
+    alt3: $(
+      // Health: +2 HP
+      ['SubSource', 'Delta', '8bit', baseHealth],
+      ['', 'Mem',   '8bit', baseHealth, '=', 'Value', '', 2],
+    )
+  },
+});
+
+
+// // TODO verify relics can be picked up in-game
+// set.addAchievement({
+//   title: 'Level Up',
+//   description: 'Get your first higher-level relic',
+//   points: 2,
+//   conditions: {
+//     core: $(
+//       // TODO
+//       // // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
+//       // ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+//       // ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+//     ),
+//     alt1: $(
+//       // TODO
+//       // Relic slot 1
+//       ['', 'Delta', '8bit', relicSlot1, '=',  'Value', '', 0],
+//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
+//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
+//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
+//       ['', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
+//     ),
+//     alt2: $(
+//       // TODO
 //     ),
 //   },
 // });
