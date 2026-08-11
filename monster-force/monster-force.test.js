@@ -606,20 +606,29 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
-// TODO - does not work yet, especially if some are destroyed with bomb
-// describe('Challenge: Halloween\'s Over', () => {
-//   const cheevo = achievement('Halloween\'s Over');
-//
-//   test('pops if all pumpkins destroyed', () => {
-//     const s = scenario('atlantis2-all-pumpkins-destroyed');
-//     const result = runAchievement(cheevo, s);
-//
-//     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-//
-//     expect(result.triggered).toBe(true);
-//     expect(result.triggeredFrame).toBe(s.marker('last-pumpkin-destroyed'));
-//   });
-// });
+describe('Challenge: Halloween\'s Over', () => {
+  const cheevo = achievement('Halloween\'s Over');
+
+  test('pops if all pumpkins destroyed by shooting', () => {
+    const s = scenario('atlantis2-all-pumpkins-destroyed-by-shooting');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('70th-pumpkin-destroyed'));
+  });
+
+  test('does not pop if pumpkins destroyed but bomb was used', () => {
+    const s = scenario('atlantis2-all-pumpkins-destroyed-bomb-used');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('bomb-used'))).toBe('reset');
+  });
+});
 
 describe('Challenge: Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
@@ -906,6 +915,42 @@ describe('Challenge: Minimal Force', () => {
   });
 });
 
+describe('Challenge: Here Be Dragons', () => {
+  const cheevo = achievement('Here Be Dragons');
+
+  test('pops when defeating Temple Dragon Boss', () => {
+    const s = scenario('temple-dragon-shadow-defeated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime/pop when damage taken', () => {
+    const s = scenario('temple-dragon-shadow-damage');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('damage-taken'))).toBe('paused');
+  });
+
+  test('does not prime/pop when invincibility used', () => {
+    const s = scenario('temple-dragon-shadow-invincibility');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('invincibility-enabled'))).toBe('paused');
+  });
+});
+
 describe('Challenge: Power Is All You Need', () => {
   const cheevo = achievement('Power Is All You Need');
 
@@ -928,6 +973,29 @@ describe('Challenge: Power Is All You Need', () => {
     expect(result.triggered).toBe(false);
 
     expect(result.stateAt(s.marker('normal-shot-fired'))).toBe('active');
+  });
+});
+
+describe('Challenge: Pumpkin Arrow', () => {
+  const cheevo = achievement('Pumpkin Arrow');
+
+  test('pops when hidden area unlocked', () => {
+    const s = scenario('desert2-hidden-area');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('switch-activated'));
+  });
+
+  test('does not pop if level finished without visiting hidden area', () => {
+    const s = scenario('desert2-finished-without-hidden-area');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
@@ -1120,6 +1188,30 @@ describe('Challenge: Big Drops', () => {
   });
 });
 
+describe('Challenge: Under the Watch', () => {
+  const cheevo = achievement('Under the Watch');
+
+  test('pops when destroying pumpkins', () => {
+    const s = scenario('factory2-pumpkins-destroyed');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
+  test('pops when destroying pumpkins, even if running away', () => {
+    const s = scenario('factory2-pumpkins-destroyed-running');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+});
+
 describe('Challenge: Second Life', () => {
   const cheevo = achievement('Second Life');
 
@@ -1154,6 +1246,36 @@ describe('Challenge: Second Life', () => {
 
     expect(result.stateAt(s.marker('reanimator-used'))).toBe('primed');
     expect(result.stateAt(s.marker('game-over-screen'))).toBe('active');
+  });
+});
+
+describe('Challenge: Worth the Money', () => {
+  const cheevo = achievement('Worth the Money');
+
+  test('pops when finishing with 25k reached in Trial', () => {
+    const s = scenario('desert-trial-15k-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if level type is not Trial', () => {
+    const s = scenario('factory1-collected-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop if Trial, but not enough Atoms collected', () => {
+    const s = scenario('garden-trial-2-switch-activations');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 

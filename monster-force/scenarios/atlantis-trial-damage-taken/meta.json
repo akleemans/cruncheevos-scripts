@@ -162,12 +162,12 @@
     {
       "address": "0x0852",
       "size": "u8",
-      "label": "Attack level"
+      "label": "Base attack level"
     },
     {
       "address": "0x0853",
       "size": "u8",
-      "label": "Force level"
+      "label": "Base force level"
     },
     {
       "address": "0x0855",
@@ -567,7 +567,7 @@
     {
       "address": "0x197c",
       "size": "u16",
-      "label": "Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4"
+      "label": "Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: pumpkin in corridor 7"
     },
     {
       "address": "0x1980",

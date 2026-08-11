@@ -20,6 +20,7 @@ const PlayerStateEnum = {
   Hover: 0x04,
   BombArmed: 0x05,
   Teleporting: 0x0c,
+  LevelFinishedAnimation: 0x0d,
   Dying: 0x0e
 };
 
@@ -57,7 +58,7 @@ const LevelEnum = {
   Temple1: 0x10,
   Temple2: 0x11,
   TempleTrial: 0x12,
-  TempleShadow: 0x13,
+  TempleDragonShadow: 0x13,
   Desert1: 0x14,
   Desert2: 0x15,
   DesertTrial: 0x16,
@@ -94,7 +95,7 @@ const timeTrialLevels = [
 // 13 boss levels (8 + 5 boss levels in Castle)
 const bossLevels = [
   LevelEnum.CemeteryShadow, LevelEnum.VillageShadow, LevelEnum.GardenShadow, LevelEnum.AtlantisShadow,
-  LevelEnum.TempleShadow, LevelEnum.DesertShadow, LevelEnum.CloudsShadow, LevelEnum.FactoryShadow,
+  LevelEnum.TempleDragonShadow, LevelEnum.DesertShadow, LevelEnum.CloudsShadow, LevelEnum.FactoryShadow,
   LevelEnum.Castle1, LevelEnum.Castle2, LevelEnum.Castle3, LevelEnum.Castle4,
   LevelEnum.CastleSergeantSmash,
 ];
@@ -125,8 +126,8 @@ const baseHealth = 0x0850;
 const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
 
-const relicHealthBonus = 0x0855;
-const relicLuckBonus = 0x0856;
+// const relicHealthBonus = 0x0855;
+// const relicLuckBonus = 0x0856;
 const relicAttackBonus = 0x0857;
 const relicForceBonus = 0x0858;
 
@@ -277,7 +278,7 @@ set.addAchievement({
   type: 'progression',
   conditions: {
     core: $(
-      ...progression(LevelEnum.TempleShadow),
+      ...progression(LevelEnum.TempleDragonShadow),
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -874,6 +875,34 @@ set.addAchievement({
   },
 });
 
+const invincibilityTimer = 0x07ea;
+
+set.addAchievement({
+  title: 'Here Be Dragons',
+  description: 'Defeat the Dragon Shadow as Frank without taking damage, no invincibility allowed',
+  points: 10,
+  conditions: {
+    core: $(
+      // Lock on invincibility timer - this handles taking damage and also invincibility
+      ['AndNext', 'Mem', '8bit',  playerState,        '<',  'Value', '', PlayerStateEnum.LevelFinishedAnimation],
+      ['PauseIf', 'Mem', '16bit', invincibilityTimer, '!=', 'Value', '', 0,                                      1],
+
+      // Character must be Frank
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Frank],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.TempleDragonShadow],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const normalShotsFired = 0x085a;
 
 set.addAchievement({
@@ -891,6 +920,29 @@ set.addAchievement({
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+const hiddenPumpkinSwitch = 0x3501;
+
+set.addAchievement({
+  title: 'Pumpkin Arrow',
+  description: 'Follow the pumpkin arrow and unlock the hidden bounty area in Desert Level 2',
+  points: 3,
+  conditions: {
+    core: $(
+      // Activating the switch will grant access to hidden area
+      ['', 'Delta', '8bit', hiddenPumpkinSwitch, '=', 'Value', '', 0],
+      ['', 'Mem',   '8bit', hiddenPumpkinSwitch, '=', 'Value', '', 1],
+
+      // Pop on score screen
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Desert2],
+      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1008,6 +1060,38 @@ set.addAchievement({
   },
 });
 
+const factory2Pumpkin1 = 0x1958;
+const factory2Pumpkin2 = 0x195c;
+const factory2Pumpkin3 = 0x1978;
+const factory2Pumpkin4 = 0x197c;
+
+set.addAchievement({
+  title: 'Under the Watch',
+  description: 'Destroy the 4 pumpkins guarded by the scarecrow in Factory Level 2',
+  points: 2,
+  conditions: {
+    core: $(
+      // Can be checkd with Delta/Mem because all pumpkins are in same area (opposed to Halloween's Over)
+      ['AddSource', 'Delta', '16bit', factory2Pumpkin1],
+      ['AddSource', 'Delta', '16bit', factory2Pumpkin2],
+      ['AddSource', 'Delta', '16bit', factory2Pumpkin3],
+      ['',          'Delta', '16bit', factory2Pumpkin4, '>', 'Value', '', 0],
+      ['AddSource', 'Mem',   '16bit', factory2Pumpkin1],
+      ['AddSource', 'Mem',   '16bit', factory2Pumpkin2],
+      ['AddSource', 'Mem',   '16bit', factory2Pumpkin3],
+      ['',          'Mem',   '16bit', factory2Pumpkin4, '=', 'Value', '', 0],
+
+      // Context
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory2],
+      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const liveObjectCount = 0x3544;
 
 set.addAchievement({
@@ -1047,32 +1131,40 @@ const atlantis2pumpkinAddresses = [
   0x193c, 0x1940, 0x1944, 0x1948, 0x194c, 0x1950, 0x1954, 0x1958, 0x195c,
   0x1964, 0x1968, 0x196c, 0x1970, 0x1980, 0x1984, 0x1988, 0x1990, 0x199c,
   0x19a0, 0x19a8, 0x19ac, 0x1a00, 0x1a30, 0x1a34, 0x1a38, 0x1a40, 0x1a44,
-  0x1a48,
+  0x1a48, 0x198c, 0x197c
 ];
 
 const addHitsPerAddress = (addresses) => {
   const result = [];
   for (let address of addresses) {
-    result.push(['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],);
-    result.push(['AndNext', 'Delta', '16bit', address, '>', 'Value', '', 0]);
+    // In-Game check is needed, else a lot of hits are added on level entry / level object load
+    result.push(['AndNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame]);
+    // Narrow to 1-3, pumpkins will always be in this range
+    result.push(['AndNext', 'Delta', '16bit', address, '>=', 'Value', '', 1]);
+    result.push(['AndNext', 'Delta', '16bit', address, '<=', 'Value', '', 3]);
     result.push(['AddHits', 'Mem', '16bit', address, '=', 'Value', '', 0]);
   }
   return result;
 };
 
-// TODO doesnt work yet if bomb is used
+// There are a few pumpkins which can be so far away that they are off-screen (but will still be destroyed on shooting).
+// Those are not required for the cheevo, it is enough to destroy 70 total out of 75
 set.addAchievement({
   id: 626069,
   title: 'Halloween\'s Over',
-  description: 'Find and destroy all pumpkins in Atlantis Level 2',
+  description: 'Find and destroy 70 or more pumpkins in Atlantis Level 2 without using bombs',
   points: 5,
   conditions: {
     core: $(
-      // We have to use AddHits here, because only on destruction the level object type will go to 0x0000 (from 1, 2 or 3).
+      // We have to use AddHits here, because only on destruction the level object type will go to 0x0000 (from 1, 2 or 3 - depending on pumpkin type).
       // After that, it might become 0xfffa, so we can not just use AddSource = 0.
-      // Instead, we add a hit for every pumpkin destroyed,
+      // Instead, we add a hit for every pumpkin at the moment it is destroyed.
       ...addHitsPerAddress(atlantis2pumpkinAddresses),
-      ['Measured%', 'Value', '', 0, '=', 'Value', '', 1, atlantis2pumpkinAddresses.length],
+      ['Measured%',  'Value', '',     0,            '=', 'Value', '', 1,                   70],
+      ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
+
+      // Reset Hits (also for Measured% UX)
+      ['ResetIf', 'Mem', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.BombArmed],
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
@@ -1108,24 +1200,37 @@ set.addAchievement({
   },
 });
 
-// set.addAchievement({
-//   title: 'Worth the Money',
-//   description: 'Collect 15,000 Atoms in any Trial in a single run',
-//   points: 5,
-//   conditions: {
-//     core: $(
-//       // TODO
-//       // Pop on score screen of any level
-//       ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-//       ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
-//       ...invincibilityCheatProtection(),
-//       ...skipLevelCheatProtection(),
-//     ),
-//     alt1: $(
-//       ...levelSelectReset(),
-//     ),
-//   },
-// });
+// No Measured here, as it would show up always in every Trial
+set.addAchievement({
+  title: 'Worth the Money',
+  description: 'Collect 25,000 Atoms in any Trial in a single run and finish it',
+  points: 5,
+  conditions: {
+    core: $(
+      // 25k Atoms collected
+      ['', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 25000],
+
+      // Level must be any Trial
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.AtlantisTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.TempleTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertTrial],
+      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
+      ['',       'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.FactoryTrial],
+
+      // Pop on score screen
+      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 set.addAchievement({
   title: 'Self Improvement',
@@ -1139,17 +1244,17 @@ set.addAchievement({
     alt1: $(
       // Attack power: +2%
       ['SubSource', 'Delta', '8bit', baseAttackPower],
-      ['', 'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
+      ['',          'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
     ),
     alt2: $(
       // Force power: +4%
       ['SubSource', 'Delta', '8bit', baseForcePower],
-      ['', 'Mem',   '8bit', baseForcePower, '=', 'Value', '', 4],
+      ['',          'Mem',   '8bit', baseForcePower, '=', 'Value', '', 4],
     ),
     alt3: $(
       // Health: +2 HP
       ['SubSource', 'Delta', '8bit', baseHealth],
-      ['', 'Mem',   '8bit', baseHealth, '=', 'Value', '', 2],
+      ['',          'Mem',   '8bit', baseHealth, '=', 'Value', '', 2],
     )
   },
 });

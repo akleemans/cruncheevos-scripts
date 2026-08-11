@@ -146,12 +146,12 @@
     {
       "address": "0x0852",
       "size": "u8",
-      "label": "Attack level"
+      "label": "Base attack level"
     },
     {
       "address": "0x0853",
       "size": "u8",
-      "label": "Force level"
+      "label": "Base force level"
     },
     {
       "address": "0x0855",
