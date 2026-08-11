@@ -851,6 +851,7 @@ const totalAttackPower = 0x0832;
 const totalForcePower = 0x0834;
 
 set.addAchievement({
+  id: 630022,
   title: 'Minimal Force',
   description: 'Beat the Temple Level 2 with all stats including relics below 15%/HP',
   points: 5,
@@ -878,6 +879,7 @@ set.addAchievement({
 const invincibilityTimer = 0x07ea;
 
 set.addAchievement({
+  id: 630023,
   title: 'Here Be Dragons',
   description: 'Defeat the Dragon Shadow as Frank without taking damage, no invincibility allowed',
   points: 10,
@@ -906,13 +908,14 @@ set.addAchievement({
 const normalShotsFired = 0x085a;
 
 set.addAchievement({
+  id: 630024,
   title: 'Power Is All You Need',
   description: 'Beat Desert Level 1 by only firing power shots, no normal shots',
   points: 10,
   conditions: {
     core: $(
       // No normal shots allowed
-      ['',   'Mem', '8bit', normalShotsFired, '=',  'Value', '', 0],
+      ['',   'Mem', '16bit', normalShotsFired, '=',  'Value', '', 0],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Desert1],
@@ -930,6 +933,7 @@ set.addAchievement({
 const hiddenPumpkinSwitch = 0x3501;
 
 set.addAchievement({
+  id: 630025,
   title: 'Pumpkin Arrow',
   description: 'Follow the pumpkin arrow and unlock the hidden bounty area in Desert Level 2',
   points: 3,
@@ -951,6 +955,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630026,
   title: 'Relicless',
   description: 'Beat the Desert Shadow without carrying any relics at any time',
   points: 5,
@@ -1018,13 +1023,14 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630027,
   title: 'Marksman',
   description: 'Beat the 4 Clouds Shadow Mini-bosses with a total of 8 shots or less',
   points: 5,
   conditions: {
     core: $(
       // Require total shots to be at max 8
-      ['',   'Mem',   '8bit', totalShotsFired, '<=', 'Value', '', 8],
+      ['',   'Mem',   '16bit', totalShotsFired, '<=', 'Value', '', 8],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsShadow],
@@ -1040,6 +1046,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630028,
   title: 'Big Drops',
   description: 'Collect 40 big Atom drops each worth 500 in Factory Level 1',
   points: 3,
@@ -1066,6 +1073,7 @@ const factory2Pumpkin3 = 0x1978;
 const factory2Pumpkin4 = 0x197c;
 
 set.addAchievement({
+  id: 630029,
   title: 'Under the Watch',
   description: 'Destroy the 4 pumpkins guarded by the scarecrow in Factory Level 2',
   points: 2,
@@ -1178,6 +1186,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630030,
   title: 'Second Life',
   description: 'Reach the end of the level after dying in an enemy assault',
   points: 2,
@@ -1202,6 +1211,7 @@ set.addAchievement({
 
 // No Measured here, as it would show up always in every Trial
 set.addAchievement({
+  id: 630031,
   title: 'Worth the Money',
   description: 'Collect 25,000 Atoms in any Trial in a single run and finish it',
   points: 5,
@@ -1233,6 +1243,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630032,
   title: 'Self Improvement',
   description: 'Consume a stat-increasing Scroll',
   points: 2,
@@ -1288,6 +1299,7 @@ set.addAchievement({
 // });
 
 set.addAchievement({
+  id: 630033,
   title: 'Relics to the Rescue',
   description: 'Use Relics to improve your stats by either +20% Attack Power or +40% Force Power',
   points: 3,
@@ -1351,6 +1363,7 @@ const getAllGreenConditions = () => {
 
 // 4x4 Alts: 4 slots where last green relic can be picked up (Mem/Delta check), with 4 possible different green relics
 set.addAchievement({
+  id: 630034,
   title: 'All Green',
   description: 'Have a full set of 4 maxed-out green relics',
   points: 10,
@@ -1360,6 +1373,7 @@ set.addAchievement({
 
 // No pause-lock here, doesn't matter if player reached shop via skip-level
 set.addAchievement({
+  id: 630035,
   title: 'Cloak of Safety',
   description: 'Acquire the Cloak of Safety, the ultimate defense',
   points: 3,
@@ -1389,6 +1403,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630036,
   title: 'Using the Force',
   description: 'Reach a base Force Level stat of at least 20% without Relics',
   points: 5,
@@ -1409,6 +1424,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630037,
   title: 'This Isn\'t Even My Final Form',
   description: 'Reach an base Attack Level stat of at least 30% without Relics',
   points: 5,
@@ -1429,6 +1445,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630038,
   title: 'A Pumpkin a Day',
   description: 'Increase your base health stat to at least 40 HP without Relics',
   points: 5,
@@ -1449,6 +1466,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630039,
   title: 'Igor\'s Favorite',
   description: 'Hold a bank total of 50,0000 Atoms',
   points: 5,
