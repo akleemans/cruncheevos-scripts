@@ -1151,6 +1151,32 @@ set.addAchievement({
   },
 });
 
+const ailmentBitflags = 0x07e5;
+
+set.addAchievement({
+  title: 'Shadow Boxing',
+  description: 'Beat the Factory Shadow without suffering from the confused status effect at any time',
+  points: 5,
+  conditions: {
+    core: $(
+      // Add hit if confused
+      ['AddHits', 'Mem',   'Bit4', ailmentBitflags, '=', 'Value', '', 1],
+      // Lock if confused
+      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1, 1],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.FactoryShadow],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const liveObjectCount = 0x3544;
 
 set.addAchievement({

@@ -1257,6 +1257,32 @@ describe('Challenge: Under the Watch', () => {
   });
 });
 
+
+describe('Challenge: Shadow Boxing', () => {
+  const cheevo = achievement('Shadow Boxing');
+
+  test('pops when factory shadow beaten without being confused', () => {
+    const s = scenario('factory-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime/pop if confused', () => {
+    const s = scenario('factory-shadow-confused');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('after-confused'))).toBe('paused');
+  });
+});
+
+
 describe('Challenge: Second Life', () => {
   const cheevo = achievement('Second Life');
 
@@ -1283,7 +1309,6 @@ describe('Challenge: Second Life', () => {
 
   test('does not pop if level not finished after reanimation', () => {
     const s = scenario('cemetery1-reanimator-used-but-died');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
