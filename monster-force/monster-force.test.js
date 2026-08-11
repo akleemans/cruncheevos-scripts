@@ -1106,6 +1106,58 @@ describe('Challenge: Marksman', () => {
   });
 });
 
+describe('Challenge: Big Drops', () => {
+  const cheevo = achievement('Big Drops');
+
+  test('pops when collecting 40 big atoms', () => {
+    const s = scenario('factory1-collected-atoms');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('collected-40-big-atoms'));
+  });
+});
+
+describe('Challenge: Second Life', () => {
+  const cheevo = achievement('Second Life');
+
+  test('pops when reanimated and reached end of boss level', () => {
+    const s = scenario('village-shadow-reanimated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('reanimated'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('pops when reanimated and reached end of regular level', () => {
+    const s = scenario('cemetery1-reanimated');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if level not finished after reanimation', () => {
+    const s = scenario('cemetery1-reanimator-used-but-died');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('reanimator-used'))).toBe('primed');
+    expect(result.stateAt(s.marker('game-over-screen'))).toBe('active');
+  });
+});
+
+
 describe('Challenge: Relics to the Rescue', () => {
   const cheevo = achievement('Relics to the Rescue');
 

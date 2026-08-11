@@ -19,7 +19,8 @@ const PlayerStateEnum = {
   Moving: 0x03,
   Hover: 0x04,
   BombArmed: 0x05,
-  Teleporting: 0x0c
+  Teleporting: 0x0c,
+  Dying: 0x0e
 };
 
 const CharacterActive = {
@@ -984,6 +985,27 @@ set.addAchievement({
   },
 });
 
+set.addAchievement({
+  title: 'Big Drops',
+  description: 'Collect 40 big Atom drops each worth 500 in Factory Level 1',
+  points: 3,
+  conditions: {
+    core: $(
+      // Collect 40 hits of 500+ Atoms collected
+      ['SubSource', 'Delta', '32bit', atomsInCurrentLevel],
+      ['Measured',  'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 500, 40],
+
+      // Context
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
+      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const liveObjectCount = 0x3544;
 
 set.addAchievement({
@@ -1060,6 +1082,48 @@ set.addAchievement({
     ),
   },
 });
+
+set.addAchievement({
+  title: 'Second Life',
+  description: 'Reach the end of the level after dying in an enemy assault',
+  points: 2,
+  conditions: {
+    core: $(
+      // Latch: revived from death (only I Reanimator returns the player from Dying to Standing)
+      ['AndNext', 'Mem',   '8bit', gameState,   '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Delta', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Dying],
+      ['',        'Mem',   '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Standing, 1],
+
+      // Pop on score screen of any level
+      ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+// set.addAchievement({
+//   title: 'Worth the Money',
+//   description: 'Collect 15,000 Atoms in any Trial in a single run',
+//   points: 5,
+//   conditions: {
+//     core: $(
+//       // TODO
+//       // Pop on score screen of any level
+//       ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+//       ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+//       ...invincibilityCheatProtection(),
+//       ...skipLevelCheatProtection(),
+//     ),
+//     alt1: $(
+//       ...levelSelectReset(),
+//     ),
+//   },
+// });
 
 set.addAchievement({
   title: 'Relics to the Rescue',
@@ -1224,7 +1288,7 @@ set.addAchievement({
 
 set.addAchievement({
   title: 'Igor\'s Favorite',
-  description: 'Hold a bank total of 50k Atom',
+  description: 'Hold a bank total of 50,0000 Atoms',
   points: 5,
   conditions: {
     core: $(
