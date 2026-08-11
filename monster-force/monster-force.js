@@ -1207,6 +1207,31 @@ set.addAchievement({
   },
 });
 
+
+set.addAchievement({
+  title: 'Stand Your Ground',
+  description: 'Defeat Sergeant Smash without moving left or right',
+  points: 5,
+  conditions: {
+    core: $(
+      // Add hit if moved left or right - TODO probably needs timer check
+      ['AndNext', 'Mem',   '16bit', levelTime,       '>=', 'Value', '',      2],
+      ['AddHits', 'Mem',   '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
+      ['PauseIf', 'Value', '',      0,               '=',  'Value', '',      1,               1],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 const atlantis2pumpkinAddresses = [
   0x17d8, 0x17dc, 0x17e0, 0x17e4, 0x17e8, 0x17ec, 0x17f0, 0x17f4, 0x17f8,
   0x17fc, 0x1800, 0x1804, 0x1808, 0x180c, 0x1820, 0x1824, 0x1828, 0x182c,

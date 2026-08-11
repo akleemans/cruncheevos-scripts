@@ -1,13 +1,12 @@
 {
-  "name": "castle-sergeant-smash-mina",
+  "name": "castle-sergeant-smash-no-left-right",
   "description": "",
   "game": "Monster Force",
   "console": "GBA",
-  "firstFrame": 332017,
+  "firstFrame": 240774,
   "markers": {
-    "level-start": 332142,
-    "score-screen": 333707,
-    "moved-right": 332198
+    "level-start": 240898,
+    "score-screen": 241373
   },
   "addresses": [
     {
@@ -586,6 +585,11 @@
       "label": "Level object 115 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
     },
     {
+      "address": "0x198c",
+      "size": "u16",
+      "label": "Level object 116 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 9"
+    },
+    {
       "address": "0x1990",
       "size": "u16",
       "label": "Level object 117 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 10"
@@ -739,6 +743,26 @@
       "address": "0x34fd",
       "size": "u8",
       "label": "Switch 11 activated"
+    },
+    {
+      "address": "0x34fe",
+      "size": "u8",
+      "label": "Switch 12 activated"
+    },
+    {
+      "address": "0x34ff",
+      "size": "u8",
+      "label": "Switch 13 activated"
+    },
+    {
+      "address": "0x3500",
+      "size": "u8",
+      "label": "Switch 14 activated"
+    },
+    {
+      "address": "0x3501",
+      "size": "u8",
+      "label": "Switch 15 activated - Desert 2: Pumpkin arrow switch"
     },
     {
       "address": "0x3504",

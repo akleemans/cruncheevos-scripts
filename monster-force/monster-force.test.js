@@ -606,6 +606,32 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
+
+describe('Challenge: Stand Your Ground', () => {
+  const cheevo = achievement('Stand Your Ground');
+
+  test('pops if only moved vertically', () => {
+    const s = scenario('castle-sergeant-smash-no-left-right');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if moved left or right', () => {
+    const s = scenario('castle-sergeant-smash-mina');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('moved-right'))).toBe('paused');
+  });
+});
+
+
 describe('Challenge: Halloween\'s Over', () => {
   const cheevo = achievement('Halloween\'s Over');
 
