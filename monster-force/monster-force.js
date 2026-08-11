@@ -1214,10 +1214,10 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Add hit if moved left or right - TODO probably needs timer check
-      ['AndNext', 'Mem',   '16bit', levelTime,       '>=', 'Value', '',      2],
+      // Add hit if moved left or right while in-game
+      ['AndNext', 'Delta', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
       ['AddHits', 'Mem',   '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
-      ['PauseIf', 'Value', '',      0,               '=',  'Value', '',      1,               1],
+      ['PauseIf', 'Value', '',      0,               '=',  'Value', '',      1,                    1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
