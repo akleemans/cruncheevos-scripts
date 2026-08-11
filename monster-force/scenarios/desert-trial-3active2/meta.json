@@ -1,13 +1,13 @@
 {
-  "name": "desert-trial-15k-atoms",
+  "name": "desert-trial-3active2",
   "description": "",
   "game": "Monster Force",
   "console": "GBA",
-  "firstFrame": 93807,
+  "firstFrame": 96273,
   "markers": {
-    "level-start": 94027,
-    "25k-atoms-reached": 100462,
-    "score-screen": 100783
+    "level-start": 96397,
+    "3-modifiers-active": 96676,
+    "score-screen": 98425
   },
   "addresses": [
     {
@@ -586,6 +586,11 @@
       "label": "Level object 115 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
     },
     {
+      "address": "0x198c",
+      "size": "u16",
+      "label": "Level object 116 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 9"
+    },
+    {
       "address": "0x1990",
       "size": "u16",
       "label": "Level object 117 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 10"
@@ -739,6 +744,26 @@
       "address": "0x34fd",
       "size": "u8",
       "label": "Switch 11 activated"
+    },
+    {
+      "address": "0x34fe",
+      "size": "u8",
+      "label": "Switch 12 activated"
+    },
+    {
+      "address": "0x34ff",
+      "size": "u8",
+      "label": "Switch 13 activated"
+    },
+    {
+      "address": "0x3500",
+      "size": "u8",
+      "label": "Switch 14 activated"
+    },
+    {
+      "address": "0x3501",
+      "size": "u8",
+      "label": "Switch 15 activated - Desert 2: Pumpkin arrow switch"
     },
     {
       "address": "0x3504",

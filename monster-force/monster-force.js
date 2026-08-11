@@ -954,6 +954,57 @@ set.addAchievement({
   },
 });
 
+/*
+Force combo enhancing tools:
+- Reflect Shot
+- X-Ray Shot
+- Doom Shot (tiers 1, 2, 3)
+- Leech Shot (tiers 1, 2, 3)
+- Magnet Shot
+- Three-Way Shot
+- Drain Shot (tiers 1, 2, 3)
+- Double Shot
+ */
+const shotModifiers1 = 0x080c;
+const shotModifiers2 = 0x080d;
+const shotModifiers3 = 0x080e;
+
+set.addAchievement({
+  title: 'Superpowers',
+  description: 'Beat the Desert Trial by having 3 or more force combo enhancing tools active at the same time',
+  points: 3,
+  conditions: {
+    core: $(
+      // Sum of flags must be at least 3 at one point
+      ['AddSource', 'Mem',   'Bit4', shotModifiers1],
+      ['AddSource', 'Mem',   'Bit5', shotModifiers1],
+      ['AddSource', 'Mem',   'Bit6', shotModifiers1],
+      ['AddSource', 'Mem',   'Bit7', shotModifiers1],
+      ['AddSource', 'Mem',   'Bit0', shotModifiers2],
+      ['AddSource', 'Mem',   'Bit1', shotModifiers2],
+      ['AddSource', 'Mem',   'Bit2', shotModifiers2],
+      ['AddSource', 'Mem',   'Bit3', shotModifiers2],
+      ['AddSource', 'Mem',   'Bit7', shotModifiers2],
+      ['AddSource', 'Mem',   'Bit0', shotModifiers3],
+      ['AddSource', 'Mem',   'Bit1', shotModifiers3],
+      ['AddSource', 'Mem',   'Bit2', shotModifiers3],
+      ['AddSource', 'Mem',   'Bit3', shotModifiers3],
+      ['AddHits',   'Mem',   'Bit4', shotModifiers3, '>=', 'Value', '', 3],
+      ['',          'Value', '',     0,              '=',  'Value', '', 1, 1],
+
+      // Pop on score screen
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertTrial],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection()
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
 set.addAchievement({
   id: 630026,
   title: 'Relicless',

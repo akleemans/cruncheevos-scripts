@@ -999,6 +999,51 @@ describe('Challenge: Pumpkin Arrow', () => {
   });
 });
 
+describe('Challenge: Superpowers', () => {
+  const cheevo = achievement('Superpowers');
+
+  test('pops when level beaten with 3 force combo shot modifiers active - reflect3, xray1, doom1', () => {
+    const s = scenario('desert-trial-3active');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('3-modifiers-active'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('pops when level beaten with 3 force combo shot modifiers active - magnet2, double3, drain1', () => {
+    const s = scenario('desert-trial-3active2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('3-modifiers-active'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not prime/pop if not active at the same time', () => {
+    const s = scenario('desert-trial-sequential-modifiers');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime/pop if non-force related modifier active', () => {
+    const s = scenario('desert-trial-different-modifier');
+
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+    expect(result.stateAt(s.marker('2-and-2-modifiers-active'))).toBe('active');
+  });
+});
+
 describe('Challenge: Relicless', () => {
   const cheevo = achievement('Relicless');
 
@@ -1253,7 +1298,7 @@ describe('Challenge: Worth the Money', () => {
   const cheevo = achievement('Worth the Money');
 
   test('pops when finishing with 25k reached in Trial', () => {
-    const s = scenario('desert-trial-15k-atoms');
+    const s = scenario('desert-trial-25k-atoms');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
