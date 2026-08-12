@@ -1213,26 +1213,34 @@ set.addAchievement({
   },
 });
 
-// set.addAchievement({
-//   title: 'Boss Rush',
-//   description: 'Beat the boss rush in Castle Levels 1 to 4 in 45 seconds total',
-//   points: 10,
-//   conditions: {
-//     core: $(
-//       // TODO
-//
-//       // Pop on score screen
-//       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle4],
-//       ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-//       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
-//       ...invincibilityCheatProtection(),
-//       ...skipLevelCheatProtection(),
-//     ),
-//     alt1: $(
-//       ...levelSelectReset(),
-//     ),
-//   },
-// });
+set.addAchievement({
+  title: 'Boss Rush',
+  description: 'Beat the boss rush in Castle Levels 1 to 4 in 45 seconds total in-game time',
+  points: 10,
+  conditions: {
+    core: $(
+      // Checkpoint hit if entering Castle 1 (to avoid entering at Castle 2 or 3, which would also lead to Castle 4)
+      ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle1],
+      ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
+      ['AddHits', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['',        'Value', '',     0,            '=', 'Value', '', 1,                        1],
+
+      // Timer adds hits while in-game, so in-between score screens don't count
+      ['AddHits', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '',     0,         '=', 'Value', '', 1,                    3600],
+
+      // Pop on score screen of Castle 4
+      ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle4],
+      ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
 
 set.addAchievement({
   title: 'Stand Your Ground',
@@ -1583,7 +1591,7 @@ const levelUpConditions = () => {
     core: $(
       // Context: Relics bought in shop or found in-game
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
     )
   };
   let count = 1;
@@ -1592,7 +1600,7 @@ const levelUpConditions = () => {
       // currentRelic was picked up in currentSlot
       const arr = [
         ['', 'Delta', '8bit', currentSlot, '!=', 'Value', '', currentRelic],
-        ['', 'Mem', '8bit', currentSlot, '=', 'Value', '', currentRelic],
+        ['', 'Mem',   '8bit', currentSlot, '=',  'Value', '', currentRelic],
       ];
       conditions['alt' + count] = $(...arr);
       count += 1;

@@ -606,6 +606,47 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
+describe('Challenge: Boss Rush', () => {
+  const cheevo = achievement('Boss Rush');
+
+  test('pops if bosses defeated fast enough', () => {
+    const s = scenario('castle1-boss-rush-fast');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('castle1-start'))).toBe('active');
+    expect(result.stateAt(s.marker('castle4-start'))).toBe('primed');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if too slow', () => {
+    const s = scenario('castle1-boss-rush-slow');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('castle1-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('after-60-seconds'))).toBe('paused');
+  });
+
+  test('does not pop if any level finished with cheat', () => {
+    const s = scenario('castle1-boss-rush-cheat');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('castle1-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('cheat-used'))).toBe('paused');
+  });
+
+  test('does not prime/pop if started from Castle 2', () => {
+    const s = scenario('castle2-fast');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('castle4-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
 
 describe('Challenge: Stand Your Ground', () => {
   const cheevo = achievement('Stand Your Ground');
