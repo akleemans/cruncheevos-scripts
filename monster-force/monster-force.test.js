@@ -631,6 +631,104 @@ describe('Challenge: Stand Your Ground', () => {
   });
 });
 
+describe('Challenge: It\'s All About Balance', () => {
+  const cheevo = achievement('It\'s All About Balance');
+
+  test('pops if healed 3 times with no initial health tools', () => {
+    const s = scenario('factory1-multiple-healing-wolfie2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('3rd-healing-used'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if only 2 healings', () => {
+    const s = scenario('factory1-multiple-healing-wolfie');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime/pop if brought health1 tool into level (slot3)', () => {
+    const s = scenario('factory1-brought-health1-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime/pop if brought health2 tool into level (slot4)', () => {
+    const s = scenario('factory1-brought-health2-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime/pop if brought health3 tool into level (slot1)', () => {
+    const s = scenario('factory1-brought-health3-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not prime/pop if brought health4 tool into level (slot2) and resets again on score screen', () => {
+    const s = scenario('factory1-brought-health4-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('level-screen-after'))).toBe('active');
+  });
+
+  test('does not prime/pop if not Wolfie', () => {
+    const s = scenario('factory1-drac-multiple-healings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('3rd-healing-used'))).toBe('active');
+  });
+});
+
+describe('Challenge: Frankly Harmless', () => {
+  const cheevo = achievement('Frankly Harmless');
+
+  test('pops if level finished without killing enemies', () => {
+    const s = scenario('desert-trial-frank-no-harm');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop if defeated enemy', () => {
+    const s = scenario('desert-trial-defeated-enemy');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('primed');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('defeated-enemy'))).toBe('active');
+  });
+
+  test('does not pop if not Frank', () => {
+    const s = scenario('desert-trial-drac-no-harm');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
 
 describe('Challenge: Halloween\'s Over', () => {
   const cheevo = achievement('Halloween\'s Over');
@@ -1375,6 +1473,111 @@ describe('Challenge: Worth the Money', () => {
   });
 });
 
+describe('Challenge: Shop \'Til You Drop', () => {
+  const cheevo = achievement('Shop \'Til You Drop');
+
+  test('pops when buying 6 items (4 tools, 2 relics)', () => {
+    const s = scenario('shop-buy-4-tools-2-relics');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('6th-item-bought'));
+  });
+
+  test('does not pop when collected tools in level', () => {
+    const s = scenario('shop-buy-5-tools');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('level-select-after'))).toBe('reset');
+  });
+});
+
+describe('Challenge: Ninja Skills', () => {
+  const cheevo = achievement('Ninja Skills');
+
+  test('pops when pumpkin destroyed while being invincible and using x-ray shot', () => {
+    const s = scenario('cemetery1-invincible-xray');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkin-destroyed'));
+  });
+
+  test('pops when enemy defeated while being invincible and using x-ray shot', () => {
+    const s = scenario('cemetery1-invincible-xray-enemy');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('enemy-killed'));
+  });
+
+  test('does not pop when not invincible', () => {
+    const s = scenario('cemetery1-xray');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
+
+describe('Challenge: Saving for Later', () => {
+  const cheevo = achievement('Saving for Later');
+
+  test('pops when all slots filled', () => {
+    const s = scenario('factory1-collect-4-tools');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('tool-slots-filled'));
+  });
+
+  test('does not pop when entered level with tools', () => {
+    const s = scenario('factory1-brought-health1-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+});
+
+describe('Challenge: Level Up', () => {
+  const cheevo = achievement('Level Up');
+
+  test('pops when blue relic collected in-game', () => {
+    const s = scenario('factory1-collect-blue-relic');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('relic-collected'));
+  });
+
+  test('pops when blue Attack relic collected in shop', () => {
+    const s = scenario('shop-bought-blue-relic');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('relic-bought'));
+  });
+
+  test('pops when Luck blue relic collected in shop', () => {
+    const s = scenario('shop-bought-blue-luck-relic');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('relic-bought'));
+  });
+});
+
 describe('Challenge: Self Improvement', () => {
   const cheevo = achievement('Self Improvement');
 
@@ -1504,6 +1707,16 @@ describe('Challenge: Cloak of Safety', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('bought-cloak'));
+  });
+
+  test('pops when dropped in game', () => {
+    const s = scenario('factory1-multiple-healing-wolfie2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('picked-up-cloak'));
   });
 });
 

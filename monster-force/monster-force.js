@@ -116,15 +116,18 @@ const toolSlot1 = 0x07fc;
 const toolSlot2 = 0x07fd;
 const toolSlot3 = 0x07fe;
 const toolSlot4 = 0x07ff;
+const toolSlots = [toolSlot1, toolSlot2, toolSlot3, toolSlot4];
 
 const objectsEnemiesDestroyed = 0x35a0
-const invulnerabilityTimer = 0x07ea;
+const invincibilityTimer = 0x07ea;
 
 const totalShotsFired = 0x35a8;
 
 const baseHealth = 0x0850;
 const baseAttackPower = 0x0852;
 const baseForcePower = 0x0853;
+
+const currentHealth = 0x07f0;
 
 // const relicHealthBonus = 0x0855;
 // const relicLuckBonus = 0x0856;
@@ -136,6 +139,15 @@ const relicSlot2 = 0x0801;
 const relicSlot3 = 0x0802;
 const relicSlot4 = 0x0803;
 const relicSlots = [relicSlot1, relicSlot2, relicSlot3, relicSlot4];
+
+const getLevelRequirement = (levels) => {
+  const arr = [];
+  for (let i = 0; i < levels.length; i++) {
+    const flag = i === levels.length - 1 ? '' : 'OrNext';
+    arr.push([flag, 'Mem', '8bit', currentLevel, '=', 'Value', '', levels[i]]);
+  }
+  return arr;
+};
 
 /* ========= PROGRESSION ========= */
 
@@ -688,8 +700,6 @@ set.addAchievement({
   },
 });
 
-
-
 set.addAchievement({
   id: 625445,
   title: 'Blast Radius',
@@ -697,9 +707,9 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Make sure bomb was activated and player invulnerability was active in last frame
+      // Make sure bomb was activated and player invincibility was active in last frame
       ['',          'Delta', '8bit',  playerState,             '=',  'Value', '', PlayerStateEnum.BombArmed],
-      ['',          'Delta', '16bit', invulnerabilityTimer,    '=',  'Value', '', 0xffff],
+      ['',          'Delta', '16bit', invincibilityTimer,      '=',  'Value', '', 0xffff],
       // Using SubSource to check if increase of enemies killed is >= 12
       ['SubSource', 'Delta', '8bit',  objectsEnemiesDestroyed],
       ['',          'Mem',   '8bit',  objectsEnemiesDestroyed, '>=', 'Value', '', 12],
@@ -766,8 +776,6 @@ set.addAchievement({
     ),
   },
 });
-
-const currentHealth = 0x07f0;
 
 set.addAchievement({
   id: 629238,
@@ -875,8 +883,6 @@ set.addAchievement({
     ),
   },
 });
-
-const invincibilityTimer = 0x07ea;
 
 set.addAchievement({
   id: 630023,
@@ -1207,6 +1213,26 @@ set.addAchievement({
   },
 });
 
+// set.addAchievement({
+//   title: 'Boss Rush',
+//   description: 'Beat the boss rush in Castle Levels 1 to 4 in 45 seconds total',
+//   points: 10,
+//   conditions: {
+//     core: $(
+//       // TODO
+//
+//       // Pop on score screen
+//       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle4],
+//       ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+//       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+//       ...invincibilityCheatProtection(),
+//       ...skipLevelCheatProtection(),
+//     ),
+//     alt1: $(
+//       ...levelSelectReset(),
+//     ),
+//   },
+// });
 
 set.addAchievement({
   title: 'Stand Your Ground',
@@ -1223,6 +1249,83 @@ set.addAchievement({
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
       ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+const checkToolSlotsForAnyHealthAtStartOfLevel = () => {
+  const conditions = [];
+  // For both health tool pairs (red/blue, green/black)
+  for (let healthPair of [[0x07, 0x08], [0x09, 0x0a]]) {
+    // For all 4 tool slots
+    for (let toolSlot of toolSlots) {
+      conditions.push(...[
+        ['OrNext', 'Mem', '8bit', toolSlot, '=', 'Value', '', healthPair[0]],
+        ['AndNext', 'Mem', '8bit', toolSlot, '=', 'Value', '', healthPair[1]],
+        ['AndNext', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelStart],
+        ['AddHits', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+        ['PauseIf', 'Value', '',     0,         '=', 'Value', '', 1,                        1],
+      ]);
+    }
+  }
+  return conditions;
+};
+
+set.addAchievement({
+  title: 'It\'s All About Balance',
+  description: 'As Wolfie, finish a level while healing yourself three or more times without carrying health items at the start of the level',
+  points: 3,
+  conditions: {
+    core: $(
+      // TODO can maybe be simplified? See "Saving for Later"
+      // Lock if brought any health into level.
+      // The function below will generate 8 PauseIfs, 2 for every tool slot (red/blue and green/black health tool check)
+      ...checkToolSlotsForAnyHealthAtStartOfLevel(),
+
+      // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
+      ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
+      ['AddHits', 'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth],
+      // Require 3 healing hits
+      ['',        'Value', '',      0,             '=',  'Value', '',     1,             3],
+
+      // Character must be Wolfie
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
+
+      // Pop on any score screen
+      ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Frankly Harmless',
+  description: 'As Frank, finish any Trial without defeating any enemies or pumpkins at all',
+  points: 5,
+  conditions: {
+    core: $(
+      // No enemies killed or pumpkins destroyed
+      ['', 'Mem', '8bit', objectsEnemiesDestroyed, '=', 'Value', '', 0],
+
+      // Character must be Frank
+      ['', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Frank],
+
+      // Level can be any Trial
+      ...getLevelRequirement(timeTrialLevels),
+
+      // Pop on any score screen
+      ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -1290,11 +1393,11 @@ set.addAchievement({
 set.addAchievement({
   id: 630030,
   title: 'Second Life',
-  description: 'Reach the end of the level after dying in an enemy assault',
+  description: 'Reach the end of any level after cheating death',
   points: 2,
   conditions: {
     core: $(
-      // Latch: revived from death (only I Reanimator returns the player from Dying to Standing)
+      // Store hit if revived from death (only possible with Reanimator - changes player status from dying to standing)
       ['AndNext', 'Mem',   '8bit', gameState,   '=', 'Value', '', GameStateEnum.InGame],
       ['AndNext', 'Delta', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Dying],
       ['',        'Mem',   '8bit', playerState, '=', 'Value', '', PlayerStateEnum.Standing, 1],
@@ -1323,20 +1426,117 @@ set.addAchievement({
       ['', 'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 25000],
 
       // Level must be any Trial
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CemeteryTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.AtlantisTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.TempleTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertTrial],
-      ['OrNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['',       'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.FactoryTrial],
+      ...getLevelRequirement(timeTrialLevels),
 
       // Pop on score screen
       ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Shop \'Til You Drop',
+  description: 'Buy 6 items in Igor\'s shop in one round',
+  points: 2,
+  conditions: {
+    core: $(
+      // TODO old idea, delete
+      // Add hit if empty tool or relic slot was filled - can also be the same slot again, tools can be discarded with "Select"
+      // ['AndNext', 'Delta', '8bit', toolSlot1,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', toolSlot1,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', toolSlot2,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', toolSlot2,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', toolSlot3,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', toolSlot3,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', toolSlot4,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', toolSlot4,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', relicSlot1,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', relicSlot1,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', relicSlot2,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', relicSlot2,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', relicSlot3,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', relicSlot3,  '>', 'Value', '',  0],
+      // ['AndNext', 'Delta', '8bit', relicSlot4,   '=', 'Value', '',  0],
+      // ['AddHits', 'Mem',   '8bit', relicSlot4,  '>', 'Value', '',  0],
+      // // Require 6 hits
+      // ['',        'Value', '',      0,             '=',  'Value', '',     1,             6],
+
+      // Add hit if Atoms in bank decreased while in shop, the only way this can happen is by buying a Tool or Relic.
+      // 6 Hits are required for cheevo to pop. Hits are reset when going back to level select screen.
+      ['', 'Delta', '32bit', totalAtomsInBank, '>', 'Mem', '32bit', totalAtomsInBank, 6],
+
+      // Context: Must be in shop
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+set.addAchievement({
+  title: 'Ninja Skills',
+  description: 'Defeat an enemy or pumpkin with a wall-piercing shot while being invincible',
+  points: 3,
+  conditions: {
+    core: $(
+      // While invincible and X-Ray modifier is active, enemy/pumpin desytroyed count should go up
+      ['', 'Mem',   '8bit', invincibilityTimer,      '>', 'Value', '',     0],
+      ['', 'Mem',   'Bit5', shotModifiers1,          '=', 'Value', '',     1],
+      ['', 'Delta', '8bit', objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
+
+      // Context: Must be in in-game
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+    ),
+  },
+});
+
+// "No tools equipped" at start of level is required, as tools can be dropped and picked up in another slot.
+// There would be no way to distinguish between a genuinely found tool and one dropped and later picked up again.
+set.addAchievement({
+  title: 'Saving for Later',
+  description: 'Enter a level with no tools equipped, and fill up all tool slots before finishing the level',
+  points: 5,
+  conditions: {
+    core: $(
+      // Lock if entered level with tool equipped in slots 1 or 2
+      ['OrNext',  'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
+      ['AndNext', 'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
+      ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
+      ['AddHits', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
+
+      // Lock if entered level with tool equipped in slots 3 or 4
+      ['OrNext',  'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
+      ['AndNext', 'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
+      ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
+      ['AddHits', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame],
+      ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
+
+      // Any slot was not filled last frame
+      ['OrNext', 'Delta', '8bit', toolSlot1, '=',  'Value', '', 0],
+      ['OrNext', 'Delta', '8bit', toolSlot2, '=',  'Value', '', 0],
+      ['OrNext', 'Delta', '8bit', toolSlot3, '=',  'Value', '', 0],
+      ['',       'Delta', '8bit', toolSlot4, '=',  'Value', '', 0],
+      // Now all slots are filled with tools
+      ['',       'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
+      ['',       'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
+      ['',       'Mem',   '8bit', toolSlot3, '!=', 'Value', '', 0],
+      ['',       'Mem',   '8bit', toolSlot4, '!=', 'Value', '', 0],
+
+      // Context: Must be in in-game
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1372,33 +1572,45 @@ set.addAchievement({
   },
 });
 
+const luckGauntletRelic = 0x12;
+const armorGauntletRelic = 0x15;
+const attackGauntletRelic = 0x19;
+const forceGauntletRelic = 0x1d;
+const blueRelics = [luckGauntletRelic, armorGauntletRelic, attackGauntletRelic, forceGauntletRelic];
 
-// // TODO verify relics can be picked up in-game
-// set.addAchievement({
-//   title: 'Level Up',
-//   description: 'Get your first higher-level relic',
-//   points: 2,
-//   conditions: {
-//     core: $(
-//       // TODO
-//       // // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
-//       // ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-//       // ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
-//     ),
-//     alt1: $(
-//       // TODO
-//       // Relic slot 1
-//       ['', 'Delta', '8bit', relicSlot1, '=',  'Value', '', 0],
-//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
-//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
-//       ['OrNext', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
-//       ['', 'Mem',   '8bit', relicSlot1, '=', 'Value', '', 20],
-//     ),
-//     alt2: $(
-//       // TODO
-//     ),
-//   },
-// });
+const levelUpConditions = () => {
+  const conditions = {
+    core: $(
+      // Context: Relics bought in shop or found in-game
+      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+    )
+  };
+  let count = 1;
+  for (let currentSlot of relicSlots) {
+    for (let currentRelic of blueRelics) {
+      // currentRelic was picked up in currentSlot
+      const arr = [
+        ['', 'Delta', '8bit', currentSlot, '!=', 'Value', '', currentRelic],
+        ['', 'Mem', '8bit', currentSlot, '=', 'Value', '', currentRelic],
+      ];
+      conditions['alt' + count] = $(...arr);
+      count += 1;
+    }
+  }
+  return conditions;
+};
+
+// Relics can be bought in shop or acquired via "???" Gauntlet drops in-game
+set.addAchievement({
+  title: 'Level Up',
+  description: 'Get your first blue-tier relic',
+  points: 2,
+  // This will create 16 alts (4 possible slots x 4 possible blue relics).
+  // Taking the safe route here to have 16 separate Mem/Delta alts, before there was a version which had 4 alts, with Delta = 0 and
+  // then all 4 possible relics OrNext'ed for a slot, but relics can be dropped and instantly replaced, so slots never have to be 0.
+  conditions: levelUpConditions(),
+});
 
 set.addAchievement({
   id: 630033,
@@ -1407,7 +1619,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
+      // Context: Relics can be bought (and equipped) in shop or found in-game (via "???" Gauntlet drops)
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
     ),
