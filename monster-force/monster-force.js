@@ -976,6 +976,7 @@ const shotModifiers2 = 0x080d;
 const shotModifiers3 = 0x080e;
 
 set.addAchievement({
+  id: 630198,
   title: 'Superpowers',
   description: 'Beat the Desert Trial by having 3 or more force combo enhancing tools active at the same time',
   points: 3,
@@ -1160,6 +1161,7 @@ set.addAchievement({
 const ailmentBitflags = 0x07e5;
 
 set.addAchievement({
+  id: 630199,
   title: 'Shadow Boxing',
   description: 'Beat the Factory Shadow without suffering from the confused status effect at any time',
   points: 5,
@@ -1214,8 +1216,9 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630200,
   title: 'Boss Rush',
-  description: 'Beat the boss rush in Castle Levels 1 to 4 in 45 seconds total in-game time',
+  description: 'Beat the boss rush in Castle Levels 1 to 4 in 60 seconds total in-game time',
   points: 10,
   conditions: {
     core: $(
@@ -1243,6 +1246,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630201,
   title: 'Stand Your Ground',
   description: 'Defeat Sergeant Smash without moving left or right',
   points: 5,
@@ -1285,6 +1289,7 @@ const checkToolSlotsForAnyHealthAtStartOfLevel = () => {
 };
 
 set.addAchievement({
+  id: 630202,
   title: 'It\'s All About Balance',
   description: 'As Wolfie, finish a level while healing yourself three or more times without carrying health items at the start of the level',
   points: 3,
@@ -1317,6 +1322,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630203,
   title: 'Frankly Harmless',
   description: 'As Frank, finish any Trial without defeating any enemies or pumpkins at all',
   points: 5,
@@ -1449,6 +1455,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630204,
   title: 'Shop \'Til You Drop',
   description: 'Buy 6 items in Igor\'s shop in one round',
   points: 2,
@@ -1489,6 +1496,7 @@ set.addAchievement({
 });
 
 set.addAchievement({
+  id: 630205,
   title: 'Ninja Skills',
   description: 'Defeat an enemy or pumpkin with a wall-piercing shot while being invincible',
   points: 3,
@@ -1512,6 +1520,7 @@ set.addAchievement({
 // "No tools equipped" at start of level is required, as tools can be dropped and picked up in another slot.
 // There would be no way to distinguish between a genuinely found tool and one dropped and later picked up again.
 set.addAchievement({
+  id: 630206,
   title: 'Saving for Later',
   description: 'Enter a level with no tools equipped, and fill up all tool slots before finishing the level',
   points: 5,
@@ -1611,12 +1620,13 @@ const levelUpConditions = () => {
 
 // Relics can be bought in shop or acquired via "???" Gauntlet drops in-game
 set.addAchievement({
+  id: 630207,
   title: 'Level Up',
   description: 'Get your first blue-tier relic',
   points: 2,
   // This will create 16 alts (4 possible slots x 4 possible blue relics).
-  // Taking the safe route here to have 16 separate Mem/Delta alts, before there was a version which had 4 alts, with Delta = 0 and
-  // then all 4 possible relics OrNext'ed for a slot, but relics can be dropped and instantly replaced, so slots never have to be 0.
+  // Taking the safe route here, before there was a version which had 4 alts, with Delta = 0 and then
+  // all 4 possible relics OrNext'ed for a slot, but relics can be dropped and instantly replaced, so slots never have to be 0.
   conditions: levelUpConditions(),
 });
 
