@@ -177,6 +177,7 @@ const shoulderButtonsPressed = 0x360d;
 
 const skipLevelCheatProtection = () => {
   return [
+    // The game itself also listens to these button presses to detect cheats entered in-game - there is no other way of detecting it.
     // 0x41 = A + Up pressed. Other buttons can be pressed too (and the cheat will still work),
     // so we have to apply a bitmask. Needs levelSelectReset in alt.
     ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
@@ -1503,9 +1504,9 @@ set.addAchievement({
   conditions: {
     core: $(
       // While invincible and X-Ray modifier is active, enemy/pumpin desytroyed count should go up
-      ['', 'Mem',   '8bit', invincibilityTimer,      '>', 'Value', '',     0],
-      ['', 'Mem',   'Bit5', shotModifiers1,          '=', 'Value', '',     1],
-      ['', 'Delta', '8bit', objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
+      ['', 'Mem',   '16bit', invincibilityTimer,      '>', 'Value', '',     0],
+      ['', 'Mem',   'Bit5',  shotModifiers1,          '=', 'Value', '',     1],
+      ['', 'Delta', '8bit',  objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
 
       // Context: Must be in in-game
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
@@ -2072,5 +2073,179 @@ set.addAchievement({
 
 /* ========= LEADERBOARDS ========= */
 
+// Timed leaderboards
+const timedLeaderboards = [
+  [LevelEnum.CemeteryTrial, 'Cemetery Trial'],
+  // TODO Add after testing
+  // [LevelEnum.VillageTrial, 'Village Trial'],
+  // [LevelEnum.GardenTrial, 'Garden Trial'],
+  // [LevelEnum.AtlantisTrial, 'Atlantis Trial'],
+  // [LevelEnum.TempleTrial, 'Temple Trial'],
+  // [LevelEnum.DesertTrial, 'Desert Trial'],
+  // [LevelEnum.CloudsTrial, 'Clouds Trial'],
+  // [LevelEnum.FactoryTrial, 'Factory Trial'],
+  // [LevelEnum.CemeteryShadow, 'Cemetery Shadow'],
+  // [LevelEnum.VillageShadow, 'Village Shadow'],
+  // [LevelEnum.GardenShadow, 'Pumpkin Boss'],
+  // [LevelEnum.AtlantisShadow, 'Atlantis Shadow'],
+  // [LevelEnum.TempleDragonShadow, 'Dragon Boss'],
+  // [LevelEnum.DesertShadow, 'Desert Shadow'],
+  // [LevelEnum.CloudsShadow, 'Clouds Shadow'],
+  // [LevelEnum.FactoryShadow, 'Factory Shadow'],
+  // [LevelEnum.Castle1, 'Castle Boss Rush'],
+  // [LevelEnum.CastleSergeantSmash, 'Sergeant Smash'],
+]
+
+/*
+Tested cases:
+[ ] Finish level submits LB
+[ ] Finish special level Castle 1-4 submits LB
+[ ] Invincibility Cheat cancels LB
+[ ] Level Skip Cheat cancels LB
+[ ] Level Exit Code cancels LB
+[ ] Game Over with Continue (back to Level select) cancels LB
+[ ] Game Over without Continue (Game restart) cancels LB
+*/
+for (let timedLeaderboard of timedLeaderboards) {
+  const levelId = timedLeaderboard[0];
+  const endLevelId = levelId === LevelEnum.Castle1 ? LevelEnum.Castle4 : levelId;
+  let name = timedLeaderboard[1];
+  const prefix = name.includes('Trial') ? 'Finish the ' : 'Beat the ';
+
+  set.addLeaderboard({
+    title: name + ' Speedrun',
+    description: prefix + name + ' as fast as possible',
+    lowerIsBetter: true,
+    type: 'FRAMES',
+    conditions: {
+      start: $(
+        ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
+        ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
+        ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ),
+      cancel: {
+        core: $(
+          ['', 'Value', '', 1, '=', 'Value', '', 1],
+        ),
+        alt1: $(
+          // If player leaves the level with code or dies
+          ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelSelect],
+        ),
+        alt2: $(
+          // If player uses invincibility cheat
+          ['', 'Mem', '8bit', invincibilityCheat, '=', 'Value', '', 3],
+        ),
+        alt3: $(
+          // If player uses "Skip level" cheat
+          ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
+          ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+          ['',          'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
+        ),
+      },
+      submit: $(
+        ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', endLevelId],
+        ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+        ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ),
+      value: $(
+        ['Measured', 'Mem', '16bit', levelTime],
+      ),
+    },
+  });
+}
+
+// Atom leaderboards
+const atomLeaderboards = [
+  [LevelEnum.Cemetery1, 'Cemetery Level 1'],
+  // TODO Add after testing
+  // [LevelEnum.Cemetery2, 'Cemetery Level 2'],
+  // [LevelEnum.Village1, 'Village Level 1'],
+  // [LevelEnum.Village2, 'Village Level 2'],
+  // [LevelEnum.Garden1, 'Garden Level 1'],
+  // [LevelEnum.Garden2, 'Garden Level 2'],
+  // [LevelEnum.Atlantis1, 'Atlantis Level 1'],
+  // [LevelEnum.Atlantis2, 'Atlantis Level 2'],
+  // [LevelEnum.Temple1, 'Temple Level 1'],
+  // [LevelEnum.Temple2, 'Temple Level 2'],
+  // [LevelEnum.Desert1, 'Desert Level 1'],
+  // [LevelEnum.Desert2, 'Desert Level 2'],
+  // [LevelEnum.Clouds1, 'Clouds Level 1'],
+  // [LevelEnum.Clouds2, 'Clouds Level 2'],
+  // [LevelEnum.Factory1, 'Factory Level 1'],
+  // [LevelEnum.Factory2, 'Factory Level 2'],
+];
+
+/*
+Tested cases:
+[x] Finish level submits LB
+[x] Invincibility Cheat does not instant submit LB
+[x] Level Skip Cheat does not instant submit LB
+[x] Level Exit Code does not instant submit LB
+[x] Game Over with Continue (back to Level select) does not instant submit LB
+[x] Game Over without Continue (Game restart) does not instant submit LB
+*/
+for (let atomLeaderboard of atomLeaderboards) {
+  const levelId = atomLeaderboard[0];
+  const name = atomLeaderboard[1];
+
+  set.addLeaderboard({
+    title: name + ' Atoms',
+    description: 'Collect as many Atoms as possible in ' + name,
+    lowerIsBetter: true,
+    type: 'SCORE',
+    conditions: {
+      start: {
+        core: $(
+          // Trigger at end of level
+          ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
+          ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+          ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+          ...invincibilityCheatProtection(),
+          ...skipLevelCheatProtection(),
+        ),
+        alt1: $(
+          // Reset if player exits level with code or dies
+          ...levelSelectReset(),
+        ),
+      },
+      cancel: '0=1',
+      submit: '1=1',
+      value: $(
+        ['Measured', 'Mem', '32bit', atomsInCurrentLevel],
+      ),
+    },
+  });
+}
+
+// Other idea with checkpoint hit, would also work (but not be uniform to other cheat detection):
+/*
+      start: {
+        core: $(
+          // Checkpoint hit at start of level
+          ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
+          ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
+          ['AddHits', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+          ['',        'Value', '',     0,            '=', 'Value', '', 1,                        1],
+
+          // Trigger at end of level
+          ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
+          ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+          ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+
+          // Reset if Invincibility activated
+          ['ResetIf', 'Mem', '8bit', invincibilityCheat, '=', 'Value', '', 3],
+          // ...invincibilityCheatProtection(),
+
+          // Reset if skip level cheat used
+          ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
+          ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+          ['ResetIf',   'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
+          // ...skipLevelCheatProtection(),
+
+          // Reset if player exits level with code or dies
+          ['ResetIf', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelSelect]
+        ),
+      },
+ */
 
 export default set;
