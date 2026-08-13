@@ -2157,22 +2157,21 @@ for (let timedLeaderboard of timedLeaderboards) {
 // Atom leaderboards
 const atomLeaderboards = [
   [LevelEnum.Cemetery1, 'Cemetery Level 1'],
-  // TODO Add after testing
-  // [LevelEnum.Cemetery2, 'Cemetery Level 2'],
-  // [LevelEnum.Village1, 'Village Level 1'],
-  // [LevelEnum.Village2, 'Village Level 2'],
-  // [LevelEnum.Garden1, 'Garden Level 1'],
-  // [LevelEnum.Garden2, 'Garden Level 2'],
-  // [LevelEnum.Atlantis1, 'Atlantis Level 1'],
-  // [LevelEnum.Atlantis2, 'Atlantis Level 2'],
-  // [LevelEnum.Temple1, 'Temple Level 1'],
-  // [LevelEnum.Temple2, 'Temple Level 2'],
-  // [LevelEnum.Desert1, 'Desert Level 1'],
-  // [LevelEnum.Desert2, 'Desert Level 2'],
-  // [LevelEnum.Clouds1, 'Clouds Level 1'],
-  // [LevelEnum.Clouds2, 'Clouds Level 2'],
-  // [LevelEnum.Factory1, 'Factory Level 1'],
-  // [LevelEnum.Factory2, 'Factory Level 2'],
+  [LevelEnum.Cemetery2, 'Cemetery Level 2'],
+  [LevelEnum.Village1, 'Village Level 1'],
+  [LevelEnum.Village2, 'Village Level 2'],
+  [LevelEnum.Garden1, 'Garden Level 1'],
+  [LevelEnum.Garden2, 'Garden Level 2'],
+  [LevelEnum.Atlantis1, 'Atlantis Level 1'],
+  [LevelEnum.Atlantis2, 'Atlantis Level 2'],
+  [LevelEnum.Temple1, 'Temple Level 1'],
+  [LevelEnum.Temple2, 'Temple Level 2'],
+  [LevelEnum.Desert1, 'Desert Level 1'],
+  [LevelEnum.Desert2, 'Desert Level 2'],
+  [LevelEnum.Clouds1, 'Clouds Level 1'],
+  [LevelEnum.Clouds2, 'Clouds Level 2'],
+  [LevelEnum.Factory1, 'Factory Level 1'],
+  [LevelEnum.Factory2, 'Factory Level 2'],
 ];
 
 /*
