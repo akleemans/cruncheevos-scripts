@@ -1,12 +1,12 @@
 {
-  "name": "cemetery1-hidden-pumpkins-bomb",
+  "name": "factory2-pumpkins-destroyed-bomb",
   "description": "",
   "game": "Monster Force",
   "console": "GBA",
-  "firstFrame": 24753,
+  "firstFrame": 90232,
   "markers": {
-    "scenario-start": 24771,
-    "pumpkins-destroyed": 25125
+    "scenario-start": 90262,
+    "pumpkins-destroyed": 90485
   },
   "addresses": [
     {

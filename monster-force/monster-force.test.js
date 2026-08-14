@@ -364,7 +364,7 @@ describe('Walking Through Walls', () => {
     expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
   });
 
-  test.only('pops when pumpkins destroyed with bomb', () => {
+  test('pops when pumpkins destroyed with bomb', () => {
     const s = scenario('cemetery1-hidden-pumpkins-bomb');
     const result = runAchievement(cheevo, s);
 
@@ -374,7 +374,17 @@ describe('Walking Through Walls', () => {
     expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
   });
 
-  test.only('pops when destroyed with high stats (AP/FP)', () => {
+  test('pops when pumpkins destroyed with bomb 2', () => {
+    const s = scenario('cemetery1-hidden-pumpkins-bomb2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
+  test('pops when destroyed with high stats (AP/FP)', () => {
     const s = scenario('cemetery1-hidden-pumpkins-high-stats');
     const result = runAchievement(cheevo, s);
 
@@ -1502,6 +1512,16 @@ describe('Under the Watch', () => {
 
   test('pops when destroying pumpkins, even if running away', () => {
     const s = scenario('factory2-pumpkins-destroyed-running');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
+  test('pops when destroying pumpkins with bomb', () => {
+    const s = scenario('factory2-pumpkins-destroyed-bomb');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');

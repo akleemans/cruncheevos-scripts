@@ -375,6 +375,24 @@ set.addAchievement({
 
 /* ========= CHALLENGES ========= */
 
+// A pumpkin's health lands on 0 when shot (1 damage per hit) but on a negative value when
+// bombed (8 damage depending on tier), so we test "no longer alive" instead of "exactly 0"
+const allPumpkinsDestroyed = (addresses) => {
+  const conditions = [];
+  // Every pumpkin is destroyed now
+  for (const address of addresses) {
+    conditions.push(['', 'Mem', '16bit', address, '!=', 'Value', '', 1]);
+  }
+  // One of them was still alive in the last frame
+  addresses.forEach((address, i) => {
+    const flag = (i === addresses.length - 1 ? '' : 'OrNext');
+    conditions.push([flag, 'Delta', '16bit', address, '=', 'Value', '', 1]);
+  });
+  return conditions;
+};
+
+const cemetery1HiddenPumpkins = [0x1820, 0x1824, 0x1828, 0x182c, 0x1838, 0x183c, 0x1840, 0x1844];
+
 set.addAchievement({
   id: 625437,
   title: 'Walking Through Walls',
@@ -382,24 +400,11 @@ set.addAchievement({
   points: 2,
   conditions: {
     core: $(
-      ['AddSource', 'Delta', '16bit', 0x1820],
-      ['AddSource', 'Delta', '16bit', 0x1824],
-      ['AddSource', 'Delta', '16bit', 0x1828],
-      ['AddSource', 'Delta', '16bit', 0x182c],
-      ['AddSource', 'Delta', '16bit', 0x1838],
-      ['AddSource', 'Delta', '16bit', 0x183c],
-      ['AddSource', 'Delta', '16bit', 0x1840],
-      ['',          'Delta', '16bit', 0x1844,       '>', 'Value', '', 0],
-      ['AddSource', 'Mem',   '16bit', 0x1820],
-      ['AddSource', 'Mem',   '16bit', 0x1824],
-      ['AddSource', 'Mem',   '16bit', 0x1828],
-      ['AddSource', 'Mem',   '16bit', 0x182c],
-      ['AddSource', 'Mem',   '16bit', 0x1838],
-      ['AddSource', 'Mem',   '16bit', 0x183c],
-      ['AddSource', 'Mem',   '16bit', 0x1840],
-      ['',          'Mem',   '16bit', 0x1844,       '=', 'Value', '', 0],
-      ['',          'Mem',   '8bit',  currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
-      ['',          'Mem',   '8bit',  gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ...allPumpkinsDestroyed(cemetery1HiddenPumpkins),
+
+      // Context
+      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
+      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -1105,8 +1110,6 @@ set.addAchievement({
 set.addAchievement({
   id: 630028,
   title: 'Big Drops',
-  // Old, misleading: 'Collect 40 big Atom drops each worth 500 in Factory Level 1',
-  // Alternative: 'Collect big Atom drops of 500 or more at once, 40 times, in Factory Level 1',
   description: 'Collect 500 or more Atoms at once, 40 times, in Factory Level 1',
   points: 3,
   conditions: {
@@ -1133,6 +1136,7 @@ const factory2Pumpkin1 = 0x1958;
 const factory2Pumpkin2 = 0x195c;
 const factory2Pumpkin3 = 0x1978;
 const factory2Pumpkin4 = 0x197c;
+const factory2ScarecrowPumpkins = [factory2Pumpkin1, factory2Pumpkin2, factory2Pumpkin3, factory2Pumpkin4];
 
 set.addAchievement({
   id: 630029,
@@ -1141,15 +1145,7 @@ set.addAchievement({
   points: 2,
   conditions: {
     core: $(
-      // Can be checked with Delta/Mem because all pumpkins are in same area (opposed to Halloween's Over)
-      ['AddSource', 'Delta', '16bit', factory2Pumpkin1],
-      ['AddSource', 'Delta', '16bit', factory2Pumpkin2],
-      ['AddSource', 'Delta', '16bit', factory2Pumpkin3],
-      ['',          'Delta', '16bit', factory2Pumpkin4, '>', 'Value', '', 0],
-      ['AddSource', 'Mem',   '16bit', factory2Pumpkin1],
-      ['AddSource', 'Mem',   '16bit', factory2Pumpkin2],
-      ['AddSource', 'Mem',   '16bit', factory2Pumpkin3],
-      ['',          'Mem',   '16bit', factory2Pumpkin4, '=', 'Value', '', 0],
+      ...allPumpkinsDestroyed(factory2ScarecrowPumpkins),
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory2],
