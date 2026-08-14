@@ -417,8 +417,7 @@ set.addAchievement({
     core: $(
       // Lock if more than 5 seconds into Cemetery2
       ['AndNext', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Cemetery2],
-      ['AddHits', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '',      0,                   '=',  'Value', '', 1,                    300],
+      ['PauseIf', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame, 300],
       // Atoms >= 800 as Trigger condition
       ['',        'Delta', '32bit', atomsInCurrentLevel, '<',  'Value', '', 800],
       ['Trigger', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 800],
@@ -782,11 +781,9 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
+      // Lock if healing occurred - needs timer > 2 check, in the first two frames the health is initialized
       ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
-      ['AddHits', 'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth],
-      // Lock if healing occurred
-      ['PauseIf', 'Value', '',      0,             '=',  'Value', '',     1,             1],
+      ['PauseIf', 'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth, 1],
 
       // Character must be Wolfie
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
@@ -811,11 +808,9 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      // Add hit if damage occurred - needs timer > 2 check, in the first two frames the health is initialized
+      // Lock if damage occurred - needs timer > 2 check, in the first two frames the health is initialized
       ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
-      ['AddHits', 'Delta', '8bit',  currentHealth, '>',  'Mem',   '8bit', currentHealth],
-      // Lock if damage occurred
-      ['PauseIf', 'Value', '',      0,             '=',  'Value', '',     1,             1],
+      ['PauseIf', 'Delta', '8bit',  currentHealth, '>',  'Mem',   '8bit', currentHealth, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.AtlantisTrial],
@@ -838,12 +833,12 @@ set.addAchievement({
   conditions: {
     core: $(
       // Pop if 50 or more enemies & pumpkins destroyed
-      ['',           'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
-      ['Measured%',  'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
+      ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
+      ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
       // Only show Measured on correct character and level
-      ['AndNext',    'Mem',   '8bit', currentLevel,            '=',  'Value', '', LevelEnum.Temple1],
-      ['MeasuredIf', 'Mem',   '8bit', characterActive,         '=',  'Value', '', CharacterActive.Drac],
+      ['AndNext',    'Mem', '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Temple1],
+      ['MeasuredIf', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
 
       // Character must be Drac
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
@@ -988,21 +983,20 @@ set.addAchievement({
   conditions: {
     core: $(
       // Sum of flags must be at least 3 at one point
-      ['AddSource', 'Mem',   'Bit4', shotModifiers1],
-      ['AddSource', 'Mem',   'Bit5', shotModifiers1],
-      ['AddSource', 'Mem',   'Bit6', shotModifiers1],
-      ['AddSource', 'Mem',   'Bit7', shotModifiers1],
-      ['AddSource', 'Mem',   'Bit0', shotModifiers2],
-      ['AddSource', 'Mem',   'Bit1', shotModifiers2],
-      ['AddSource', 'Mem',   'Bit2', shotModifiers2],
-      ['AddSource', 'Mem',   'Bit3', shotModifiers2],
-      ['AddSource', 'Mem',   'Bit7', shotModifiers2],
-      ['AddSource', 'Mem',   'Bit0', shotModifiers3],
-      ['AddSource', 'Mem',   'Bit1', shotModifiers3],
-      ['AddSource', 'Mem',   'Bit2', shotModifiers3],
-      ['AddSource', 'Mem',   'Bit3', shotModifiers3],
-      ['AddHits',   'Mem',   'Bit4', shotModifiers3, '>=', 'Value', '', 3],
-      ['',          'Value', '',     0,              '=',  'Value', '', 1, 1],
+      ['AddSource', 'Mem', 'Bit4', shotModifiers1],
+      ['AddSource', 'Mem', 'Bit5', shotModifiers1],
+      ['AddSource', 'Mem', 'Bit6', shotModifiers1],
+      ['AddSource', 'Mem', 'Bit7', shotModifiers1],
+      ['AddSource', 'Mem', 'Bit0', shotModifiers2],
+      ['AddSource', 'Mem', 'Bit1', shotModifiers2],
+      ['AddSource', 'Mem', 'Bit2', shotModifiers2],
+      ['AddSource', 'Mem', 'Bit3', shotModifiers2],
+      ['AddSource', 'Mem', 'Bit7', shotModifiers2],
+      ['AddSource', 'Mem', 'Bit0', shotModifiers3],
+      ['AddSource', 'Mem', 'Bit1', shotModifiers3],
+      ['AddSource', 'Mem', 'Bit2', shotModifiers3],
+      ['AddSource', 'Mem', 'Bit3', shotModifiers3],
+      ['',          'Mem', 'Bit4', shotModifiers3, '>=', 'Value', '', 3, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.DesertTrial],
@@ -1177,10 +1171,8 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Add hit if confused
-      ['AddHits', 'Mem',   'Bit4', ailmentBitflags, '=', 'Value', '', 1],
       // Lock if confused
-      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1, 1],
+      ['PauseIf', 'Mem',   'Bit4', ailmentBitflags, '=', 'Value', '', 1, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.FactoryShadow],
@@ -1232,8 +1224,7 @@ set.addAchievement({
       // Checkpoint hit if entering Castle 1 (to avoid entering at Castle 2 or 3, which would also lead to Castle 4)
       ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle1],
       ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
-      ['AddHits', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['',        'Value', '',     0,            '=', 'Value', '', 1,                        1],
+      ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
 
       // Timer adds hits while in-game, so in-between score screens don't count
       ['AddHits', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
@@ -1261,8 +1252,7 @@ set.addAchievement({
     core: $(
       // Add hit if moved left or right while in-game
       ['AndNext', 'Delta', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
-      ['AddHits', 'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX],
-      ['PauseIf', 'Value', '',      0,               '=',  'Value', '',      1,                    1],
+      ['PauseIf', 'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX,      1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
@@ -1299,15 +1289,12 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // TODO can maybe be simplified? See "Saving for Later"
       // Lock if brought any health into level
       ...checkToolSlotsForAnyHealthAtStartOfLevel(),
 
-      // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
+      // Require 3 healing hits - needs timer > 2 check, in the first two frames the health is initialized
       ['AndNext', 'Mem',   '16bit', levelTime,     '>=', 'Value', '',     2],
-      ['AddHits', 'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth],
-      // Require 3 healing hits
-      ['',        'Value', '',      0,             '=',  'Value', '',     1,             3],
+      ['',        'Delta', '8bit',  currentHealth, '<',  'Mem',   '8bit', currentHealth, 3],
 
       // Character must be Wolfie
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Wolfie],
