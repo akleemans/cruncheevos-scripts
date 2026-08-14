@@ -222,7 +222,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0017c0",
-    "Note": "[16-bit] Level object 1 max. health (Start of level object table - pumpkins, enemies, items, switches. 4 bytes per object). Written when the object is loaded, and overwritten with the remaining hit point when it is destroyed. Damage during a fight is tracked in the live object array (see 0x1ba4).\r\n0x0000 = Destroyed, with an exact kill\r\n0x0001 = Pumpkins, keys, switches, teleporters, doors, level exit\r\n0x0003 = Metal pumpkin\r\n0x0010 - 0x0280 = Enemies and bosses (16, 24, 32, 48, 64, 96, 128, 256)\r\n0x8000 - 0xffff = Destroyed with overkill, negative remaining HP"
+    "Note": "[16-bit] Level object 1 starting health (Start of level object table - pumpkins, enemies, items, etc. 4 bytes per object). Written when the object is loaded, and overwritten with the remaining health when it is destroyed. Damage during play is tracked in the live object array (see 0x1ba4).\r\n0x0000 = Destroyed, with an exact kill\r\n0x0001 = Pumpkins, keys, switches, teleporters, doors, level exit\r\n0x0003 = Metal pumpkin\r\n0x0010 - 0x0280 = Enemies and bosses (16, 24, 32, 48, 64, 96, 128, 256)\r\n0x8000 - 0xffff = Destroyed with overkill, negative remaining HP"
   },
   {
     "User": "adrianusk",
