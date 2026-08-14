@@ -376,7 +376,7 @@ set.addAchievement({
 /* ========= CHALLENGES ========= */
 
 // A pumpkin's health lands on 0 when shot (1 damage per hit) but on a negative value when
-// bombed (8 damage depending on tier), so we test "no longer alive" instead of "exactly 0"
+// bombed (8/16/32 damage, depending on tier), so we test "no longer alive" instead of "exactly 0"
 const allPumpkinsDestroyed = (addresses) => {
   const conditions = [];
   // Every pumpkin is destroyed now
