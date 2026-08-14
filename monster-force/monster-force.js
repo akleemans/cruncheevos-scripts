@@ -379,7 +379,7 @@ set.addAchievement({
 // bombed (8/16/32 damage, depending on tier), so we test "no longer alive" instead of "exactly 0"
 const allPumpkinsDestroyed = (addresses) => {
   const conditions = [];
-  // Every pumpkin is destroyed now
+  // Every pumpkin is destroyed now (only works for "simple" type 1 pumpkins, not for black or multi-hit ones)
   for (const address of addresses) {
     conditions.push(['', 'Mem', '16bit', address, '!=', 'Value', '', 1]);
   }
