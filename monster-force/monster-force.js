@@ -840,7 +840,10 @@ set.addAchievement({
       // Pop if 50 or more enemies & pumpkins destroyed
       ['',           'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
       ['Measured%',  'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
-      ['MeasuredIf', 'Mem',   '8bit', currentLevel,            '=',  'Value', '', LevelEnum.Temple1],
+
+      // Only show Measured on correct character and level
+      ['AndNext',    'Mem',   '8bit', currentLevel,            '=',  'Value', '', LevelEnum.Temple1],
+      ['MeasuredIf', 'Mem',   '8bit', characterActive,         '=',  'Value', '', CharacterActive.Drac],
 
       // Character must be Drac
       ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],

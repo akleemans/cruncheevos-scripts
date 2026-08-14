@@ -1089,6 +1089,8 @@ describe('Blood Thirst', () => {
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    // No Measured if wrong character
+    expect(result.measuredAt(s.marker('scenario-start'))).toBe(0);
     expect(result.triggered).toBe(false);
   });
 });
@@ -1603,7 +1605,14 @@ describe('Shop \'Til You Drop', () => {
     expect(result.stateAt(s.marker('level-select-after'))).toBe('reset');
   });
 
-  // TODO add test for buying 3, exit shop, and buy 3 in next round
+  test('does not pop when bought 3, played through level and re-entered the shop to buy 3 others', () => {
+    const s = scenario('shop-buy-3-and-3-after-reenter');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+    expect(result.stateAt(s.marker('level-select-inbetween'))).toBe('reset');
+  });
 });
 
 describe('Ninja Skills', () => {
@@ -1807,7 +1816,15 @@ describe('All Green', () => {
     expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot4'));
   });
 
-  // TODO also pop if 4x the same amulet
+  test('pops when 4x the same green relic', () => {
+    const s = scenario('all-green-relics-4x-same');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('shop-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('4th-green-relic'));
+  });
 });
 
 describe('Cloak of Safety', () => {
@@ -2035,7 +2052,13 @@ describe('Five of a Kind', () => {
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
 
-  // TODO add test for 36 rankings
+  test('does not pop if a Crystal is missing', () => {
+    const s = scenario('crystal-reach-36-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Different Perspective', () => {
