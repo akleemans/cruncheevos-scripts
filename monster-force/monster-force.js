@@ -636,8 +636,7 @@ const greenHeartCollectedInSlot = (toolSlot) => {
   // Slot was empty (or contained another item - immediate switching is possible) and is now Health lvl. 3 (checkpoint hit)
   return [
     ['AndNext', 'Delta', '8bit', toolSlot, '!=', 'Value', '', 0x09],
-    ['AddHits', 'Mem',   '8bit', toolSlot, '=',  'Value', '', 0x09],
-    ['',        'Value', '',     0,        '=',  'Value', '', 1,    1],
+    ['',        'Mem',   '8bit', toolSlot, '=',  'Value', '', 0x09, 1],
   ];
 };
 
@@ -1275,20 +1274,17 @@ set.addAchievement({
   },
 });
 
+// Health tools are the contiguous range 0x07 (Lv. 1, red) to 0x0a (Maximum, black), Medicine (0x54) does not restore health.
+// Tool slots never change during the level start phase, so one gameState check is enough.
 const checkToolSlotsForAnyHealthAtStartOfLevel = () => {
   const conditions = [];
-  // For both health tool pairs (red/blue, green/black)
-  for (let healthPair of [[0x07, 0x08], [0x09, 0x0a]]) {
-    // For all 4 tool slots
-    for (let toolSlot of toolSlots) {
-      conditions.push(...[
-        ['OrNext', 'Mem', '8bit', toolSlot, '=', 'Value', '', healthPair[0]],
-        ['AndNext', 'Mem', '8bit', toolSlot, '=', 'Value', '', healthPair[1]],
-        ['AndNext', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelStart],
-        ['AddHits', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-        ['PauseIf', 'Value', '',     0,         '=', 'Value', '', 1,                        1],
-      ]);
-    }
+  // For all 4 tool slots
+  for (let toolSlot of toolSlots) {
+    conditions.push(...[
+      ['AndNext', 'Mem', '8bit', toolSlot,  '>=', 'Value', '', 0x07],
+      ['AndNext', 'Mem', '8bit', toolSlot,  '<=', 'Value', '', 0x0a],
+      ['PauseIf', 'Mem', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart, 1],
+    ]);
   }
   return conditions;
 };
@@ -1301,8 +1297,7 @@ set.addAchievement({
   conditions: {
     core: $(
       // TODO can maybe be simplified? See "Saving for Later"
-      // Lock if brought any health into level.
-      // The function below will generate 8 PauseIfs, 2 for every tool slot (red/blue and green/black health tool check)
+      // Lock if brought any health into level
       ...checkToolSlotsForAnyHealthAtStartOfLevel(),
 
       // Add hit if healed - needs timer > 2 check, in the first two frames the health is initialized
@@ -1514,15 +1509,13 @@ set.addAchievement({
       ['OrNext',  'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
       ['AndNext', 'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
       ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
-      ['AddHits', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
+      ['PauseIf', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame,     1],
 
       // Lock if entered level with tool equipped in slots 3 or 4
       ['OrNext',  'Mem',   '8bit', toolSlot3, '!=', 'Value', '', 0],
       ['AndNext', 'Mem',   '8bit', toolSlot4, '!=', 'Value', '', 0],
       ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
-      ['AddHits', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
+      ['PauseIf', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame,     1],
 
       // Any slot was not filled last frame
       ['OrNext', 'Delta', '8bit', toolSlot1, '=',  'Value', '', 0],
@@ -2039,22 +2032,22 @@ set.addAchievement({
 
 // Timed leaderboards
 const timedLeaderboards = [
-  [LevelEnum.CemeteryTrial, 'Cemetery Trial'],
-  [LevelEnum.VillageTrial, 'Village Trial'],
-  [LevelEnum.GardenTrial, 'Garden Trial'],
-  [LevelEnum.AtlantisTrial, 'Atlantis Trial'],
-  [LevelEnum.TempleTrial, 'Temple Trial'],
-  [LevelEnum.DesertTrial, 'Desert Trial'],
-  [LevelEnum.CloudsTrial, 'Clouds Trial'],
-  [LevelEnum.FactoryTrial, 'Factory Trial'],
-  [LevelEnum.CemeteryShadow, 'Cemetery Shadow'],
-  [LevelEnum.VillageShadow, 'Village Shadow'],
-  [LevelEnum.GardenShadow, 'Pumpkin Boss'],
-  [LevelEnum.AtlantisShadow, 'Atlantis Shadow'],
-  [LevelEnum.TempleDragonShadow, 'Dragon Boss'],
-  [LevelEnum.DesertShadow, 'Desert Shadow'],
-  [LevelEnum.CloudsShadow, 'Clouds Shadow'],
-  [LevelEnum.FactoryShadow, 'Factory Shadow'],
+  [LevelEnum.CemeteryTrial,       'Cemetery Trial'],
+  [LevelEnum.VillageTrial,        'Village Trial'],
+  [LevelEnum.GardenTrial,         'Garden Trial'],
+  [LevelEnum.AtlantisTrial,       'Atlantis Trial'],
+  [LevelEnum.TempleTrial,         'Temple Trial'],
+  [LevelEnum.DesertTrial,         'Desert Trial'],
+  [LevelEnum.CloudsTrial,         'Clouds Trial'],
+  [LevelEnum.FactoryTrial,        'Factory Trial'],
+  [LevelEnum.CemeteryShadow,      'Cemetery Shadow'],
+  [LevelEnum.VillageShadow,       'Village Shadow'],
+  [LevelEnum.GardenShadow,        'Pumpkin Boss'],
+  [LevelEnum.AtlantisShadow,      'Atlantis Shadow'],
+  [LevelEnum.TempleDragonShadow,  'Dragon Boss'],
+  [LevelEnum.DesertShadow,        'Desert Shadow'],
+  [LevelEnum.CloudsShadow,        'Clouds Shadow'],
+  [LevelEnum.FactoryShadow,       'Factory Shadow'],
   [LevelEnum.CastleSergeantSmash, 'Sergeant Smash'],
 ];
 

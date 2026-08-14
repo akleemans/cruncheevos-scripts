@@ -1069,7 +1069,7 @@ describe('Metal Detector', () => {
 describe('Blood Thirst', () => {
   const cheevo = achievement('Blood Thirst');
 
-  test('pops when 50 enemies are destroyed in Temple Level 1', () => {
+  test('pops when 50 enemies are defeated in Temple Level 1', () => {
     const s = scenario('temple1-enemies-killed');
     const result = runAchievement(cheevo, s);
 
@@ -1084,7 +1084,13 @@ describe('Blood Thirst', () => {
     expect(result.triggeredFrame).toBe(s.marker('50-enemies-killed'));
   });
 
-  // TODO add test with non-Drac character
+  test('does not pop with other character', () => {
+    const s = scenario('temple1-enemies-mina');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 
@@ -1103,7 +1109,6 @@ describe('Minimal Force', () => {
 
   test('does not prime if stats below 15, but relics push it over 15', () => {
     const s = scenario('temple2-stats-below-15-but-relics-push-attack');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
@@ -1112,7 +1117,6 @@ describe('Minimal Force', () => {
 
   test('does not prime if one stat above 15', () => {
     const s = scenario('temple2-health-above-15');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
