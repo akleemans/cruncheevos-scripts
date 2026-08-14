@@ -12,7 +12,7 @@
   {
     "User": "adrianusk",
     "Address": "0x00077c",
-    "Note": "[8-bit] Player state\r\n0x02 = Standing still\r\n0x03 = Moving\r\n0x04 = Fast moving (hover)\r\n0x05 = Bomb armed\r\n0x06 = Charging for a big shot\r\n0x07 = Firing a quick shot or start of charge\r\n0x0e = Dying\r\n0x0c = Teleporting\r\n0x0d = Level finished animation\r\n0x10 = Dead"
+    "Note": "[8-bit] Player state\r\n0x02 = Standing still\r\n0x03 = Moving\r\n0x04 = Fast moving (hover)\r\n0x05 = Bomb armed\r\n0x06 = Charging for a big shot\r\n0x07 = Firing a quick shot or start of charge\r\n0x0c = Teleporting\r\n0x0d = Level finished animation\r\n0x0e = Dying\r\n0x10 = Dead"
   },
   {
     "User": "adrianusk",
@@ -42,7 +42,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0007e5",
-    "Note": "[8-bit][Bitflags] Ailment (debuff) type active (0x00 = no ailment active)\r\nBit3 = Can't shoot\r\nBit4 = Confused\r\nBit7 = Health drain"
+    "Note": "[8-bit][Bitflags] Ailment (debuff) type active (0x00 = no ailment active)\r\nBit3 = Can't shoot\r\nBit4 = Confused\r\nBit6 = Atom drain\r\nBit7 = Health drain"
   },
   {
     "User": "adrianusk",
@@ -67,7 +67,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0007fc",
-    "Note": "[8-bit] Tools slot 1\r\n0x00 = Empty\r\n0x01 = Bomb (red)\r\n0x02 = Invincible (red)\r\n0x03 = Decoy (blue)\r\n0x04 = Uber-Decoy (red)\r\n0x07 = Health Lv. 1 (red)\r\n0x08 = Health Lv. 2 (blue)\r\n0x09 = Health Lv. 3 (green)\r\n0x0a = Health Maximum (black)\r\n0x0b = Armor Scroll (black, +2 HP)\r\n0x0c = Attack Scroll (black, +2% Attack)\r\n0x0d = Force Scroll (black, +4% Force)\r\n0x2c = Reflect Shot 1 (red)\r\n0x2d = Reflect Shot 2 (blue)\r\n0x2e = Reflect Shot 3 (green)\r\n0x2f = X-Ray Shot 1 (red)\r\n0x30 = X-Ray Shot 2 (blue)\r\n0x31 = X-Ray Shot 3 (green)\r\n0x32 = Doom Shot 1 (red)\r\n0x33 = Doom Shot 2 (blue)\r\n0x34 = Doom Shot 3 (green)\r\n0x35 = Leech Shot 1 (red)\r\n0x36 = Leech Shot 2 (blue)\r\n0x37 = Leech Shot 3 (green)\r\n0x3b = Magnet Shot 1 (red)\r\n0x3c = Magnet Shot 2 (blue)\r\n0x3d = Magnet Shot 3 (green)\r\n0x3e = 3 Way Shot 1 (red)\r\n0x3f = 3 Way Shot 2 (blue)\r\n0x40 = 3 Way Shot 3 (green)\r\n0x41 = Double Shot 1 (red)\r\n0x42 = Double Shot 2 (blue)\r\n0x43 = Double Shot 3 (green)\r\n0x44 = Drain Shot 1 (red)\r\n0x45 = Drain Shot 2 (blue)\r\n0x46 = Drain Shot 3 (green)\r\n0x50 = Bomb Level 2 (blue)\r\n0x51 = Bomb Level 3 (green)\r\n0x52 = Invincible 1 (blue)\r\n0x53 = Invincible 2 (green)\r\n0x54 = Medicine (red)"
+    "Note": "[8-bit] Tools slot 1\r\n0x00 = Empty\r\n0x01 = Bomb (red, 8 damage)\r\n0x02 = Invincible (red)\r\n0x03 = Decoy (blue)\r\n0x04 = Uber-Decoy (red)\r\n0x07 = Health Lv. 1 (red)\r\n0x08 = Health Lv. 2 (blue)\r\n0x09 = Health Lv. 3 (green)\r\n0x0a = Health Maximum (black)\r\n0x0b = Armor Scroll (black, +2 HP)\r\n0x0c = Attack Scroll (black, +2% Attack)\r\n0x0d = Force Scroll (black, +4% Force)\r\n0x24 = ??? Ring (red)\r\n0x25 = ??? Gauntlet (blue)\r\n0x26 = ??? Amulet (green)\r\n0x2c = Reflect Shot 1 (red)\r\n0x2d = Reflect Shot 2 (blue)\r\n0x2e = Reflect Shot 3 (green)\r\n0x2f = X-Ray Shot 1 (red)\r\n0x30 = X-Ray Shot 2 (blue)\r\n0x31 = X-Ray Shot 3 (green)\r\n0x32 = Doom Shot 1 (red)\r\n0x33 = Doom Shot 2 (blue)\r\n0x34 = Doom Shot 3 (green)\r\n0x35 = Leech Shot 1 (red)\r\n0x36 = Leech Shot 2 (blue)\r\n0x37 = Leech Shot 3 (green)\r\n0x3b = Magnet Shot 1 (red)\r\n0x3c = Magnet Shot 2 (blue)\r\n0x3d = Magnet Shot 3 (green)\r\n0x3e = 3 Way Shot 1 (red)\r\n0x3f = 3 Way Shot 2 (blue)\r\n0x40 = 3 Way Shot 3 (green)\r\n0x41 = Double Shot 1 (red)\r\n0x42 = Double Shot 2 (blue)\r\n0x43 = Double Shot 3 (green)\r\n0x44 = Drain Shot 1 (red)\r\n0x45 = Drain Shot 2 (blue)\r\n0x46 = Drain Shot 3 (green)\r\n0x50 = Bomb Level 2 (blue, 16 damage)\r\n0x51 = Bomb Level 3 (green, 32 damage)\r\n0x52 = Invincible 1 (blue)\r\n0x53 = Invincible 2 (green)\r\n0x54 = Medicine (red)"
   },
   {
     "User": "adrianusk",
@@ -107,22 +107,22 @@
   {
     "User": "adrianusk",
     "Address": "0x00080c",
-    "Note": "[8-bit][Bitflags] Shot modifiers 1\r\nBit0 = Unused?\r\nBit1 = Unused?\r\nBit2 = Unused?\r\nBit3 = Unused?\r\nBit4 = Reflect (all tiers)\r\nBit5 = X-Ray\r\nBit6 = Doom tier 1\r\nBit7 = Doom tier 2"
+    "Note": "[8-bit][Bitflags] Shot modifiers 1\r\nBit4 = Reflect (all tiers)\r\nBit5 = X-Ray\r\nBit6 = Doom tier 1\r\nBit7 = Doom tier 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x00080d",
-    "Note": "[8-bit][Bitflags] Shot modifiers 2\r\nBit0 = Doom tier 3\r\nBit1 = Leech tier 1\r\nBit2 = Leech tier 2\r\nBit3 = Leech tier 3\r\nBit4 = Unused (tool not implemented)\r\nBit5 = Unused (tool not implemented)\r\nBit6 = Unused (tool not implemented)\r\nBit7 = Magnet (all tiers)"
+    "Note": "[8-bit][Bitflags] Shot modifiers 2\r\nBit0 = Doom tier 3\r\nBit1 = Leech tier 1\r\nBit2 = Leech tier 2\r\nBit3 = Leech tier 3\r\nBit7 = Magnet (all tiers)"
   },
   {
     "User": "adrianusk",
     "Address": "0x00080e",
-    "Note": "[8-bit][Bitflags] Shot modifiers 2\r\nBit0 = 3-Way shot (all tiers)\r\nBit1 = Drain tier 1\r\nBit2 = Drain tier 2\r\nBit3 = Drain tier 3\r\nBit4 = Double (all tiers)"
+    "Note": "[8-bit][Bitflags] Shot modifiers 3\r\nBit0 = 3-Way shot (all tiers)\r\nBit1 = Drain tier 1\r\nBit2 = Drain tier 2\r\nBit3 = Drain tier 3\r\nBit4 = Double (all tiers)"
   },
   {
     "User": "adrianusk",
     "Address": "0x000824",
-    "Note": "[16-bit] Tool use timer (which one?)"
+    "Note": "[16-bit] Tool use timer"
   },
   {
     "User": "adrianusk",
@@ -182,12 +182,12 @@
   {
     "User": "adrianusk",
     "Address": "0x00085a",
-    "Note": "[16-bit] Normal shots fired"
+    "Note": "[16-bit] Normal shots fired in current level"
   },
   {
     "User": "adrianusk",
     "Address": "0x00085e",
-    "Note": "[16-bit] Power shots fired"
+    "Note": "[16-bit] Power shots fired in current level"
   },
   {
     "User": "adrianusk",
@@ -222,7 +222,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0017c0",
-    "Note": "[16-bit] Level object 1 type (Start of level object table - pumpkins, enemies, items, switches. 4 bytes per object)\r\nTODO ?? - IDs not precise enought yet\r\n0x00 = Object cleared\r\n0x01 = Small object (pumpkin, item, exit)\r\n0x02 = Enemy\r\n0x03 = Large object"
+    "Note": "[16-bit] Level object 1 max. health (Start of level object table - pumpkins, enemies, items, switches. 4 bytes per object). Written when the object is loaded, and overwritten with the remaining hit point when it is destroyed. Damage during a fight is tracked in the live object array (see 0x1ba4).\r\n0x0000 = Destroyed, with an exact kill\r\n0x0001 = Pumpkins, keys, switches, teleporters, doors, level exit\r\n0x0003 = Metal pumpkin\r\n0x0010 - 0x0280 = Enemies and bosses (16, 24, 32, 48, 64, 96, 128, 256)\r\n0x8000 - 0xffff = Destroyed with overkill, negative remaining HP"
   },
   {
     "User": "adrianusk",
@@ -292,52 +292,52 @@
   {
     "User": "adrianusk",
     "Address": "0x0017f8",
-    "Note": "[16-bit] Level object 15 type (see 0x17c0) - Atlantis 2: pumpkin at start 1"
+    "Note": "[16-bit] Level object 15 type (see 0x17c0) - Atlantis 2: Pumpkin at start 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017fc",
-    "Note": "[16-bit] Level object 16 type (see 0x17c0) - Atlantis 2: pumpkin at start 2"
+    "Note": "[16-bit] Level object 16 type (see 0x17c0) - Atlantis 2: Pumpkin at start 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001800",
-    "Note": "[16-bit] Level object 17 type (see 0x17c0) - Atlantis 2: pumpkin at start 3"
+    "Note": "[16-bit] Level object 17 type (see 0x17c0) - Atlantis 2: Pumpkin at start 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001804",
-    "Note": "[16-bit] Level object 18 type (see 0x17c0) - Atlantis 2: pumpkin at start 4"
+    "Note": "[16-bit] Level object 18 type (see 0x17c0) - Atlantis 2: Pumpkin at start 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001808",
-    "Note": "[16-bit] Level object 19 type (see 0x17c0) - Atlantis 2: Scare-crow pumpkin 1"
+    "Note": "[16-bit] Level object 19 type (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x00180c",
-    "Note": "[16-bit] Level object 20 type (see 0x17c0) - Atlantis 2: Scare-crow pumpkin 2"
+    "Note": "[16-bit] Level object 20 type (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001820",
-    "Note": "[16-bit] Level object 25 type (see 0x17c0) - Cemetery 1: hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
+    "Note": "[16-bit] Level object 25 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001824",
-    "Note": "[16-bit] Level object 26 type (see 0x17c0) - Cemetery 1: hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
+    "Note": "[16-bit] Level object 26 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001828",
-    "Note": "[16-bit] Level object 27 type (see 0x17c0) - Cemetery 1: hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
+    "Note": "[16-bit] Level object 27 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x00182c",
-    "Note": "[16-bit] Level object 28 type (see 0x17c0) - Cemetery 1: hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
+    "Note": "[16-bit] Level object 28 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
   },
   {
     "User": "adrianusk",
@@ -352,12 +352,12 @@
   {
     "User": "adrianusk",
     "Address": "0x001838",
-    "Note": "[16-bit] Level object 31 type (see 0x17c0) - Cemetery 1: hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
+    "Note": "[16-bit] Level object 31 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00183c",
-    "Note": "[16-bit] Level object 32 type (see 0x17c0) - Cemetery 1: hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
+    "Note": "[16-bit] Level object 32 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
   },
   {
     "User": "adrianusk",
@@ -367,7 +367,7 @@
   {
     "User": "adrianusk",
     "Address": "0x001844",
-    "Note": "[16-bit] Level object 34 type (see 0x17c0) - Cemetery 1: hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
+    "Note": "[16-bit] Level object 34 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
   },
   {
     "User": "adrianusk",
@@ -447,7 +447,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0018fc",
-    "Note": "[16-bit] Level object 80 type (see 0x17c0) - Garden Trial: door to locked part, Atlantis 2: Wave pumpkin 1"
+    "Note": "[16-bit] Level object 80 type (see 0x17c0) - Garden Trial: Door to locked part, Atlantis 2: Wave pumpkin 2"
   },
   {
     "User": "adrianusk",
@@ -497,12 +497,12 @@
   {
     "User": "adrianusk",
     "Address": "0x001944",
-    "Note": "[16-bit] Level object 98 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 1"
+    "Note": "[16-bit] Level object 98 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001948",
-    "Note": "[16-bit] Level object 99 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 2"
+    "Note": "[16-bit] Level object 99 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 2"
   },
   {
     "User": "adrianusk",
@@ -542,12 +542,12 @@
   {
     "User": "adrianusk",
     "Address": "0x00196c",
-    "Note": "[16-bit] Level object 108 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 5"
+    "Note": "[16-bit] Level object 108 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x001970",
-    "Note": "[16-bit] Level object 109 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 6"
+    "Note": "[16-bit] Level object 109 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 6"
   },
   {
     "User": "adrianusk",
@@ -557,12 +557,12 @@
   {
     "User": "adrianusk",
     "Address": "0x00197c",
-    "Note": "[16-bit] Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: pumpkin in corridor 7"
+    "Note": "[16-bit] Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: Pumpkin in corridor 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001980",
-    "Note": "[16-bit] Level object 113 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 8"
+    "Note": "[16-bit] Level object 113 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 8"
   },
   {
     "User": "adrianusk",
@@ -577,12 +577,12 @@
   {
     "User": "adrianusk",
     "Address": "0x00198c",
-    "Note": "[16-bit] Level object 116 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 9"
+    "Note": "[16-bit] Level object 116 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 9"
   },
   {
     "User": "adrianusk",
     "Address": "0x001990",
-    "Note": "[16-bit] Level object 117 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 10"
+    "Note": "[16-bit] Level object 117 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 10"
   },
   {
     "User": "adrianusk",
@@ -627,17 +627,17 @@
   {
     "User": "adrianusk",
     "Address": "0x001a40",
-    "Note": "[16-bit] Level object 161 type (see 0x17c0) - Atlantis 2: black pumpkin road block 1"
+    "Note": "[16-bit] Level object 161 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a44",
-    "Note": "[16-bit] Level object 162 type (see 0x17c0) - Atlantis 2: black pumpkin road block 2"
+    "Note": "[16-bit] Level object 162 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a48",
-    "Note": "[16-bit] Level object 163 type (see 0x17c0) - Atlantis 2: black pumpkin road block 3"
+    "Note": "[16-bit] Level object 163 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 3"
   },
   {
     "User": "adrianusk",
@@ -647,17 +647,12 @@
   {
     "User": "adrianusk",
     "Address": "0x001be0",
-    "Note": "[8-bit] Live object 1 health - Boss in Cemetery Shadow"
+    "Note": "[16-bit] Level object 1 health"
   },
   {
     "User": "adrianusk",
     "Address": "0x001c34",
     "Note": "[32-bit] Live object 2 type (see 0x1ba4)"
-  },
-  {
-    "User": "adrianusk",
-    "Address": "0x001d00",
-    "Note": "[8-bit] Village Shadow boss health"
   },
   {
     "User": "adrianusk",
@@ -767,7 +762,7 @@
   {
     "User": "adrianusk",
     "Address": "0x003540",
-    "Note": "[8-bit] Timed switch global timer (e.g. Garden Trial)"
+    "Note": "[8-bit] Timed switch global timer (reset to full and counts down, increases when a timer switch is activated)"
   },
   {
     "User": "adrianusk",
@@ -782,22 +777,22 @@
   {
     "User": "adrianusk",
     "Address": "0x003568",
-    "Note": "[32-bit] Viewport position horizontally"
+    "Note": "[32-bit] Viewport position: X coordinate"
   },
   {
     "User": "adrianusk",
     "Address": "0x00356c",
-    "Note": "[32-bit] Viewport position vertically"
+    "Note": "[32-bit] Viewport position: Y coordinate"
   },
   {
     "User": "adrianusk",
     "Address": "0x003588",
-    "Note": "[32-bit] Last teleport\/start position horizontally"
+    "Note": "[32-bit] Last teleport\/start position: X coordinate"
   },
   {
     "User": "adrianusk",
     "Address": "0x00358c",
-    "Note": "[32-bit] Last teleport\/start position vertically"
+    "Note": "[32-bit] Last teleport\/start position: Y coordinate"
   },
   {
     "User": "adrianusk",
@@ -822,7 +817,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035a8",
-    "Note": "[16-bit] Total shots fired"
+    "Note": "[16-bit] Total shots fired (= 0x085a normal + 0x085e power)"
   },
   {
     "User": "adrianusk",
