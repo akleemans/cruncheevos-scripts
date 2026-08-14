@@ -1,13 +1,11 @@
 {
-  "name": "cemetery-trial-failed",
+  "name": "cemetery-trial-started",
   "description": "",
   "game": "Monster Force",
   "console": "GBA",
-  "firstFrame": 37059,
+  "firstFrame": 6737,
   "markers": {
-    "level-start": 37150,
-    "collected-100-atoms": 37723,
-    "level-select-after": 38841
+    "level-start": 6826
   },
   "addresses": [
     {
@@ -586,6 +584,11 @@
       "label": "Level object 115 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
     },
     {
+      "address": "0x198c",
+      "size": "u16",
+      "label": "Level object 116 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 9"
+    },
+    {
       "address": "0x1990",
       "size": "u16",
       "label": "Level object 117 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 10"
@@ -739,6 +742,26 @@
       "address": "0x34fd",
       "size": "u8",
       "label": "Switch 11 activated"
+    },
+    {
+      "address": "0x34fe",
+      "size": "u8",
+      "label": "Switch 12 activated"
+    },
+    {
+      "address": "0x34ff",
+      "size": "u8",
+      "label": "Switch 13 activated"
+    },
+    {
+      "address": "0x3500",
+      "size": "u8",
+      "label": "Switch 14 activated"
+    },
+    {
+      "address": "0x3501",
+      "size": "u8",
+      "label": "Switch 15 activated - Desert 2: Pumpkin arrow switch"
     },
     {
       "address": "0x3504",

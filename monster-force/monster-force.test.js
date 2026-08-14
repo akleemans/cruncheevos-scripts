@@ -4,6 +4,21 @@ import set from './monster-force.js';
 
 const achievement = (title) => Object.values(set.achievements).find((a) => a.title === title);
 const scenario = (name) => loadScenario(new URL(`./scenarios/${name}`, import.meta.url));
+const lastFrame = (s) => s.frameNumberAt(s.length - 1);
+
+const leaderboard = (title) => Object.values(set.leaderboards).find((l) => l.title === title);
+
+// Use LB start/cancel/submit as conditions like achievement
+const lbTrigger = (lb, part) => ({conditions: lb.conditions[part]});
+
+// Make the value expression parseable as a trigger while measuredAt() still reports the value:
+// a plain value ("M:0x 359c") gets a comparison that can never be true, a hit-counting value
+// ("M:0xH770=15") gets an unreachable hit target so the hits are counted instead of "=15"
+// being read as the measured target.
+const lbValue = (lb) => {
+  const value = `${lb.conditions.value}`;
+  return /[<>=!]/.test(value) ? `${value}.4294967295.` : `${value}>=4294967295`;
+};
 
 describe('Progression: Welcome to Monsterland', () => {
   const cheevo = achievement('Welcome to Monsterland');
@@ -510,6 +525,11 @@ describe('Shadow Business', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
+    // Measured tracks the Atoms collected in the level, capped at the 1500 target
+    expect(result.measuredTarget).toBe(1500);
+    expect(result.measuredAt(s.marker('level-start'))).toBe(0);
+    expect(result.measuredAt(s.marker('score-screen'))).toBe(1500);
+
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
@@ -520,6 +540,9 @@ describe('Shadow Business', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(false);
+
+    // Progress is shown but stays short of the target
+    expect(result.measuredAt(s.marker('score-screen'))).toBe(500);
 
     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
   });
@@ -780,6 +803,11 @@ describe('Halloween\'s Over', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
+    // Measured% counts destroyed pumpkins towards 70 (of the 75 in the level)
+    expect(result.measuredTarget).toBe(70);
+    expect(result.measuredAt(s.marker('level-start'))).toBe(0);
+    expect(result.measuredAt(s.marker('70th-pumpkin-destroyed'))).toBe(70);
+
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('70th-pumpkin-destroyed'));
   });
@@ -790,6 +818,11 @@ describe('Halloween\'s Over', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(false);
+
+    // Real progress had accumulated, and arming the bomb wipes it back to zero
+    expect(result.measuredAt(s.marker('bomb-used') - 1)).toBe(38);
+    expect(result.measuredAt(s.marker('bomb-used'))).toBe(0);
+    expect(result.measuredAt(lastFrame(s))).toBe(0);
 
     expect(result.stateAt(s.marker('bomb-used'))).toBe('reset');
   });
@@ -1041,6 +1074,11 @@ describe('Blood Thirst', () => {
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    // Measured% counts destroyed enemies/pumpkins towards 50 - the recording picks up at 49
+    expect(result.measuredTarget).toBe(50);
+    expect(result.measuredAt(s.marker('scenario-start'))).toBe(49);
+    expect(result.measuredAt(s.marker('50-enemies-killed'))).toBe(50);
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('50-enemies-killed'));
@@ -1395,8 +1433,31 @@ describe('Big Drops', () => {
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
+    // Measured counts the number of 500+ Atom pickups towards 40
+    expect(result.measuredTarget).toBe(40);
+    expect(result.measuredAt(s.marker('collected-40-big-atoms'))).toBe(40);
+
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('collected-40-big-atoms'));
+  });
+
+  // The Atom counter is zeroed on level start, which used to underflow the SubSource
+  // (Mem - Delta wraps to ~4.29 billion, which passes ">= 500") and banked a free hit
+  test('does not bank a hit when the Atom counter is zeroed on level start', () => {
+    const s = scenario('cemetery-shadow-beat');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.measuredAt(s.marker('level-start'))).toBe(0);
+    expect(result.measuredAt(lastFrame(s))).toBe(0);
+  });
+
+  // Same underflow, second cause: an ailment drains 1 Atom every 32 frames while in-game,
+  // so a gameState check alone does not cover it - only the Delta <= Mem guard does
+  test('does not bank hits while the Atom-drain ailment ticks', () => {
+    const s = scenario('desert1-normal-shot-fired');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.measuredAt(lastFrame(s))).toBe(0);
   });
 });
 
@@ -1583,9 +1644,8 @@ describe('Saving for Later', () => {
     expect(result.triggeredFrame).toBe(s.marker('tool-slots-filled'));
   });
 
-  // TODO
   test('does not pop when entered level with tools in slot 1', () => {
-    const s = scenario('factory1-brought-health1-into-level-slot1');
+    const s = scenario('factory1-brought-health3-into-level');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('paused');
@@ -2006,6 +2066,196 @@ describe('New Game Plus', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+});
+
+/* ========= LEADERBOARDS ========= */
+
+describe('Leaderboard: Cemetery Trial Speedrun (timed)', () => {
+  const lb = leaderboard('Cemetery Trial Speedrun');
+
+  test('starts when the Cemetery Trial is entered', () => {
+    const s = scenario('cemetery-trial-started');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('level-start'));
+  });
+
+  test('submits on the score screen when the Trial is finished', () => {
+    const s = scenario('cemetery-trial-with-100-atoms');
+    const result = runAchievement(lbTrigger(lb, 'submit'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not submit when the Trial is failed', () => {
+    const s = scenario('cemetery-trial-failed');
+    const result = runAchievement(lbTrigger(lb, 'submit'), s);
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('cancels when the player leaves the level for the level select', () => {
+    const s = scenario('cemetery-trial-failed');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    // Failed Trial drops back to the level select
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('level-select-after'));
+  });
+
+  test('does not cancel during a clean run', () => {
+    const s = scenario('cemetery-trial-with-100-atoms');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('cancels as soon as the invincibility cheat is enabled', () => {
+    const s = scenario('cemetery1-finish-cheat-invincibility');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('cheat-enabled'));
+  });
+
+  test('cancels on the frame the skip-level cheat takes effect', () => {
+    const s = scenario('cemetery1-finish-cheat-level-skip');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+    expect(result.triggeredFrame).toBeGreaterThan(s.marker('skip-used'));
+  });
+
+  test('submits the level timer in frames', () => {
+    const s = scenario('cemetery-trial-with-100-atoms');
+    const result = runAchievement(lbValue(lb), s);
+
+    expect(result.measuredAt(s.marker('score-screen'))).toBe(1886);
+  });
+});
+
+describe('Leaderboard: Cemetery Level 1 Atoms (score)', () => {
+  const lb = leaderboard('Cemetery Level 1 Atoms');
+
+  // Instant LB: START fires on the score screen
+  test('starts on the score screen when the level is finished', () => {
+    const s = scenario('cemetery1-finish-ranking-crystal');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('starts on a rank-0 finish too', () => {
+    const s = scenario('cemetery1-finish-ranking-0');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not start when the invincibility cheat was used', () => {
+    const s = scenario('cemetery1-finish-cheat-invincibility');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(false);
+    expect(result.stateAt(s.marker('cheat-enabled'))).toBe('paused');
+
+    // ...and the pause is lifted again on the level select, ready for the next attempt
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('paused');
+  });
+
+  test('does not start when the level was finished with the skip-level cheat', () => {
+    const s = scenario('cemetery1-finish-cheat-level-skip');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(false);
+    expect(result.wasEver('paused')).toBe(true);
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
+  });
+
+  test('does not start on the score screen of a different level', () => {
+    const s = scenario('cemetery-shadow-beat');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('submits the Atoms collected in the level', () => {
+    const s = scenario('cemetery1-finish-ranking-crystal');
+    const result = runAchievement(lbValue(lb), s);
+
+    expect(result.measuredAt(s.marker('score-screen'))).toBe(4800);
+  });
+});
+
+describe('Leaderboard: Castle Boss Rush Speedrun (timed)', () => {
+  const lb = leaderboard('Castle Boss Rush Speedrun');
+
+  test('starts when Castle Level 1 is entered', () => {
+    const s = scenario('castle1-boss-rush-fast');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBeLessThan(s.marker('castle1-start'));
+  });
+
+  test('does not start when the run is entered at Castle Level 2', () => {
+    const s = scenario('castle2-fast');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(false);
+  });
+
+  test('submits on the Castle Level 4 score screen', () => {
+    const s = scenario('castle1-boss-rush-fast');
+    const result = runAchievement(lbTrigger(lb, 'submit'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('cancels as soon as a cheat is used mid-run', () => {
+    const s = scenario('castle1-boss-rush-cheat');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    expect(result.triggeredFrame).toBe(s.marker('cheat-used'));
+
+    // Cancel takes priority over Submit, and here it fires well before it
+    const submit = runAchievement(lbTrigger(lb, 'submit'), s);
+    expect(result.triggeredFrame).toBeLessThan(submit.triggeredFrame);
+  });
+
+  test('submits total time of all 4 boss rush levels', () => {
+    const s = scenario('castle1-boss-rush-fast');
+    const result = runAchievement(lbValue(lb), s);
+    const start = runAchievement(lbTrigger(lb, 'start'), s).triggeredFrame;
+    const submit = runAchievement(lbTrigger(lb, 'submit'), s).triggeredFrame;
+    const measured = result.measuredAt(submit);
+
+    // Nothing is counted before the run begins
+    expect(result.measuredAt(start)).toBe(1);
+
+    // The run spans 5242 frames, of which 1815 are the score and shop screens between the four
+    // levels - those are correctly excluded, leaving 3427 frames of actual in-game time
+    expect(submit - start + 1).toBe(5242);
+    expect(measured).toBe(3427);
+    expect(submit - start + 1 - measured).toBe(1815);
+
+    // It is the total across all four levels, not just the last one: Castle 4's own levelTime
+    // at the same frame is only 435 frames, which is what the shared timedLeaderboards loop
+    // would have submitted
+    expect(measured).toBeGreaterThan(435);
+  });
+
+  test('submits a bigger total for a slower run', () => {
+    const s = scenario('castle1-boss-rush-slow');
+    const result = runAchievement(lbValue(lb), s);
+    const submit = runAchievement(lbTrigger(lb, 'submit'), s).triggeredFrame;
+
+    // Cross-check against the Boss Rush achievement, which locks at 3600 in-game frames:
+    // the fast run measures 3427 (under) and this one 6752 (over), and the achievement
+    // pops for the fast scenario only
+    expect(result.measuredAt(submit)).toBe(6752);
+    expect(runAchievement(achievement('Boss Rush'), s).triggered).toBe(false);
+    expect(runAchievement(achievement('Boss Rush'), scenario('castle1-boss-rush-fast')).triggered).toBe(true);
   });
 });
 

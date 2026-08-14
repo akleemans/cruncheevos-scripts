@@ -488,11 +488,7 @@ set.addAchievement({
   conditions: {
     core: $(
       // PauseLock if key count ever reaches > 1
-      // TODO removed, check if still works
-      // ['AndNext', 'Mem',   '8bit', currentLevel,       '=', 'Value', '', LevelEnum.Village1],
-      // ['AndNext', 'Mem',   '8bit', gameState,          '=', 'Value', '', GameStateEnum.InGame],
-      ['AddHits', 'Mem',   '8bit', keysCollectedCount, '>', 'Value', '', 1],
-      ['PauseIf', 'Value', '',     0,                  '=', 'Value', '', 1, 1],
+      ['PauseIf', 'Mem',   '8bit', keysCollectedCount, '>', 'Value', '', 1, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
@@ -514,13 +510,9 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Add Hits if player is teleporting, and lock if teleported 3 times
-      // TODO removed, check if still works
-      // ['AndNext', 'Mem',   '8bit', currentLevel, '=',  'Value', '', LevelEnum.Village2],
-      // ['AndNext', 'Mem',   '8bit', gameState,    '=',  'Value', '', GameStateEnum.InGame],
+      // PauseLock: Add Hits if player is teleporting, and lock if teleported 3 times
       ['AndNext', 'Delta', '8bit', playerState, '!=', 'Value', '', PlayerStateEnum.Teleporting],
-      ['AddHits', 'Mem',   '8bit', playerState, '=',  'Value', '', PlayerStateEnum.Teleporting],
-      ['PauseIf', 'Value', '',     0,           '=',  'Value', '', 1,                           3],
+      ['PauseIf', 'Mem',   '8bit', playerState, '=',  'Value', '', PlayerStateEnum.Teleporting, 3],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
@@ -653,7 +645,6 @@ const greenHeartCollectedInSlot = (toolSlot) => {
 // As it is possible to pick up heart before the pumpkin is marked as destroyed,
 // we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
 // This way the cheevo will pop regardless of what happened first.
-// TODO check if Clouds 1 has second green heart.
 set.addAchievement({
   id: 626068,
   title: 'Heart of the Clouds',
@@ -746,13 +737,8 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      // TODO removed, check if still works
-      // ['AndNext', 'Mem',   '8bit', currentLevel,      '=', 'Value', '',     LevelEnum.GardenTrial],
-      // ['AndNext', 'Mem',   '8bit', gameState,         '=', 'Value', '',     GameStateEnum.InGame],
-      // Add hit if counter increased (= activated)
-      ['AddHits', 'Delta', '8bit', switchTimerActive, '<', 'Mem',   '8bit', switchTimerActive],
-      // Lock if 3 (= allowed+1) activations
-      ['PauseIf', 'Value', '',     0,                 '=', 'Value', '',     1,                 3],
+      // Add hit if counter increased (= activated), lock if 3 (= allowed+1) activations
+      ['PauseIf', 'Delta', '8bit', switchTimerActive, '<', 'Mem',   '8bit', switchTimerActive, 3],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
@@ -1219,12 +1205,7 @@ set.addAchievement({
       // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
       // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
       // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
-
-      // TODO removed, check if still works
-      // ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
-      // ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
-      ['AddHits', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5],
-      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1, 1],
+      ['PauseIf', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
@@ -1660,6 +1641,8 @@ set.addAchievement({
 
 const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
 
+// Deliberately no cheat protection here, as no cheat helps in reaching this achievement.
+// The main use case is the shop ("???" drops are very rare), where the relics can be bought with enough Atoms.
 set.addAchievement({
   id: 630034,
   title: 'All Green',
@@ -1667,14 +1650,11 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      // TODO check/add cheat protec
-
       // Relic slot 1 can contain any green relic
       ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[0]],
       ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[1]],
       ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[2]],
       ['', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[3]],
-
       // Same for slots 2, 3, 4
       ['OrNext', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[0]],
       ['OrNext', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[1]],
@@ -2060,42 +2040,39 @@ set.addAchievement({
 // Timed leaderboards
 const timedLeaderboards = [
   [LevelEnum.CemeteryTrial, 'Cemetery Trial'],
-  // TODO Add after testing
-  // [LevelEnum.VillageTrial, 'Village Trial'],
-  // [LevelEnum.GardenTrial, 'Garden Trial'],
-  // [LevelEnum.AtlantisTrial, 'Atlantis Trial'],
-  // [LevelEnum.TempleTrial, 'Temple Trial'],
-  // [LevelEnum.DesertTrial, 'Desert Trial'],
-  // [LevelEnum.CloudsTrial, 'Clouds Trial'],
-  // [LevelEnum.FactoryTrial, 'Factory Trial'],
-  // [LevelEnum.CemeteryShadow, 'Cemetery Shadow'],
-  // [LevelEnum.VillageShadow, 'Village Shadow'],
-  // [LevelEnum.GardenShadow, 'Pumpkin Boss'],
-  // [LevelEnum.AtlantisShadow, 'Atlantis Shadow'],
-  // [LevelEnum.TempleDragonShadow, 'Dragon Boss'],
-  // [LevelEnum.DesertShadow, 'Desert Shadow'],
-  // [LevelEnum.CloudsShadow, 'Clouds Shadow'],
-  // [LevelEnum.FactoryShadow, 'Factory Shadow'],
-  // [LevelEnum.Castle1, 'Castle Boss Rush'],
-  // [LevelEnum.CastleSergeantSmash, 'Sergeant Smash'],
+  [LevelEnum.VillageTrial, 'Village Trial'],
+  [LevelEnum.GardenTrial, 'Garden Trial'],
+  [LevelEnum.AtlantisTrial, 'Atlantis Trial'],
+  [LevelEnum.TempleTrial, 'Temple Trial'],
+  [LevelEnum.DesertTrial, 'Desert Trial'],
+  [LevelEnum.CloudsTrial, 'Clouds Trial'],
+  [LevelEnum.FactoryTrial, 'Factory Trial'],
+  [LevelEnum.CemeteryShadow, 'Cemetery Shadow'],
+  [LevelEnum.VillageShadow, 'Village Shadow'],
+  [LevelEnum.GardenShadow, 'Pumpkin Boss'],
+  [LevelEnum.AtlantisShadow, 'Atlantis Shadow'],
+  [LevelEnum.TempleDragonShadow, 'Dragon Boss'],
+  [LevelEnum.DesertShadow, 'Desert Shadow'],
+  [LevelEnum.CloudsShadow, 'Clouds Shadow'],
+  [LevelEnum.FactoryShadow, 'Factory Shadow'],
+  [LevelEnum.CastleSergeantSmash, 'Sergeant Smash'],
 ];
 
 /*
-Tested cases:
-[ ] Finish level submits LB
-[ ] Finish special level Castle 1-4 submits LB
-[ ] Invincibility Cheat cancels LB
-[ ] Level Skip Cheat cancels LB
-[ ] Level Exit Code cancels LB
-[ ] Game Over with Continue (back to Level select) cancels LB
-[ ] Game Over without Continue (Game restart) cancels LB
+Manually tested cases:
+[x] Finish level submits LB
+[x] Finish special level Castle 1-4 submits LB
+[x] Invincibility Cheat cancels LB
+[x] Level Skip Cheat cancels LB
+[x] Level Exit Code cancels LB
+[x] Game Over with Continue (back to Level select) cancels LB
+[x] Game Over without Continue (Game restart) cancels LB
 */
 for (let timedLeaderboard of timedLeaderboards) {
   const levelId = timedLeaderboard[0];
-  const endLevelId = levelId === LevelEnum.Castle1 ? LevelEnum.Castle4 : levelId;
   let name = timedLeaderboard[1];
   let prefix = name.includes('Trial') ? 'Finish the ' : 'Beat the ';
-  if (levelId === LevelEnum.Castle1 || LevelEnum.CastleSergeantSmash) {
+  if (LevelEnum.CastleSergeantSmash) {
     prefix = 'Beat ';
   }
 
@@ -2130,7 +2107,7 @@ for (let timedLeaderboard of timedLeaderboards) {
         ),
       },
       submit: $(
-        ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', endLevelId],
+        ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
         ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
         ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ),
@@ -2140,6 +2117,54 @@ for (let timedLeaderboard of timedLeaderboards) {
     },
   });
 }
+
+// Special case: Boss Rush Leaderboard - sum of 4 levels, so we can not just take the levelTime of the last level
+/*
+Manually tested cases:
+[ ] Finish level submits LB with total time, not only last level time
+[ ] Entering in Castle 2 does not trigger the LB
+*/
+set.addLeaderboard({
+  title: 'Castle Boss Rush Speedrun',
+  description: 'Beat the Castle Boss Rush as fast as possible',
+  lowerIsBetter: true,
+  type: 'FRAMES',
+  conditions: {
+    start: $(
+      ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle1],
+      ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+    ),
+    cancel: {
+      core: $(
+        ['', 'Value', '', 1, '=', 'Value', '', 1],
+      ),
+      alt1: $(
+        // If player leaves the level with code or dies
+        ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelSelect],
+      ),
+      alt2: $(
+        // If player uses invincibility cheat
+        ['', 'Mem', '8bit', invincibilityCheat, '=', 'Value', '', 3],
+      ),
+      alt3: $(
+        // If player uses "Skip level" cheat
+        ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
+        ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+        ['',          'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
+      ),
+    },
+    submit: $(
+      ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle4],
+      ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+    ),
+    value: $(
+      // Measure total in-game time for all 4 levels
+      ['Measured','Mem','8bit',gameState,'=','Value','',GameStateEnum.InGame],
+    ),
+  },
+});
 
 // Atom leaderboards
 const atomLeaderboards = [
@@ -2162,7 +2187,7 @@ const atomLeaderboards = [
 ];
 
 /*
-Tested cases:
+Manually tested cases:
 [x] Finish level submits LB
 [x] Invincibility Cheat does not instant submit LB
 [x] Level Skip Cheat does not instant submit LB
