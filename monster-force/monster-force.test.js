@@ -364,6 +364,26 @@ describe('Walking Through Walls', () => {
     expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
   });
 
+  test.only('pops when pumpkins destroyed with bomb', () => {
+    const s = scenario('cemetery1-hidden-pumpkins-bomb');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
+  test.only('pops when destroyed with high stats (AP/FP)', () => {
+    const s = scenario('cemetery1-hidden-pumpkins-high-stats');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
+  });
+
   test('does not pop with only 5 destroyed pumpins', () => {
     const s = scenario('cemetery1-hidden-pumpkins-only-5');
     const result = runAchievement(cheevo, s);

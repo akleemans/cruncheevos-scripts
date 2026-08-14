@@ -1359,13 +1359,12 @@ const addHitsPerAddress = (addresses) => {
     // Narrow to 1-3, pumpkins will always be in this range
     result.push(['AndNext', 'Delta', '16bit', address, '>=', 'Value', '', 1]);
     result.push(['AndNext', 'Delta', '16bit', address, '<=', 'Value', '', 3]);
+    // Mem = 0 also excludes bomb kills, bomb damage will let value overflow.
     result.push(['AddHits', 'Mem', '16bit', address, '=', 'Value', '', 0]);
   }
   return result;
 };
 
-// There are a few pumpkins which can be so far away that they are off-screen (but will still be destroyed on shooting).
-// Those are not required for the cheevo, it is enough to destroy 70 total out of 75
 set.addAchievement({
   id: 626069,
   title: 'Halloween\'s Over',
@@ -1373,9 +1372,9 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // We have to use AddHits here, because only on destruction the level object type will go to 0x0000 (from 1, 2 or 3 - depending on pumpkin type).
-      // After that, it may be overwritten with an arbitrary large value (0xffd2, 0xffda, 0xffe2, 0xfffa, 0xfffb, 0xffff observed), so we can not just use AddSource = 0.
-      // Instead, we add a hit for every pumpkin at the moment it is destroyed.
+      // We have to use AddHits here, on destruction the level object hit points will go to 0x0000 (from 1, 2 or 3 - depending on pumpkin type).
+      // If destroyed with a bomb, pumpkins take e.g. 8 damage (depending on bomb) and the value wraps around to a large value like 0xfffa, so we can not just use AddSource = 0.
+      // Pumpkins will only take exactly one HP damage from shots.
       ...addHitsPerAddress(atlantis2pumpkinAddresses),
       ['Measured%',  'Value', '',     0,            '=', 'Value', '', 1,                   70],
       ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
