@@ -11,7 +11,7 @@ const GameStateEnum = {
   ScoreScreen: 0x11,
   ShopOptions: 0x12,
   SaveGameOption: 0x13,
-  GameOver: 0x14
+  GameOver: 0x14,
 };
 
 const PlayerStateEnum = {
@@ -21,7 +21,7 @@ const PlayerStateEnum = {
   BombArmed: 0x05,
   Teleporting: 0x0c,
   LevelFinishedAnimation: 0x0d,
-  Dying: 0x0e
+  Dying: 0x0e,
 };
 
 const CharacterActive = {
@@ -29,13 +29,13 @@ const CharacterActive = {
   Drac: 0x01,
   Wolfie: 0x02,
   Mina: 0x03,
-  Drew: 0x04
+  Drew: 0x04,
 };
 
 const BadgeTier = {
   Silver: 0x04,
   Gold: 0x05,
-  Crystal: 0x06
+  Crystal: 0x06,
 };
 
 const LevelEnum = {
@@ -118,7 +118,7 @@ const toolSlot3 = 0x07fe;
 const toolSlot4 = 0x07ff;
 const toolSlots = [toolSlot1, toolSlot2, toolSlot3, toolSlot4];
 
-const objectsEnemiesDestroyed = 0x35a0
+const objectsEnemiesDestroyed = 0x35a0;
 const invincibilityTimer = 0x07ea;
 
 const totalShotsFired = 0x35a8;
@@ -161,7 +161,7 @@ const progression = (levelId) => {
     ['', 'Mem',   '8bit', gameState,        '=', 'Value', '', GameStateEnum.ScoreScreen],
 
     // Cheat protection - progression can not be unlocked with Mina or Drew, as they are only unlocked after beating the game
-    ['', 'Mem', '8bit', characterActive, '<=', 'Value', '', 2],
+    ['', 'Mem', '8bit', characterActive, '<=', 'Value', '', CharacterActive.Wolfie],
   ];
 };
 
@@ -268,7 +268,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625431,
   title: 'Platonic Tale',
-  description: 'Finish Atlantis Zone',
+  description: 'Finish the Atlantis Zone',
   points: 5,
   type: 'progression',
   conditions: {
@@ -358,7 +358,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625436,
   title: 'Pumpkin Mash',
-  description: 'Finish the Castle Zone by defeating Sergeant Smash and beat the game',
+  description: 'Finish the Castle Zone by defeating Sergeant Smash and beating the game',
   points: 25,
   type: 'win_condition',
   conditions: {
@@ -378,7 +378,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625437,
   title: 'Walking Through Walls',
-  description: 'Find and destroy all 6 pumpkins in the hidden area in Cemetery Level 1',
+  description: 'Find and destroy all 8 pumpkins in the hidden area in Cemetery Level 1',
   points: 2,
   conditions: {
     core: $(
@@ -398,8 +398,8 @@ set.addAchievement({
       ['AddSource', 'Mem',   '16bit', 0x183c],
       ['AddSource', 'Mem',   '16bit', 0x1840],
       ['',          'Mem',   '16bit', 0x1844,       '=', 'Value', '', 0],
-      ['',          'Mem',   '8bit',  gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ['',          'Mem',   '8bit',  currentLevel, '=', 'Value', '', LevelEnum.Cemetery1],
+      ['',          'Mem',   '8bit',  gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -412,7 +412,7 @@ set.addAchievement({
   id: 625438,
   title: 'Diagonal Thinking',
   description: 'Get 800 Atoms or more in the first 5 seconds of Cemetery Level 2',
-  points: 2,
+  points: 3,
   conditions: {
     core: $(
       // Lock if more than 5 seconds into Cemetery2
@@ -483,15 +483,16 @@ const keysCollectedCount = 0x07e0;
 set.addAchievement({
   id: 625443,
   title: 'One at a Time',
-  description: 'Beat the Village Level 1 by carrying at most 1 key at once',
+  description: 'Beat Village Level 1 by carrying at most 1 key at once',
   points: 5,
   conditions: {
     core: $(
       // PauseLock if key count ever reaches > 1
-      ['AndNext', 'Mem',   '8bit', currentLevel,       '=', 'Value', '', LevelEnum.Village1],
-      ['AndNext', 'Mem',   '8bit', gameState,          '=', 'Value', '', GameStateEnum.InGame],
+      // TODO removed, check if still works
+      // ['AndNext', 'Mem',   '8bit', currentLevel,       '=', 'Value', '', LevelEnum.Village1],
+      // ['AndNext', 'Mem',   '8bit', gameState,          '=', 'Value', '', GameStateEnum.InGame],
       ['AddHits', 'Mem',   '8bit', keysCollectedCount, '>', 'Value', '', 1],
-      ['PauseIf', 'Value', '',     0,                  '=', 'Value', '', 1,                    1],
+      ['PauseIf', 'Value', '',     0,                  '=', 'Value', '', 1, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village1],
@@ -514,11 +515,12 @@ set.addAchievement({
   conditions: {
     core: $(
       // Add Hits if player is teleporting, and lock if teleported 3 times
-      ['AndNext', 'Mem',   '8bit', currentLevel, '=',  'Value', '', LevelEnum.Village2],
-      ['AndNext', 'Mem',   '8bit', gameState,    '=',  'Value', '', GameStateEnum.InGame],
-      ['AndNext', 'Delta', '8bit', playerState,  '!=', 'Value', '', PlayerStateEnum.Teleporting],
-      ['AddHits', 'Mem',   '8bit', playerState,  '=',  'Value', '', PlayerStateEnum.Teleporting],
-      ['PauseIf', 'Value', '',     0,            '=',  'Value', '', 1,                           3],
+      // TODO removed, check if still works
+      // ['AndNext', 'Mem',   '8bit', currentLevel, '=',  'Value', '', LevelEnum.Village2],
+      // ['AndNext', 'Mem',   '8bit', gameState,    '=',  'Value', '', GameStateEnum.InGame],
+      ['AndNext', 'Delta', '8bit', playerState, '!=', 'Value', '', PlayerStateEnum.Teleporting],
+      ['AddHits', 'Mem',   '8bit', playerState, '=',  'Value', '', PlayerStateEnum.Teleporting],
+      ['PauseIf', 'Value', '',     0,           '=',  'Value', '', 1,                           3],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Village2],
@@ -540,10 +542,12 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      ['', 'Mem', '8bit',  characterActive, '=',  'Value', '', CharacterActive.Frank],
       // Use the timer directly, "time bonus" only gets set later.
       // 7200 frames = 120 seconds, which is the required time limit to get the bonus
       ['', 'Mem', '16bit', levelTime,       '<=', 'Value', '', 7200],
+
+      // Character must be Frank
+      ['', 'Mem', '8bit',  characterActive, '=',  'Value', '', CharacterActive.Frank],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageTrial],
@@ -562,14 +566,16 @@ set.addAchievement({
   id: 625441,
   title: 'Shadow Business',
   description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
-  points: 5,
+  points: 3,
   conditions: {
     core: $(
-      ['Measured', 'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
+      ['Measured',   'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
+      ['MeasuredIf', 'Mem', '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.VillageShadow],
+
       // Pop on score screen
-      ['',         'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.VillageShadow],
-      ['',         'Delta', '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame],
-      ['',         'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.ScoreScreen],
+      ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
+      ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -577,13 +583,13 @@ set.addAchievement({
       ...levelSelectReset(),
     ),
   },
-})
+});
 
 // There are multiple barriers which can be passed by using bombs.
 set.addAchievement({
   id: 629236,
   title: 'You Only Got One Shot',
-  description: 'Beat the Garden Level 1 by firing a single shot at most',
+  description: 'Beat Garden Level 1 by firing a single shot at most',
   points: 5,
   conditions: {
     core: $(
@@ -605,7 +611,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629237,
   title: 'Dracula\'s Favorite',
-  description: 'Beat the Garden Level 2 as Drac with initial base stats',
+  description: 'Beat Garden Level 2 as Drac with initial base stats',
   points: 5,
   type: 'missable',
   conditions: {
@@ -614,6 +620,9 @@ set.addAchievement({
       ['', 'Mem', '8bit', baseHealth,      '=', 'Value', '', 9],
       ['', 'Mem', '8bit', baseAttackPower, '=', 'Value', '', 2],
       ['', 'Mem', '8bit', baseForcePower,  '=', 'Value', '', 3],
+
+      // Character must be Drac
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Garden2],
@@ -640,9 +649,11 @@ const greenHeartCollectedInSlot = (toolSlot) => {
   ];
 };
 
+
 // As it is possible to pick up heart before the pumpkin is marked as destroyed,
 // we have to use a checkpoint hit for collecting the heart (instead of a simple Mem/Delta check in the function above).
 // This way the cheevo will pop regardless of what happened first.
+// TODO check if Clouds 1 has second green heart.
 set.addAchievement({
   id: 626068,
   title: 'Heart of the Clouds',
@@ -663,16 +674,16 @@ set.addAchievement({
       ['', 'Value', '',  0, '=', 'Value', '', 1],
     ),
     alt2: $(
-      ...greenHeartCollectedInSlot(toolSlot1)
+      ...greenHeartCollectedInSlot(toolSlot1),
     ),
     alt3: $(
-      ...greenHeartCollectedInSlot(toolSlot2)
+      ...greenHeartCollectedInSlot(toolSlot2),
     ),
     alt4: $(
-      ...greenHeartCollectedInSlot(toolSlot3)
+      ...greenHeartCollectedInSlot(toolSlot3),
     ),
     alt5: $(
-      ...greenHeartCollectedInSlot(toolSlot4)
+      ...greenHeartCollectedInSlot(toolSlot4),
     ),
   },
 });
@@ -704,7 +715,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625445,
   title: 'Blast Radius',
-  description: 'Defeat 12 enemies at once without shooting, but using an effective tool in Garden Level 2',
+  description: 'Find and use the right tool to defeat 12 enemies and pumpkins at once in Garden Level 2',
   points: 5,
   conditions: {
     core: $(
@@ -735,12 +746,13 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      ['AndNext', 'Mem',   '8bit', currentLevel,      '=', 'Value', '',     LevelEnum.GardenTrial],
-      ['AndNext', 'Mem',   '8bit', gameState,         '=', 'Value', '',     GameStateEnum.InGame],
+      // TODO removed, check if still works
+      // ['AndNext', 'Mem',   '8bit', currentLevel,      '=', 'Value', '',     LevelEnum.GardenTrial],
+      // ['AndNext', 'Mem',   '8bit', gameState,         '=', 'Value', '',     GameStateEnum.InGame],
       // Add hit if counter increased (= activated)
       ['AddHits', 'Delta', '8bit', switchTimerActive, '<', 'Mem',   '8bit', switchTimerActive],
       // Lock if 3 (= allowed+1) activations
-      ['PauseIf', 'Value', '',     0,                 '=', 'Value', '',     1,                     3],
+      ['PauseIf', 'Value', '',     0,                 '=', 'Value', '',     1,                 3],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.GardenTrial],
@@ -841,8 +853,12 @@ set.addAchievement({
   conditions: {
     core: $(
       // Pop if 50 or more enemies & pumpkins destroyed
-      ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
-      ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
+      ['',           'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
+      ['Measured%',  'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
+      ['MeasuredIf', 'Mem',   '8bit', currentLevel,            '=',  'Value', '', LevelEnum.Temple1],
+
+      // Character must be Drac
+      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple1],
@@ -853,7 +869,7 @@ set.addAchievement({
       ...levelSelectReset(),
     ),
   },
-})
+});
 
 const totalMaxHealth = 0x0830;
 const totalAttackPower = 0x0832;
@@ -862,7 +878,7 @@ const totalForcePower = 0x0834;
 set.addAchievement({
   id: 630022,
   title: 'Minimal Force',
-  description: 'Beat the Temple Level 2 with all stats including relics below 15%/HP',
+  description: 'Beat Temple Level 2 with all stats including relics at 15%/HP or lower',
   points: 5,
   type: 'missable',
   conditions: {
@@ -943,14 +959,14 @@ set.addAchievement({
   id: 630025,
   title: 'Pumpkin Arrow',
   description: 'Follow the pumpkin arrow and unlock the hidden bounty area in Desert Level 2',
-  points: 3,
+  points: 5,
   conditions: {
     core: $(
       // Activating the switch will grant access to hidden area
       ['', 'Delta', '8bit', hiddenPumpkinSwitch, '=', 'Value', '', 0],
       ['', 'Mem',   '8bit', hiddenPumpkinSwitch, '=', 'Value', '', 1],
 
-      // Pop on score screen
+      // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Desert2],
       ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
@@ -1005,7 +1021,7 @@ set.addAchievement({
       ['',        'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
-      ...skipLevelCheatProtection()
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1046,7 +1062,7 @@ const playerPositionY = 0x0790;
 set.addAchievement({
   id: 625449,
   title: 'Young and Restless',
-  description: 'As Wolfie, beat the Clouds Trial without standing still more than 2.5 seconds',
+  description: 'As Wolfie, beat the Clouds Trial while never standing still for 2.5 seconds or more',
   points: 10,
   conditions: {
     core: $(
@@ -1056,9 +1072,9 @@ set.addAchievement({
       ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
 
       // Reset hits of global ResetIf below (so it restarts accumulating hits) if moving
-      ['OrNext',      'Mem', '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
-      ['AndNext',     'Mem', '32bit', playerPositionY, '!=', 'Delta', '32bit', playerPositionY],
-      ['ResetNextIf', 'Mem', '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
+      ['OrNext',      'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX],
+      ['AndNext',     'Delta', '32bit', playerPositionY, '!=', 'Mem',   '32bit', playerPositionY],
+      ['ResetNextIf', 'Mem',   '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
 
       // Reset checkpoint hit if accumulated enough hits
       ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
@@ -1073,7 +1089,7 @@ set.addAchievement({
       ['Trigger', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
 
       ...invincibilityCheatProtection(),
-      ...skipLevelCheatProtection()
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1107,13 +1123,18 @@ set.addAchievement({
 set.addAchievement({
   id: 630028,
   title: 'Big Drops',
-  description: 'Collect 40 big Atom drops each worth 500 in Factory Level 1',
+  // Old, misleading: 'Collect 40 big Atom drops each worth 500 in Factory Level 1',
+  // Alternative: 'Collect big Atom drops of 500 or more at once, 40 times, in Factory Level 1',
+  description: 'Collect 500 or more Atoms at once, 40 times, in Factory Level 1',
   points: 3,
   conditions: {
     core: $(
+      // Only evaluate SubSource if value actually went up (avoid Underflow)
+      ['AndNext',    'Delta', '32bit', atomsInCurrentLevel, '<=', 'Mem',   '32bit', atomsInCurrentLevel],
       // Collect 40 hits of 500+ Atoms collected
-      ['SubSource', 'Delta', '32bit', atomsInCurrentLevel],
-      ['Measured',  'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '', 500, 40],
+      ['SubSource',  'Delta', '32bit', atomsInCurrentLevel],
+      ['Measured',   'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '',      500,                 40],
+      ['MeasuredIf', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '',      LevelEnum.Factory1],
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
@@ -1138,7 +1159,7 @@ set.addAchievement({
   points: 2,
   conditions: {
     core: $(
-      // Can be checkd with Delta/Mem because all pumpkins are in same area (opposed to Halloween's Over)
+      // Can be checked with Delta/Mem because all pumpkins are in same area (opposed to Halloween's Over)
       ['AddSource', 'Delta', '16bit', factory2Pumpkin1],
       ['AddSource', 'Delta', '16bit', factory2Pumpkin2],
       ['AddSource', 'Delta', '16bit', factory2Pumpkin3],
@@ -1198,10 +1219,12 @@ set.addAchievement({
       // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
       // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
       // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
-      ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
-      ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
+
+      // TODO removed, check if still works
+      // ['AndNext', 'Mem',   '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      // ['AndNext', 'Mem',   '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
       ['AddHits', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5],
-      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1,                    1],
+      ['PauseIf', 'Value', '',     0,               '=', 'Value', '', 1, 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
@@ -1255,7 +1278,7 @@ set.addAchievement({
     core: $(
       // Add hit if moved left or right while in-game
       ['AndNext', 'Delta', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
-      ['AddHits', 'Mem',   '32bit', playerPositionX, '!=', 'Delta', '32bit', playerPositionX],
+      ['AddHits', 'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX],
       ['PauseIf', 'Value', '',      0,               '=',  'Value', '',      1,                    1],
 
       // Pop on score screen
@@ -1292,7 +1315,7 @@ const checkToolSlotsForAnyHealthAtStartOfLevel = () => {
 set.addAchievement({
   id: 630202,
   title: 'It\'s All About Balance',
-  description: 'As Wolfie, finish a level while healing yourself three or more times without carrying health items at the start of the level',
+  description: 'As Wolfie, finish a level while healing yourself 3 or more times without carrying health items at the start of the level',
   points: 3,
   conditions: {
     core: $(
@@ -1359,7 +1382,7 @@ const atlantis2pumpkinAddresses = [
   0x193c, 0x1940, 0x1944, 0x1948, 0x194c, 0x1950, 0x1954, 0x1958, 0x195c,
   0x1964, 0x1968, 0x196c, 0x1970, 0x1980, 0x1984, 0x1988, 0x1990, 0x199c,
   0x19a0, 0x19a8, 0x19ac, 0x1a00, 0x1a30, 0x1a34, 0x1a38, 0x1a40, 0x1a44,
-  0x1a48, 0x198c, 0x197c
+  0x1a48, 0x198c, 0x197c,
 ];
 
 const addHitsPerAddress = (addresses) => {
@@ -1385,7 +1408,7 @@ set.addAchievement({
   conditions: {
     core: $(
       // We have to use AddHits here, because only on destruction the level object type will go to 0x0000 (from 1, 2 or 3 - depending on pumpkin type).
-      // After that, it might become 0xfffa, so we can not just use AddSource = 0.
+      // After that, it may be overwritten with an arbitrary large value (0xffd2, 0xffda, 0xffe2, 0xfffa, 0xfffb, 0xffff observed), so we can not just use AddSource = 0.
       // Instead, we add a hit for every pumpkin at the moment it is destroyed.
       ...addHitsPerAddress(atlantis2pumpkinAddresses),
       ['Measured%',  'Value', '',     0,            '=', 'Value', '', 1,                   70],
@@ -1444,8 +1467,8 @@ set.addAchievement({
       ...getLevelRequirement(timeTrialLevels),
 
       // Pop on score screen
-      ['', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['',        'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['Trigger', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -1458,31 +1481,10 @@ set.addAchievement({
 set.addAchievement({
   id: 630204,
   title: 'Shop \'Til You Drop',
-  description: 'Buy 6 items in Igor\'s shop in one round',
+  description: 'Buy 6 items in Igor\'s shop in a single shop visit',
   points: 2,
   conditions: {
     core: $(
-      // TODO old idea, delete
-      // Add hit if empty tool or relic slot was filled - can also be the same slot again, tools can be discarded with "Select"
-      // ['AndNext', 'Delta', '8bit', toolSlot1,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', toolSlot1,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', toolSlot2,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', toolSlot2,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', toolSlot3,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', toolSlot3,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', toolSlot4,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', toolSlot4,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', relicSlot1,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', relicSlot1,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', relicSlot2,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', relicSlot2,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', relicSlot3,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', relicSlot3,  '>', 'Value', '',  0],
-      // ['AndNext', 'Delta', '8bit', relicSlot4,   '=', 'Value', '',  0],
-      // ['AddHits', 'Mem',   '8bit', relicSlot4,  '>', 'Value', '',  0],
-      // // Require 6 hits
-      // ['',        'Value', '',      0,             '=',  'Value', '',     1,             6],
-
       // Add hit if Atoms in bank decreased while in shop, the only way this can happen is by buying a Tool or Relic.
       // 6 Hits are required for cheevo to pop. Hits are reset when going back to level select screen.
       ['', 'Delta', '32bit', totalAtomsInBank, '>', 'Mem', '32bit', totalAtomsInBank, 6],
@@ -1503,7 +1505,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // While invincible and X-Ray modifier is active, enemy/pumpin desytroyed count should go up
+      // While invincible and X-Ray modifier is active, enemy/pumpkin desytroyed count should go up
       ['', 'Mem',   '16bit', invincibilityTimer,      '>', 'Value', '',     0],
       ['', 'Mem',   'Bit5',  shotModifiers1,          '=', 'Value', '',     1],
       ['', 'Delta', '8bit',  objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
@@ -1535,8 +1537,8 @@ set.addAchievement({
       ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
 
       // Lock if entered level with tool equipped in slots 3 or 4
-      ['OrNext',  'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
-      ['AndNext', 'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
+      ['OrNext',  'Mem',   '8bit', toolSlot3, '!=', 'Value', '', 0],
+      ['AndNext', 'Mem',   '8bit', toolSlot4, '!=', 'Value', '', 0],
       ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
       ['AddHits', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame],
       ['PauseIf', 'Value', '',     0,         '=',  'Value', '', 1,                        1],
@@ -1586,7 +1588,7 @@ set.addAchievement({
       // Health: +2 HP
       ['SubSource', 'Delta', '8bit', baseHealth],
       ['',          'Mem',   '8bit', baseHealth, '=', 'Value', '', 2],
-    )
+    ),
   },
 });
 
@@ -1602,7 +1604,7 @@ const levelUpConditions = () => {
       // Context: Relics bought in shop or found in-game
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
-    )
+    ),
   };
   let count = 1;
   for (let currentSlot of relicSlots) {
@@ -1656,51 +1658,54 @@ set.addAchievement({
 });
 
 
-const getAllGreenConditions = () => {
-  const conditions =  {
-    core: $(
-      // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
-      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
-    )
-  };
-  let count = 1;
-  const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
+const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
 
-  for (let currentSlot of relicSlots) {
-    for (let currentRelic of greenRelics) {
-      // currentRelic was picked up in currentSlot
-      const arr = [
-        ['', 'Delta', '8bit', currentSlot, '!=', 'Value', '', currentRelic],
-        ['', 'Mem',   '8bit', currentSlot, '=',  'Value', '', currentRelic],
-      ];
-
-      // Other slots can have any green relic
-      const otherSlots = relicSlots.filter(s => s !== currentSlot);
-      for (let otherSlot of otherSlots) {
-        arr.push(...[
-          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[0]],
-          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[1]],
-          ['OrNext', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[2]],
-          ['', 'Mem', '8bit', otherSlot, '=', 'Value', '', greenRelics[3]],
-        ]);
-      }
-
-      conditions['alt' + count] = $(...arr);
-      count += 1;
-    }
-  }
-
-  return conditions;
-};
-
-// 4x4 Alts: 4 slots where last green relic can be picked up (Mem/Delta check), with 4 possible different green relics
 set.addAchievement({
   id: 630034,
   title: 'All Green',
   description: 'Have a full set of 4 maxed-out green relics',
   points: 10,
-  conditions: getAllGreenConditions()
+  conditions: {
+    core: $(
+      // TODO check/add cheat protec
+
+      // Relic slot 1 can contain any green relic
+      ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[0]],
+      ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[1]],
+      ['OrNext', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[2]],
+      ['', 'Mem', '8bit', relicSlot1, '=', 'Value', '', greenRelics[3]],
+
+      // Same for slots 2, 3, 4
+      ['OrNext', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[0]],
+      ['OrNext', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[1]],
+      ['OrNext', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[2]],
+      ['', 'Mem', '8bit', relicSlot2, '=', 'Value', '', greenRelics[3]],
+      ['OrNext', 'Mem', '8bit', relicSlot3, '=', 'Value', '', greenRelics[0]],
+      ['OrNext', 'Mem', '8bit', relicSlot3, '=', 'Value', '', greenRelics[1]],
+      ['OrNext', 'Mem', '8bit', relicSlot3, '=', 'Value', '', greenRelics[2]],
+      ['', 'Mem', '8bit', relicSlot3, '=', 'Value', '', greenRelics[3]],
+      ['OrNext', 'Mem', '8bit', relicSlot4, '=', 'Value', '', greenRelics[0]],
+      ['OrNext', 'Mem', '8bit', relicSlot4, '=', 'Value', '', greenRelics[1]],
+      ['OrNext', 'Mem', '8bit', relicSlot4, '=', 'Value', '', greenRelics[2]],
+      ['', 'Mem', '8bit', relicSlot4, '=', 'Value', '', greenRelics[3]],
+
+      // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
+      ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+    ),
+    alt1: $(
+      ['', 'Delta', '8bit', relicSlot1, '!=', 'Mem', '8bit', relicSlot1],
+    ),
+    alt2: $(
+      ['', 'Delta', '8bit', relicSlot2, '!=', 'Mem', '8bit', relicSlot2],
+    ),
+    alt3: $(
+      ['', 'Delta', '8bit', relicSlot3, '!=', 'Mem', '8bit', relicSlot3],
+    ),
+    alt4: $(
+      ['', 'Delta', '8bit', relicSlot4, '!=', 'Mem', '8bit', relicSlot4],
+    ),
+  },
 });
 
 
@@ -1759,7 +1764,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630037,
   title: 'This Isn\'t Even My Final Form',
-  description: 'Reach an base Attack Level stat of at least 30% without Relics',
+  description: 'Reach a base Attack Level stat of at least 30% without Relics',
   points: 5,
   conditions: {
     core: $(
@@ -1784,7 +1789,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Pop if base force level was increased to >= 40%
+      // Pop if base force level was increased to >= 40 HP
       ['', 'Delta', '8bit', baseHealth, '<',  'Value', '', 40],
       ['', 'Mem',   '8bit', baseHealth, '>=', 'Value', '', 40],
 
@@ -1801,7 +1806,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630039,
   title: 'Igor\'s Favorite',
-  description: 'Hold a bank total of 50,0000 Atoms',
+  description: 'Hold a bank total of 50,000 Atoms',
   points: 5,
   conditions: {
     core: $(
@@ -1825,7 +1830,7 @@ const countBadges = (levelIds, tier, amount) => {
   for (let levelId of levelIds) {
     conditions.push(['AddSource', 'Delta', '8bit', 0x35b8 + levelId, '/', 'Value', '', tier]);
   }
-  conditions.push(['', 'Value', '', 0, '=', 'Value', '', amount-1]);
+  conditions.push(['', 'Value', '', 0, '=', 'Value', '', amount - 1]);
 
   // Mem
   for (let levelId of levelIds) {
@@ -1965,7 +1970,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629099,
   title: 'Crystallized',
-  description: 'Achieve 20 Crystal ranking',
+  description: 'Achieve 20 Crystal rankings',
   points: 10,
   conditions: {
     core: $(
@@ -2002,13 +2007,13 @@ set.addAchievement({
 set.addAchievement({
   id: 629101,
   title: 'Different Perspective',
-  description: 'Beat a Zone with an unlocked character',
+  description: 'Beat the Cemetery Zone on a new game with an unlocked character',
   points: 3,
   conditions: {
     core: $(
       // Character must be Mina or Drew
-      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
-      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Mina],
+      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drew],
 
       // Pop on score screen
       ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CemeteryShadow],
@@ -2049,27 +2054,6 @@ set.addAchievement({
   },
 });
 
-/* ========= DUMMY ========= */
-
-// const countBadges = (tier) => {
-//   const conditions = [];
-//   for (let i = 0; i <= LevelEnum.CastleSergeantSmash; i++) {
-//     conditions.push(['AddSource', 'Mem', '8bit', 0x35b8 + i, '/', 'Value', '', tier]);
-//   }
-//   conditions.push(['Measured', 'Value', '', 0, '!=', 'Value', '', 0]);
-//   return conditions;
-// };
-//
-// set.addAchievement({
-//   title: '(dummy) Calculate amount of Silver/Gold/Crystal rankings',
-//   description: '',
-//   points: 0,
-//   conditions: {
-//     core: $(
-//       ...countBadges(4)
-//     ),
-//   },
-// });
 
 /* ========= LEADERBOARDS ========= */
 
@@ -2094,7 +2078,7 @@ const timedLeaderboards = [
   // [LevelEnum.FactoryShadow, 'Factory Shadow'],
   // [LevelEnum.Castle1, 'Castle Boss Rush'],
   // [LevelEnum.CastleSergeantSmash, 'Sergeant Smash'],
-]
+];
 
 /*
 Tested cases:
@@ -2110,7 +2094,10 @@ for (let timedLeaderboard of timedLeaderboards) {
   const levelId = timedLeaderboard[0];
   const endLevelId = levelId === LevelEnum.Castle1 ? LevelEnum.Castle4 : levelId;
   let name = timedLeaderboard[1];
-  const prefix = name.includes('Trial') ? 'Finish the ' : 'Beat the ';
+  let prefix = name.includes('Trial') ? 'Finish the ' : 'Beat the ';
+  if (levelId === LevelEnum.Castle1 || LevelEnum.CastleSergeantSmash) {
+    prefix = 'Beat ';
+  }
 
   set.addLeaderboard({
     title: name + ' Speedrun',
@@ -2158,20 +2145,20 @@ for (let timedLeaderboard of timedLeaderboards) {
 const atomLeaderboards = [
   [LevelEnum.Cemetery1, 'Cemetery Level 1'],
   [LevelEnum.Cemetery2, 'Cemetery Level 2'],
-  [LevelEnum.Village1, 'Village Level 1'],
-  [LevelEnum.Village2, 'Village Level 2'],
-  [LevelEnum.Garden1, 'Garden Level 1'],
-  [LevelEnum.Garden2, 'Garden Level 2'],
+  [LevelEnum.Village1,  'Village Level 1'],
+  [LevelEnum.Village2,  'Village Level 2'],
+  [LevelEnum.Garden1,   'Garden Level 1'],
+  [LevelEnum.Garden2,   'Garden Level 2'],
   [LevelEnum.Atlantis1, 'Atlantis Level 1'],
   [LevelEnum.Atlantis2, 'Atlantis Level 2'],
-  [LevelEnum.Temple1, 'Temple Level 1'],
-  [LevelEnum.Temple2, 'Temple Level 2'],
-  [LevelEnum.Desert1, 'Desert Level 1'],
-  [LevelEnum.Desert2, 'Desert Level 2'],
-  [LevelEnum.Clouds1, 'Clouds Level 1'],
-  [LevelEnum.Clouds2, 'Clouds Level 2'],
-  [LevelEnum.Factory1, 'Factory Level 1'],
-  [LevelEnum.Factory2, 'Factory Level 2'],
+  [LevelEnum.Temple1,   'Temple Level 1'],
+  [LevelEnum.Temple2,   'Temple Level 2'],
+  [LevelEnum.Desert1,   'Desert Level 1'],
+  [LevelEnum.Desert2,   'Desert Level 2'],
+  [LevelEnum.Clouds1,   'Clouds Level 1'],
+  [LevelEnum.Clouds2,   'Clouds Level 2'],
+  [LevelEnum.Factory1,  'Factory Level 1'],
+  [LevelEnum.Factory2,  'Factory Level 2'],
 ];
 
 /*
@@ -2190,7 +2177,7 @@ for (let atomLeaderboard of atomLeaderboards) {
   set.addLeaderboard({
     title: name + ' Atoms',
     description: 'Collect as many Atoms as possible in ' + name,
-    lowerIsBetter: true,
+    lowerIsBetter: false,
     type: 'SCORE',
     conditions: {
       start: {

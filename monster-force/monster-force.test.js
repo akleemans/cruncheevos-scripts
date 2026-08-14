@@ -336,7 +336,7 @@ describe('Progression: Castle', () => {
 
 /* ========= CHALLENGES ========= */
 
-describe('Challenge: Walking Through Walls', () => {
+describe('Walking Through Walls', () => {
   const cheevo = achievement('Walking Through Walls');
 
   test('pops when pumpkins are destroyed', () => {
@@ -369,7 +369,7 @@ describe('Challenge: Walking Through Walls', () => {
   });
 });
 
-describe('Challenge: Diagonal Thinking', () => {
+describe('Diagonal Thinking', () => {
   const cheevo = achievement('Diagonal Thinking');
 
   test('pops when 800 Atoms are collected within 5 seconds', () => {
@@ -396,7 +396,7 @@ describe('Challenge: Diagonal Thinking', () => {
   });
 });
 
-describe('Challenge: Every Atom Counts', () => {
+describe('Every Atom Counts', () => {
   const cheevo = achievement('Every Atom Counts');
 
   test('pops when finished level with at least 100 Atoms collected', () => {
@@ -431,7 +431,7 @@ describe('Challenge: Every Atom Counts', () => {
   });
 });
 
-describe('Challenge: In the Blink of an Eye', () => {
+describe('In the Blink of an Eye', () => {
   const cheevo = achievement('In the Blink of an Eye');
 
   test('pops when boss beaten in 10 seconds', () => {
@@ -465,10 +465,10 @@ describe('Challenge: In the Blink of an Eye', () => {
   });
 });
 
-describe('Challenge: One at a Time', () => {
+describe('One at a Time', () => {
   const cheevo = achievement('One at a Time');
 
-  test('pops when boss beaten in 10 seconds', () => {
+  test('pops when Village Level 1 is beaten carrying at most 1 key', () => {
     const s = scenario('village1-only-one-key');
     const result = runAchievement(cheevo, s);
 
@@ -501,7 +501,7 @@ describe('Challenge: One at a Time', () => {
   });
 });
 
-describe('Challenge: Shadow Business', () => {
+describe('Shadow Business', () => {
   const cheevo = achievement('Shadow Business');
 
   test('pops when 1500 Atoms are collected', () => {
@@ -525,7 +525,7 @@ describe('Challenge: Shadow Business', () => {
   });
 });
 
-describe('Challenge: You Only Got One Shot', () => {
+describe('You Only Got One Shot', () => {
   const cheevo = achievement('You Only Got One Shot');
 
   test('pops when level finished with only 1 shot fired', () => {
@@ -549,7 +549,7 @@ describe('Challenge: You Only Got One Shot', () => {
   });
 });
 
-describe('Challenge: Dracula\'s Favorite', () => {
+describe('Dracula\'s Favorite', () => {
   const cheevo = achievement('Dracula\'s Favorite');
 
   test('pops when defeating Garden 2 as Drac with initial stats', () => {
@@ -571,7 +571,7 @@ describe('Challenge: Dracula\'s Favorite', () => {
   });
 });
 
-describe('Challenge: Divide & Conquer', () => {
+describe('Divide & Conquer', () => {
   const cheevo = achievement('Divide & Conquer');
 
   test('pops if only 4 pumpkin heads are active', () => {
@@ -606,7 +606,7 @@ describe('Challenge: Divide & Conquer', () => {
   });
 });
 
-describe('Challenge: Boss Rush', () => {
+describe('Boss Rush', () => {
   const cheevo = achievement('Boss Rush');
 
   test('pops if bosses defeated fast enough', () => {
@@ -648,7 +648,7 @@ describe('Challenge: Boss Rush', () => {
   });
 });
 
-describe('Challenge: Stand Your Ground', () => {
+describe('Stand Your Ground', () => {
   const cheevo = achievement('Stand Your Ground');
 
   test('pops if only moved vertically', () => {
@@ -672,7 +672,7 @@ describe('Challenge: Stand Your Ground', () => {
   });
 });
 
-describe('Challenge: It\'s All About Balance', () => {
+describe('It\'s All About Balance', () => {
   const cheevo = achievement('It\'s All About Balance');
 
   test('pops if healed 3 times with no initial health tools', () => {
@@ -739,7 +739,7 @@ describe('Challenge: It\'s All About Balance', () => {
   });
 });
 
-describe('Challenge: Frankly Harmless', () => {
+describe('Frankly Harmless', () => {
   const cheevo = achievement('Frankly Harmless');
 
   test('pops if level finished without killing enemies', () => {
@@ -771,7 +771,7 @@ describe('Challenge: Frankly Harmless', () => {
   });
 });
 
-describe('Challenge: Halloween\'s Over', () => {
+describe('Halloween\'s Over', () => {
   const cheevo = achievement('Halloween\'s Over');
 
   test('pops if all pumpkins destroyed by shooting', () => {
@@ -795,7 +795,7 @@ describe('Challenge: Halloween\'s Over', () => {
   });
 });
 
-describe('Challenge: Motion Sickness', () => {
+describe('Motion Sickness', () => {
   const cheevo = achievement('Motion Sickness');
 
   test('pops when only teleporting 2 times', () => {
@@ -821,7 +821,7 @@ describe('Challenge: Motion Sickness', () => {
   });
 });
 
-describe('Challenge: Slowly but Steady', () => {
+describe('Slowly but Steady', () => {
   const cheevo = achievement('Slowly but Steady');
 
   test('pops when finishing within time limit with Frank', () => {
@@ -865,7 +865,7 @@ describe('Challenge: Slowly but Steady', () => {
   });
 });
 
-describe('Challenge: Blast Radius', () => {
+describe('Blast Radius', () => {
   const cheevo = achievement('Blast Radius');
 
   test('pops when 12 enemies defeated with regular bomb', () => {
@@ -916,7 +916,7 @@ describe('Challenge: Blast Radius', () => {
 });
 
 
-describe('Challenge: Energy Saver', () => {
+describe('Energy Saver', () => {
   const cheevo = achievement('Energy Saver');
 
   test('pops when activating switches only 2 times', () => {
@@ -942,7 +942,7 @@ describe('Challenge: Energy Saver', () => {
   });
 });
 
-describe('Challenge: Monet\'s Garden', () => {
+describe('Monet\'s Garden', () => {
   const cheevo = achievement('Monet\'s Garden');
 
   test('pops when opening door to hidden garden area', () => {
@@ -965,7 +965,7 @@ describe('Challenge: Monet\'s Garden', () => {
   });
 });
 
-describe('Challenge: Wolfskin', () => {
+describe('Wolfskin', () => {
   const cheevo = achievement('Wolfskin');
 
   test('pops when finishing Atlantis 1 as Wolfie without healing', () => {
@@ -1008,7 +1008,7 @@ describe('Challenge: Wolfskin', () => {
   });
 });
 
-describe('Challenge: Metal Detector', () => {
+describe('Metal Detector', () => {
   const cheevo = achievement('Metal Detector');
 
   test('pops when finishing Atlantis Trial without taking damage', () => {
@@ -1033,10 +1033,10 @@ describe('Challenge: Metal Detector', () => {
   });
 });
 
-describe('Challenge: Blood Thirst', () => {
+describe('Blood Thirst', () => {
   const cheevo = achievement('Blood Thirst');
 
-  test('pops when finishing Atlantis Trial without taking damage', () => {
+  test('pops when 50 enemies are destroyed in Temple Level 1', () => {
     const s = scenario('temple1-enemies-killed');
     const result = runAchievement(cheevo, s);
 
@@ -1045,10 +1045,12 @@ describe('Challenge: Blood Thirst', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('50-enemies-killed'));
   });
+
+  // TODO add test with non-Drac character
 });
 
 
-describe('Challenge: Minimal Force', () => {
+describe('Minimal Force', () => {
   const cheevo = achievement('Minimal Force');
 
   test('pops when Temple 2 finished with stats below or equal to 15', () => {
@@ -1080,7 +1082,7 @@ describe('Challenge: Minimal Force', () => {
   });
 });
 
-describe('Challenge: Here Be Dragons', () => {
+describe('Here Be Dragons', () => {
   const cheevo = achievement('Here Be Dragons');
 
   test('pops when defeating Temple Dragon Boss', () => {
@@ -1116,7 +1118,7 @@ describe('Challenge: Here Be Dragons', () => {
   });
 });
 
-describe('Challenge: Power Is All You Need', () => {
+describe('Power Is All You Need', () => {
   const cheevo = achievement('Power Is All You Need');
 
   test('pops when finished Desert 1 without normal shots', () => {
@@ -1141,7 +1143,7 @@ describe('Challenge: Power Is All You Need', () => {
   });
 });
 
-describe('Challenge: Pumpkin Arrow', () => {
+describe('Pumpkin Arrow', () => {
   const cheevo = achievement('Pumpkin Arrow');
 
   test('pops when hidden area unlocked', () => {
@@ -1164,7 +1166,7 @@ describe('Challenge: Pumpkin Arrow', () => {
   });
 });
 
-describe('Challenge: Superpowers', () => {
+describe('Superpowers', () => {
   const cheevo = achievement('Superpowers');
 
   test('pops when level beaten with 3 force combo shot modifiers active - reflect3, xray1, doom1', () => {
@@ -1209,7 +1211,7 @@ describe('Challenge: Superpowers', () => {
   });
 });
 
-describe('Challenge: Relicless', () => {
+describe('Relicless', () => {
   const cheevo = achievement('Relicless');
 
   test('pops when beating Desert Shadow with no relics', () => {
@@ -1232,7 +1234,7 @@ describe('Challenge: Relicless', () => {
   });
 });
 
-describe('Challenge: Heart of the Clouds', () => {
+describe('Heart of the Clouds', () => {
   const cheevo = achievement('Heart of the Clouds');
 
   test('pops when collecting the heart after shooting pumpkin', () => {
@@ -1267,7 +1269,7 @@ describe('Challenge: Heart of the Clouds', () => {
   });
 });
 
-describe('Challenge: Clone Wars', () => {
+describe('Clone Wars', () => {
   const cheevo = achievement('Clone Wars');
 
   test('pops when creating a decoy', () => {
@@ -1302,7 +1304,7 @@ describe('Challenge: Clone Wars', () => {
   });
 });
 
-describe('Challenge: Young and Restless', () => {
+describe('Young and Restless', () => {
   const cheevo = achievement('Young and Restless');
 
   test('pops when finishing the level without standing still as Wolfie', () => {
@@ -1359,7 +1361,7 @@ describe('Challenge: Young and Restless', () => {
   });
 });
 
-describe('Challenge: Marksman', () => {
+describe('Marksman', () => {
   const cheevo = achievement('Marksman');
 
   test('pops when beating Clouds Shadow with 8 shots only', () => {
@@ -1384,7 +1386,7 @@ describe('Challenge: Marksman', () => {
   });
 });
 
-describe('Challenge: Big Drops', () => {
+describe('Big Drops', () => {
   const cheevo = achievement('Big Drops');
 
   test('pops when collecting 40 big atoms', () => {
@@ -1398,7 +1400,7 @@ describe('Challenge: Big Drops', () => {
   });
 });
 
-describe('Challenge: Under the Watch', () => {
+describe('Under the Watch', () => {
   const cheevo = achievement('Under the Watch');
 
   test('pops when destroying pumpkins', () => {
@@ -1423,7 +1425,7 @@ describe('Challenge: Under the Watch', () => {
 });
 
 
-describe('Challenge: Shadow Boxing', () => {
+describe('Shadow Boxing', () => {
   const cheevo = achievement('Shadow Boxing');
 
   test('pops when factory shadow beaten without being confused', () => {
@@ -1448,7 +1450,7 @@ describe('Challenge: Shadow Boxing', () => {
 });
 
 
-describe('Challenge: Second Life', () => {
+describe('Second Life', () => {
   const cheevo = achievement('Second Life');
 
   test('pops when reanimated and reached end of boss level', () => {
@@ -1484,7 +1486,7 @@ describe('Challenge: Second Life', () => {
   });
 });
 
-describe('Challenge: Worth the Money', () => {
+describe('Worth the Money', () => {
   const cheevo = achievement('Worth the Money');
 
   test('pops when finishing with 25k reached in Trial', () => {
@@ -1514,7 +1516,7 @@ describe('Challenge: Worth the Money', () => {
   });
 });
 
-describe('Challenge: Shop \'Til You Drop', () => {
+describe('Shop \'Til You Drop', () => {
   const cheevo = achievement('Shop \'Til You Drop');
 
   test('pops when buying 6 items (4 tools, 2 relics)', () => {
@@ -1526,7 +1528,7 @@ describe('Challenge: Shop \'Til You Drop', () => {
     expect(result.triggeredFrame).toBe(s.marker('6th-item-bought'));
   });
 
-  test('does not pop when collected tools in level', () => {
+  test('does not pop when collected tools in level and only bought 5 in shop', () => {
     const s = scenario('shop-buy-5-tools');
     const result = runAchievement(cheevo, s);
 
@@ -1535,9 +1537,11 @@ describe('Challenge: Shop \'Til You Drop', () => {
 
     expect(result.stateAt(s.marker('level-select-after'))).toBe('reset');
   });
+
+  // TODO add test for buying 3, exit shop, and buy 3 in next round
 });
 
-describe('Challenge: Ninja Skills', () => {
+describe('Ninja Skills', () => {
   const cheevo = achievement('Ninja Skills');
 
   test('pops when pumpkin destroyed while being invincible and using x-ray shot', () => {
@@ -1567,7 +1571,7 @@ describe('Challenge: Ninja Skills', () => {
   });
 });
 
-describe('Challenge: Saving for Later', () => {
+describe('Saving for Later', () => {
   const cheevo = achievement('Saving for Later');
 
   test('pops when all slots filled', () => {
@@ -1579,16 +1583,25 @@ describe('Challenge: Saving for Later', () => {
     expect(result.triggeredFrame).toBe(s.marker('tool-slots-filled'));
   });
 
-  test('does not pop when entered level with tools', () => {
+  // TODO
+  test('does not pop when entered level with tools in slot 1', () => {
+    const s = scenario('factory1-brought-health1-into-level-slot1');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when entered level with tool in slot 3', () => {
     const s = scenario('factory1-brought-health1-into-level');
     const result = runAchievement(cheevo, s);
 
-    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
     expect(result.triggered).toBe(false);
   });
 });
 
-describe('Challenge: Level Up', () => {
+describe('Level Up', () => {
   const cheevo = achievement('Level Up');
 
   test('pops when blue relic collected in-game', () => {
@@ -1619,7 +1632,7 @@ describe('Challenge: Level Up', () => {
   });
 });
 
-describe('Challenge: Self Improvement', () => {
+describe('Self Improvement', () => {
   const cheevo = achievement('Self Improvement');
 
   test('pops when consuming Attack Scroll', () => {
@@ -1654,7 +1667,7 @@ describe('Challenge: Self Improvement', () => {
 });
 
 
-describe('Challenge: Relics to the Rescue', () => {
+describe('Relics to the Rescue', () => {
   const cheevo = achievement('Relics to the Rescue');
 
   test('pops when having attack bonus of +20%', () => {
@@ -1687,7 +1700,7 @@ describe('Challenge: Relics to the Rescue', () => {
   });
 });
 
-describe('Challenge: All Green', () => {
+describe('All Green', () => {
   const cheevo = achievement('All Green');
 
   test('pops when first slot is filled with 4th green relic', () => {
@@ -1729,9 +1742,11 @@ describe('Challenge: All Green', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('4th-green-relic-slot4'));
   });
+
+  // TODO also pop if 4x the same amulet
 });
 
-describe('Challenge: Cloak of Safety', () => {
+describe('Cloak of Safety', () => {
   const cheevo = achievement('Cloak of Safety');
 
   test('pops when bought Cloak in shop', () => {
@@ -1761,7 +1776,7 @@ describe('Challenge: Cloak of Safety', () => {
   });
 });
 
-describe('Challenge: Igor\'s Favorite', () => {
+describe('Igor\'s Favorite', () => {
   const cheevo = achievement('Igor\'s Favorite');
 
   test('pops when 50k Atoms reached', () => {
@@ -1775,7 +1790,7 @@ describe('Challenge: Igor\'s Favorite', () => {
   });
 });
 
-describe('Challenge: Using the Force', () => {
+describe('Using the Force', () => {
   const cheevo = achievement('Using the Force');
 
   test('pops when Force level of 20% is reached', () => {
@@ -1789,7 +1804,7 @@ describe('Challenge: Using the Force', () => {
   });
 });
 
-describe('Challenge: This Isn\'t Even My Final Form', () => {
+describe('This Isn\'t Even My Final Form', () => {
   const cheevo = achievement('This Isn\'t Even My Final Form');
 
   test('pops when Attack level of 30% is reached', () => {
@@ -1803,7 +1818,7 @@ describe('Challenge: This Isn\'t Even My Final Form', () => {
   });
 });
 
-describe('Challenge: A Pumpkin a Day', () => {
+describe('A Pumpkin a Day', () => {
   const cheevo = achievement('A Pumpkin a Day');
 
   test('pops when Health of 40 HP is reached', () => {
@@ -1817,7 +1832,7 @@ describe('Challenge: A Pumpkin a Day', () => {
   });
 });
 
-describe('Challenge: Silver Lining', () => {
+describe('Silver Lining', () => {
   const cheevo = achievement('Silver Lining');
 
   test('pops when all regular levels are Silver or better', () => {
@@ -1831,7 +1846,7 @@ describe('Challenge: Silver Lining', () => {
   });
 });
 
-describe('Challenge: Silver Sweep', () => {
+describe('Silver Sweep', () => {
   const cheevo = achievement('Silver Sweep');
 
   test('pops when all trials & boss levels are Silver or better, even if achieved Crystal', () => {
@@ -1854,7 +1869,7 @@ describe('Challenge: Silver Sweep', () => {
   });
 });
 
-describe('Challenge: Gold Medal', () => {
+describe('Gold Medal', () => {
   const cheevo = achievement('Gold Medal');
 
   test('pops when all regular levels are Gold or better', () => {
@@ -1877,7 +1892,7 @@ describe('Challenge: Gold Medal', () => {
   });
 });
 
-describe('Challenge: Gold Standard', () => {
+describe('Gold Standard', () => {
   const cheevo = achievement('Gold Standard');
 
   test('pops when last Gold/Crystal ranking was reached on score screen', () => {
@@ -1889,7 +1904,7 @@ describe('Challenge: Gold Standard', () => {
   });
 });
 
-describe('Challenge: Gold Rush', () => {
+describe('Gold Rush', () => {
   const cheevo = achievement('Gold Rush');
 
   test('pops when all trials have Gold ranking', () => {
@@ -1901,7 +1916,7 @@ describe('Challenge: Gold Rush', () => {
   });
 });
 
-describe('Challenge: First Crystal', () => {
+describe('First Crystal', () => {
   const cheevo = achievement('First Crystal');
 
   test('pops when first Crystal ranking was reached', () => {
@@ -1921,7 +1936,7 @@ describe('Challenge: First Crystal', () => {
   });
 });
 
-describe('Challenge: Crystal Collection', () => {
+describe('Crystal Collection', () => {
   const cheevo = achievement('Crystal Collection');
 
   test('pops when 10th Crystal ranking was reached on score screen', () => {
@@ -1933,7 +1948,7 @@ describe('Challenge: Crystal Collection', () => {
   });
 });
 
-describe('Challenge: Crystallized', () => {
+describe('Crystallized', () => {
   const cheevo = achievement('Crystallized');
 
   test('pops when 20th Crystal ranking was reached on score screen', () => {
@@ -1945,7 +1960,7 @@ describe('Challenge: Crystallized', () => {
   });
 });
 
-describe('Challenge: Five of a Kind', () => {
+describe('Five of a Kind', () => {
   const cheevo = achievement('Five of a Kind');
 
   test('pops when last Crystal ranking was reached on score screen', () => {
@@ -1955,9 +1970,11 @@ describe('Challenge: Five of a Kind', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
+
+  // TODO add test for 36 rankings
 });
 
-describe('Challenge: Different Perspective', () => {
+describe('Different Perspective', () => {
   const cheevo = achievement('Different Perspective');
 
   test('pops when Cemetery Shadow was defeated using Mina', () => {
@@ -1979,10 +1996,10 @@ describe('Challenge: Different Perspective', () => {
   });
 });
 
-describe('Challenge: New Game Plus', () => {
+describe('New Game Plus', () => {
   const cheevo = achievement('New Game Plus');
 
-  test('pops when Cemetery Shadow was defeated using Mina', () => {
+  test('pops when Sergeant Smash was defeated using Mina', () => {
     const s = scenario('castle-sergeant-smash-mina');
     const result = runAchievement(cheevo, s);
 
