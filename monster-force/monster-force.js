@@ -2053,7 +2053,7 @@ for (let timedLeaderboard of timedLeaderboards) {
   let counter = 0;
 
   set.addLeaderboard({
-    id: 169229 + counter,
+    // id: 'L' + (169229 + counter),
     title: name + ' Speedrun',
     description: prefix + name + ' as fast as possible',
     lowerIsBetter: true,
@@ -2103,7 +2103,7 @@ Manually tested cases:
 [ ] Entering in Castle 2 does not trigger the LB
 */
 set.addLeaderboard({
-  id: 169246,
+  // id: 'L169246',
   title: 'Castle Boss Rush Speedrun',
   description: 'Beat the Castle Boss Rush as fast as possible',
   lowerIsBetter: true,
@@ -2180,7 +2180,7 @@ for (let atomLeaderboard of atomLeaderboards) {
   let counter = 0;
 
   set.addLeaderboard({
-    id: 169122 + counter,
+    // id: 'L' + (169122 + counter),
     title: name + ' Atoms',
     description: 'Collect as many Atoms as possible in ' + name,
     lowerIsBetter: false,
