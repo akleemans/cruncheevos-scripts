@@ -129,8 +129,6 @@ const baseForcePower = 0x0853;
 
 const currentHealth = 0x07f0;
 
-// const relicHealthBonus = 0x0855;
-// const relicLuckBonus = 0x0856;
 const relicAttackBonus = 0x0857;
 const relicForceBonus = 0x0858;
 
@@ -420,8 +418,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Lock if more than 5 seconds into Cemetery2
-      ['AndNext', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.Cemetery2],
+      // Lock if more than 5 seconds into game
       ['PauseIf', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame, 300],
       // Atoms >= 800 as Trigger condition
       ['',        'Delta', '32bit', atomsInCurrentLevel, '<',  'Value', '', 800],
@@ -570,7 +567,7 @@ set.addAchievement({
       // Pop on score screen
       ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
       ['',           'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['',           'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['Trigger',    'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -840,15 +837,10 @@ set.addAchievement({
       ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
       ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
-      // Only show Measured on correct character and level
+      // Only show Measured on correct character and level + Context
       ['AndNext',    'Mem', '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Temple1],
       ['MeasuredIf', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
 
-      // Character must be Drac
-      ['',        'Mem',   '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
-
-      // Context
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Temple1],
       ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
@@ -891,7 +883,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630023,
   title: 'Here Be Dragons',
-  description: 'Defeat the Dragon Shadow as Frank without taking damage, no invincibility allowed',
+  description: 'Defeat the Dragon Boss as Frank without taking damage, no invincibility allowed',
   points: 10,
   conditions: {
     core: $(
@@ -1058,9 +1050,8 @@ set.addAchievement({
       ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
 
       // Reset hits of global ResetIf below (so it restarts accumulating hits) if moving
-      ['OrNext',      'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX],
-      ['AndNext',     'Delta', '32bit', playerPositionY, '!=', 'Mem',   '32bit', playerPositionY],
-      ['ResetNextIf', 'Mem',   '8bit',  currentLevel,    '=',  'Value', '',      LevelEnum.CloudsTrial],
+      ['OrNext',      'Delta', '32bit', playerPositionX, '!=', 'Mem', '32bit', playerPositionX],
+      ['ResetNextIf', 'Delta', '32bit', playerPositionY, '!=', 'Mem', '32bit', playerPositionY],
 
       // Reset checkpoint hit if accumulated enough hits
       ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
@@ -1186,7 +1177,7 @@ const liveObjectCount = 0x3544;
 set.addAchievement({
   id: 625442,
   title: 'Divide & Conquer',
-  description: 'Do not allow more than 4 Pumpkin heads at one time in Castle Level 3',
+  description: 'Beat Castle Level 3 without allowing more than 4 pumpkin heads at one time',
   points: 3,
   conditions: {
     core: $(
@@ -1221,8 +1212,7 @@ set.addAchievement({
       ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
 
       // Timer adds hits while in-game, so in-between score screens don't count
-      ['AddHits', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
-      ['PauseIf', 'Value', '',     0,         '=', 'Value', '', 1,                    3600],
+      ['PauseIf', 'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame, 3600],
 
       // Pop on score screen of Castle 4
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle4],
@@ -1244,7 +1234,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Add hit if moved left or right while in-game
+      // Add hit if moved left or right while in-game (in-game state needed to not bank a hit before reaching in-game)
       ['AndNext', 'Delta', '8bit',  gameState,       '=',  'Value', '',      GameStateEnum.InGame],
       ['PauseIf', 'Delta', '32bit', playerPositionX, '!=', 'Mem',   '32bit', playerPositionX,      1],
 
@@ -1363,7 +1353,7 @@ set.addAchievement({
   id: 626069,
   title: 'Halloween\'s Over',
   description: 'Find and destroy 70 or more pumpkins in Atlantis Level 2 without using bombs',
-  points: 5,
+  points: 10,
   conditions: {
     core: $(
       // We have to use AddHits here, on destruction the level object hit points will go to 0x0000 (from 1, 2 or 3 - depending on pumpkin type).
@@ -1463,7 +1453,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // While invincible and X-Ray modifier is active, enemy/pumpkin desytroyed count should go up
+      // While invincible and X-Ray modifier is active, enemy/pumpkin destroyed count should go up
       ['', 'Mem',   '16bit', invincibilityTimer,      '>', 'Value', '',     0],
       ['', 'Mem',   'Bit5',  shotModifiers1,          '=', 'Value', '',     1],
       ['', 'Delta', '8bit',  objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
@@ -1744,7 +1734,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Pop if base force level was increased to >= 40 HP
+      // Pop if base health was increased to >= 40 HP
       ['', 'Delta', '8bit', baseHealth, '<',  'Value', '', 40],
       ['', 'Mem',   '8bit', baseHealth, '>=', 'Value', '', 40],
 
@@ -1907,7 +1897,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629098,
   title: 'Crystal Collection',
-  description: 'Achieve 10 Crystal ranking',
+  description: 'Achieve 10 Crystal rankings',
   points: 10,
   conditions: {
     core: $(
@@ -1992,8 +1982,8 @@ set.addAchievement({
   conditions: {
     core: $(
       // Character must be Mina or Drew
-      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', 3],
-      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', 4],
+      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Mina],
+      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drew],
 
       // Pop on score screen
       ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
@@ -2047,13 +2037,11 @@ for (let timedLeaderboard of timedLeaderboards) {
   const levelId = timedLeaderboard[0];
   let name = timedLeaderboard[1];
   let prefix = name.includes('Trial') ? 'Finish the ' : 'Beat the ';
-  if (LevelEnum.CastleSergeantSmash) {
+  if (levelId === LevelEnum.CastleSergeantSmash) {
     prefix = 'Beat ';
   }
-  let counter = 0;
 
   set.addLeaderboard({
-    // id: 'L' + (169229 + counter),
     title: name + ' Speedrun',
     description: prefix + name + ' as fast as possible',
     lowerIsBetter: true,
@@ -2082,6 +2070,11 @@ for (let timedLeaderboard of timedLeaderboards) {
           ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
           ['',          'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
         ),
+        alt4: $(
+          // Cancel if the 16-bit level timer wraps around
+          ['AndNext', 'Mem',   '8bit',  gameState, '=', 'Value', '',      GameStateEnum.InGame],
+          ['',        'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime],
+        ),
       },
       submit: $(
         ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
@@ -2093,7 +2086,6 @@ for (let timedLeaderboard of timedLeaderboards) {
       ),
     },
   });
-  counter += 1;
 }
 
 // Special case: Boss Rush Leaderboard - sum of 4 levels, so we can not just take the levelTime of the last level
@@ -2103,7 +2095,6 @@ Manually tested cases:
 [ ] Entering in Castle 2 does not trigger the LB
 */
 set.addLeaderboard({
-  // id: 'L169246',
   title: 'Castle Boss Rush Speedrun',
   description: 'Beat the Castle Boss Rush as fast as possible',
   lowerIsBetter: true,
@@ -2140,7 +2131,7 @@ set.addLeaderboard({
     ),
     value: $(
       // Measure total in-game time for all 4 levels
-      ['Measured','Mem','8bit',gameState,'=','Value','',GameStateEnum.InGame],
+      ['Measured', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
     ),
   },
 });
@@ -2177,10 +2168,8 @@ Manually tested cases:
 for (let atomLeaderboard of atomLeaderboards) {
   const levelId = atomLeaderboard[0];
   const name = atomLeaderboard[1];
-  let counter = 0;
 
   set.addLeaderboard({
-    // id: 'L' + (169122 + counter),
     title: name + ' Atoms',
     description: 'Collect as many Atoms as possible in ' + name,
     lowerIsBetter: false,
@@ -2207,7 +2196,6 @@ for (let atomLeaderboard of atomLeaderboards) {
       ),
     },
   });
-  counter += 1;
 }
 
 export default set;
