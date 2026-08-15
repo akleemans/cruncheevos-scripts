@@ -566,12 +566,11 @@ set.addAchievement({
   conditions: {
     core: $(
       ['Measured',   'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
-      ['MeasuredIf', 'Mem', '8bit',  currentLevel,        '=',  'Value', '', LevelEnum.VillageShadow],
 
       // Pop on score screen
-      ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
-      ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-      ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
+      ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
+      ['',           'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['',           'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
     ),
@@ -1115,15 +1114,14 @@ set.addAchievement({
   conditions: {
     core: $(
       // Only evaluate SubSource if value actually went up (avoid Underflow)
-      ['AndNext',    'Delta', '32bit', atomsInCurrentLevel, '<=', 'Mem',   '32bit', atomsInCurrentLevel],
+      ['AndNext',   'Delta', '32bit', atomsInCurrentLevel, '<=', 'Mem',   '32bit', atomsInCurrentLevel],
       // Collect 40 hits of 500+ Atoms collected
-      ['SubSource',  'Delta', '32bit', atomsInCurrentLevel],
-      ['Measured',   'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '',      500,                 40],
-      ['MeasuredIf', 'Mem',   '8bit',  currentLevel,        '=',  'Value', '',      LevelEnum.Factory1],
+      ['SubSource', 'Delta', '32bit', atomsInCurrentLevel],
+      ['Measured',  'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '',      500,                 40],
 
       // Context
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
-      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['MeasuredIf', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
+      ['',           'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -1373,14 +1371,13 @@ set.addAchievement({
       // Pumpkins will only take exactly one HP damage from shots.
       ...addHitsPerAddress(atlantis2pumpkinAddresses),
       ['Measured%',  'Value', '',     0,            '=', 'Value', '', 1,                   70],
-      ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
 
       // Reset Hits (also for Measured% UX)
       ['ResetIf', 'Mem', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.BombArmed],
 
       // Context
-      ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
-      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['MeasuredIf', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
+      ['',           'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -2053,8 +2050,10 @@ for (let timedLeaderboard of timedLeaderboards) {
   if (LevelEnum.CastleSergeantSmash) {
     prefix = 'Beat ';
   }
+  let counter = 0;
 
   set.addLeaderboard({
+    id: 169229 + counter,
     title: name + ' Speedrun',
     description: prefix + name + ' as fast as possible',
     lowerIsBetter: true,
@@ -2094,6 +2093,7 @@ for (let timedLeaderboard of timedLeaderboards) {
       ),
     },
   });
+  counter += 1;
 }
 
 // Special case: Boss Rush Leaderboard - sum of 4 levels, so we can not just take the levelTime of the last level
@@ -2103,6 +2103,7 @@ Manually tested cases:
 [ ] Entering in Castle 2 does not trigger the LB
 */
 set.addLeaderboard({
+  id: 169246,
   title: 'Castle Boss Rush Speedrun',
   description: 'Beat the Castle Boss Rush as fast as possible',
   lowerIsBetter: true,
@@ -2176,8 +2177,10 @@ Manually tested cases:
 for (let atomLeaderboard of atomLeaderboards) {
   const levelId = atomLeaderboard[0];
   const name = atomLeaderboard[1];
+  let counter = 0;
 
   set.addLeaderboard({
+    id: 169122 + counter,
     title: name + ' Atoms',
     description: 'Collect as many Atoms as possible in ' + name,
     lowerIsBetter: false,
@@ -2204,37 +2207,7 @@ for (let atomLeaderboard of atomLeaderboards) {
       ),
     },
   });
+  counter += 1;
 }
-
-// Other idea with checkpoint hit, would also work (but not be uniform to other cheat detection):
-/*
-      start: {
-        core: $(
-          // Checkpoint hit at start of level
-          ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
-          ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
-          ['AddHits', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-          ['',        'Value', '',     0,            '=', 'Value', '', 1,                        1],
-
-          // Trigger at end of level
-          ['', 'Mem',   '8bit', currentLevel, '=', 'Value', '', levelId],
-          ['', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
-          ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
-
-          // Reset if Invincibility activated
-          ['ResetIf', 'Mem', '8bit', invincibilityCheat, '=', 'Value', '', 3],
-          // ...invincibilityCheatProtection(),
-
-          // Reset if skip level cheat used
-          ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
-          ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
-          ['ResetIf',   'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
-          // ...skipLevelCheatProtection(),
-
-          // Reset if player exits level with code or dies
-          ['ResetIf', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelSelect]
-        ),
-      },
- */
 
 export default set;
