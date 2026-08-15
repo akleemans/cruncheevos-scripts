@@ -2226,9 +2226,22 @@ describe('Leaderboard: Cemetery Level 1 Atoms (score)', () => {
     expect(result.triggered).toBe(false);
     expect(result.stateAt(s.marker('cheat-enabled'))).toBe('paused');
 
-    // TODO shouldn't this be active?
-    // The pause is lifted again on the level select, ready for the next attempt
+    // The level select resets the PauseLock, but the cheat is still enabled here, so the PauseIf fires again right away
     expect(result.stateAt(s.marker('level-select-screen'))).toBe('paused');
+  });
+
+  test('lifts the pause on the level select when the invincibility cheat was disabled again', () => {
+    const s = scenario('cemetery1-finish-cheat-invincibility-inactive');
+    const result = runAchievement(lbTrigger(lb, 'start'), s);
+
+    expect(result.triggered).toBe(false);
+
+    // Pause stays latched for the rest of the run, even after the cheat is switched off
+    expect(result.stateAt(s.marker('cheat-disabled'))).toBe('paused');
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+
+    // The pause is lifted again on the level select, ready for the next attempt
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
   });
 
   test('does not start when the level was finished with the skip-level cheat', () => {
