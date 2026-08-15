@@ -237,7 +237,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0017c4",
-    "Note": "[16-bit] Level object 2 type (see 0x0017c0)"
+    "Note": "[16-bit] Level object 2 starting health (see 0x0017c0)"
   },
   {
     "User": "adrianusk",
@@ -252,392 +252,392 @@
   {
     "User": "adrianusk",
     "Address": "0x0017d8",
-    "Note": "[16-bit] Level object 7 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 1"
+    "Note": "[16-bit] Level object 7 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017dc",
-    "Note": "[16-bit] Level object 8 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 3"
+    "Note": "[16-bit] Level object 8 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017e0",
-    "Note": "[16-bit] Level object 9 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 4"
+    "Note": "[16-bit] Level object 9 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017e4",
-    "Note": "[16-bit] Level object 10 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 7"
+    "Note": "[16-bit] Level object 10 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017e8",
-    "Note": "[16-bit] Level object 11 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 2"
+    "Note": "[16-bit] Level object 11 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017ec",
-    "Note": "[16-bit] Level object 12 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 5"
+    "Note": "[16-bit] Level object 12 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017f0",
-    "Note": "[16-bit] Level object 13 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 6"
+    "Note": "[16-bit] Level object 13 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017f4",
-    "Note": "[16-bit] Level object 14 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 8"
+    "Note": "[16-bit] Level object 14 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 8"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017f8",
-    "Note": "[16-bit] Level object 15 type (see 0x17c0) - Atlantis 2: Pumpkin at start 1"
+    "Note": "[16-bit] Level object 15 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0017fc",
-    "Note": "[16-bit] Level object 16 type (see 0x17c0) - Atlantis 2: Pumpkin at start 2"
+    "Note": "[16-bit] Level object 16 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001800",
-    "Note": "[16-bit] Level object 17 type (see 0x17c0) - Atlantis 2: Pumpkin at start 3"
+    "Note": "[16-bit] Level object 17 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001804",
-    "Note": "[16-bit] Level object 18 type (see 0x17c0) - Atlantis 2: Pumpkin at start 4"
+    "Note": "[16-bit] Level object 18 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001808",
-    "Note": "[16-bit] Level object 19 type (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 1"
+    "Note": "[16-bit] Level object 19 starting health (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x00180c",
-    "Note": "[16-bit] Level object 20 type (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 2"
+    "Note": "[16-bit] Level object 20 starting health (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001820",
-    "Note": "[16-bit] Level object 25 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
+    "Note": "[16-bit] Level object 25 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001824",
-    "Note": "[16-bit] Level object 26 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
+    "Note": "[16-bit] Level object 26 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001828",
-    "Note": "[16-bit] Level object 27 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
+    "Note": "[16-bit] Level object 27 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x00182c",
-    "Note": "[16-bit] Level object 28 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
+    "Note": "[16-bit] Level object 28 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001830",
-    "Note": "[16-bit] Level object 29 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 1"
+    "Note": "[16-bit] Level object 29 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001834",
-    "Note": "[16-bit] Level object 30 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 2"
+    "Note": "[16-bit] Level object 30 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001838",
-    "Note": "[16-bit] Level object 31 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
+    "Note": "[16-bit] Level object 31 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00183c",
-    "Note": "[16-bit] Level object 32 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
+    "Note": "[16-bit] Level object 32 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001840",
-    "Note": "[16-bit] Level object 33 type (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
+    "Note": "[16-bit] Level object 33 starting health (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001844",
-    "Note": "[16-bit] Level object 34 type (see 0x17c0) - Cemetery 1: Hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
+    "Note": "[16-bit] Level object 34 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001848",
-    "Note": "[16-bit] Level object 35 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 4"
+    "Note": "[16-bit] Level object 35 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001870",
-    "Note": "[16-bit] Level object 45 type (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 1"
+    "Note": "[16-bit] Level object 45 starting health (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001874",
-    "Note": "[16-bit] Level object 46 type (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 2"
+    "Note": "[16-bit] Level object 46 starting health (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001878",
-    "Note": "[16-bit] Level object 47 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 5"
+    "Note": "[16-bit] Level object 47 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x00187c",
-    "Note": "[16-bit] Level object 48 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 6"
+    "Note": "[16-bit] Level object 48 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x001884",
-    "Note": "[16-bit] Level object 50 type (see 0x17c0) - Clouds 1: Pumpkin containing heart tool"
+    "Note": "[16-bit] Level object 50 starting health (see 0x17c0) - Clouds 1: Pumpkin containing heart tool"
   },
   {
     "User": "adrianusk",
     "Address": "0x001888",
-    "Note": "[16-bit] Level object 51 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 5"
+    "Note": "[16-bit] Level object 51 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x001898",
-    "Note": "[16-bit] Level object 55 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 7"
+    "Note": "[16-bit] Level object 55 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x00189c",
-    "Note": "[16-bit] Level object 56 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 8"
+    "Note": "[16-bit] Level object 56 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 8"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018a0",
-    "Note": "[16-bit] Level object 57 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 6"
+    "Note": "[16-bit] Level object 57 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018a8",
-    "Note": "[16-bit] Level object 59 type (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 1"
+    "Note": "[16-bit] Level object 59 starting health (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018ac",
-    "Note": "[16-bit] Level object 60 type (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 2"
+    "Note": "[16-bit] Level object 60 starting health (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018b0",
-    "Note": "[16-bit] Level object 61 type (see 0x17c0) - Atlantis 2: pumpkin at timer 1"
+    "Note": "[16-bit] Level object 61 starting health (see 0x17c0) - Atlantis 2: pumpkin at timer 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018b4",
-    "Note": "[16-bit] Level object 62 type (see 0x17c0) - Atlantis 2: pumpkin at timer 2"
+    "Note": "[16-bit] Level object 62 starting health (see 0x17c0) - Atlantis 2: pumpkin at timer 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018e4",
-    "Note": "[16-bit] Level object 74 type (see 0x17c0) - Atlantis 2: Wave pumpkin 1"
+    "Note": "[16-bit] Level object 74 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018fc",
-    "Note": "[16-bit] Level object 80 type (see 0x17c0) - Garden Trial: Door to locked part, Atlantis 2: Wave pumpkin 2"
+    "Note": "[16-bit] Level object 80 starting health (see 0x17c0) - Garden Trial: Door to locked part, Atlantis 2: Wave pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001918",
-    "Note": "[16-bit] Level object 87 type (see 0x17c0) - Atlantis 2: Wave pumpkin 3"
+    "Note": "[16-bit] Level object 87 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001924",
-    "Note": "[16-bit] Level object 90 type (see 0x17c0) - Atlantis 2: Wave pumpkin 4"
+    "Note": "[16-bit] Level object 90 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001928",
-    "Note": "[16-bit] Level object 91 type (see 0x17c0) - Atlantis 2: Wave pumpkin 5"
+    "Note": "[16-bit] Level object 91 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x00192c",
-    "Note": "[16-bit] Level object 92 type (see 0x17c0) - Atlantis 2: Wave pumpkin 6"
+    "Note": "[16-bit] Level object 92 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x001930",
-    "Note": "[16-bit] Level object 93 type (see 0x17c0) - Atlantis 2: Wave pumpkin 7"
+    "Note": "[16-bit] Level object 93 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001934",
-    "Note": "[16-bit] Level object 94 type (see 0x17c0) - Atlantis 2: Wave pumpkin 8"
+    "Note": "[16-bit] Level object 94 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 8"
   },
   {
     "User": "adrianusk",
     "Address": "0x001938",
-    "Note": "[16-bit] Level object 95 type (see 0x17c0) - Atlantis 2: Wave pumpkin 9"
+    "Note": "[16-bit] Level object 95 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 9"
   },
   {
     "User": "adrianusk",
     "Address": "0x00193c",
-    "Note": "[16-bit] Level object 96 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 1"
+    "Note": "[16-bit] Level object 96 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001940",
-    "Note": "[16-bit] Level object 97 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 2"
+    "Note": "[16-bit] Level object 97 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001944",
-    "Note": "[16-bit] Level object 98 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 1"
+    "Note": "[16-bit] Level object 98 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001948",
-    "Note": "[16-bit] Level object 99 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 2"
+    "Note": "[16-bit] Level object 99 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x00194c",
-    "Note": "[16-bit] Level object 100 type (see 0x17c0) - Atlantis 2: Wave pumpkin 10"
+    "Note": "[16-bit] Level object 100 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 10"
   },
   {
     "User": "adrianusk",
     "Address": "0x001950",
-    "Note": "[16-bit] Level object 101 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 3"
+    "Note": "[16-bit] Level object 101 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001954",
-    "Note": "[16-bit] Level object 102 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 4"
+    "Note": "[16-bit] Level object 102 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001958",
-    "Note": "[16-bit] Level object 103 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: pumpkin in corridor 3"
+    "Note": "[16-bit] Level object 103 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: pumpkin in corridor 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00195c",
-    "Note": "[16-bit] Level object 104 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: pumpkin in corridor 4"
+    "Note": "[16-bit] Level object 104 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: pumpkin in corridor 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001964",
-    "Note": "[16-bit] Level object 106 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 5"
+    "Note": "[16-bit] Level object 106 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x001968",
-    "Note": "[16-bit] Level object 107 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 6"
+    "Note": "[16-bit] Level object 107 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x00196c",
-    "Note": "[16-bit] Level object 108 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 5"
+    "Note": "[16-bit] Level object 108 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 5"
   },
   {
     "User": "adrianusk",
     "Address": "0x001970",
-    "Note": "[16-bit] Level object 109 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 6"
+    "Note": "[16-bit] Level object 109 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 6"
   },
   {
     "User": "adrianusk",
     "Address": "0x001978",
-    "Note": "[16-bit] Level object 111 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 3"
+    "Note": "[16-bit] Level object 111 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00197c",
-    "Note": "[16-bit] Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: Pumpkin in corridor 7"
+    "Note": "[16-bit] Level object 112 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: Pumpkin in corridor 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001980",
-    "Note": "[16-bit] Level object 113 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 8"
+    "Note": "[16-bit] Level object 113 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 8"
   },
   {
     "User": "adrianusk",
     "Address": "0x001984",
-    "Note": "[16-bit] Level object 114 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 7"
+    "Note": "[16-bit] Level object 114 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 7"
   },
   {
     "User": "adrianusk",
     "Address": "0x001988",
-    "Note": "[16-bit] Level object 115 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
+    "Note": "[16-bit] Level object 115 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
   },
   {
     "User": "adrianusk",
     "Address": "0x00198c",
-    "Note": "[16-bit] Level object 116 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 9"
+    "Note": "[16-bit] Level object 116 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 9"
   },
   {
     "User": "adrianusk",
     "Address": "0x001990",
-    "Note": "[16-bit] Level object 117 type (see 0x17c0) - Atlantis 2: Pumpkin in corridor 10"
+    "Note": "[16-bit] Level object 117 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 10"
   },
   {
     "User": "adrianusk",
     "Address": "0x00199c",
-    "Note": "[16-bit] Level object 120 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 1"
+    "Note": "[16-bit] Level object 120 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0019a0",
-    "Note": "[16-bit] Level object 121 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 2"
+    "Note": "[16-bit] Level object 121 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x0019a8",
-    "Note": "[16-bit] Level object 123 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 3"
+    "Note": "[16-bit] Level object 123 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x0019ac",
-    "Note": "[16-bit] Level object 124 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 4"
+    "Note": "[16-bit] Level object 124 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 4"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a00",
-    "Note": "[16-bit] Level object 145 type (see 0x17c0) - Atlantis 2: Dual-shot pumpkin in-between black pumpkins"
+    "Note": "[16-bit] Level object 145 starting health (see 0x17c0) - Atlantis 2: Dual-shot pumpkin in-between black pumpkins"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a30",
-    "Note": "[16-bit] Level object 157 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 1"
+    "Note": "[16-bit] Level object 157 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a34",
-    "Note": "[16-bit] Level object 158 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 2"
+    "Note": "[16-bit] Level object 158 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a38",
-    "Note": "[16-bit] Level object 159 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 3"
+    "Note": "[16-bit] Level object 159 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a40",
-    "Note": "[16-bit] Level object 161 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 1"
+    "Note": "[16-bit] Level object 161 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a44",
-    "Note": "[16-bit] Level object 162 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 2"
+    "Note": "[16-bit] Level object 162 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 2"
   },
   {
     "User": "adrianusk",
     "Address": "0x001a48",
-    "Note": "[16-bit] Level object 163 type (see 0x17c0) - Atlantis 2: Black pumpkin road block 3"
+    "Note": "[16-bit] Level object 163 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 3"
   },
   {
     "User": "adrianusk",
