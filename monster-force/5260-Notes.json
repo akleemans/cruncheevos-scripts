@@ -362,7 +362,7 @@
   {
     "User": "adrianusk",
     "Address": "0x001840",
-    "Note": "[16-bit] Level object 33 starting health (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
+    "Note": "[16-bit] Level object 33 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 7"
   },
   {
     "User": "adrianusk",
@@ -432,12 +432,12 @@
   {
     "User": "adrianusk",
     "Address": "0x0018b0",
-    "Note": "[16-bit] Level object 61 starting health (see 0x17c0) - Atlantis 2: pumpkin at timer 1"
+    "Note": "[16-bit] Level object 61 starting health (see 0x17c0) - Atlantis 2: Pumpkin at timer 1"
   },
   {
     "User": "adrianusk",
     "Address": "0x0018b4",
-    "Note": "[16-bit] Level object 62 starting health (see 0x17c0) - Atlantis 2: pumpkin at timer 2"
+    "Note": "[16-bit] Level object 62 starting health (see 0x17c0) - Atlantis 2: Pumpkin at timer 2"
   },
   {
     "User": "adrianusk",
@@ -522,12 +522,12 @@
   {
     "User": "adrianusk",
     "Address": "0x001958",
-    "Note": "[16-bit] Level object 103 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: pumpkin in corridor 3"
+    "Note": "[16-bit] Level object 103 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: Pumpkin in corridor 3"
   },
   {
     "User": "adrianusk",
     "Address": "0x00195c",
-    "Note": "[16-bit] Level object 104 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: pumpkin in corridor 4"
+    "Note": "[16-bit] Level object 104 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: Pumpkin in corridor 4"
   },
   {
     "User": "adrianusk",
@@ -642,12 +642,12 @@
   {
     "User": "adrianusk",
     "Address": "0x001ba4",
-    "Note": "[32-bit] Live object 1 type (see 0x0017c0) (Start of live object array. 144 bytes per object)"
+    "Note": "[32-bit] Live object 1 health (see 0x0017c0) (Start of live object array. 144 bytes per object)"
   },
   {
     "User": "adrianusk",
     "Address": "0x001be0",
-    "Note": "[16-bit] Level object 1 health"
+    "Note": "[16-bit] Live object 1 health (see 0x1ba4)"
   },
   {
     "User": "adrianusk",
@@ -672,7 +672,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0034df",
-    "Note": "[8-bit] Maximum level unlocked (0-24)"
+    "Note": "[8-bit] Maximum level unlocked (0x00 - 0x24)"
   },
   {
     "User": "adrianusk",
@@ -817,7 +817,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035a8",
-    "Note": "[16-bit] Total shots fired (= 0x085a normal + 0x085e power)"
+    "Note": "[16-bit] Total shots fired in current level (= 0x085a normal + 0x085e power)"
   },
   {
     "User": "adrianusk",
