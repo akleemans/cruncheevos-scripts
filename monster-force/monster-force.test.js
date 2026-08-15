@@ -2205,14 +2205,14 @@ describe('Leaderboard: Cemetery Level 1 Atoms (score)', () => {
   const lb = leaderboard('Cemetery Level 1 Atoms');
 
   // Instant LB: START fires on the score screen
-  test('starts on the score screen when the level is finished', () => {
+  test('starts/submits on the score screen when the level is finished', () => {
     const s = scenario('cemetery1-finish-ranking-crystal');
     const result = runAchievement(lbTrigger(lb, 'start'), s);
 
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
-  test('starts on a rank-0 finish too', () => {
+  test('starts/submits on a rank-0 finish too', () => {
     const s = scenario('cemetery1-finish-ranking-0');
     const result = runAchievement(lbTrigger(lb, 'start'), s);
 
@@ -2226,7 +2226,8 @@ describe('Leaderboard: Cemetery Level 1 Atoms (score)', () => {
     expect(result.triggered).toBe(false);
     expect(result.stateAt(s.marker('cheat-enabled'))).toBe('paused');
 
-    // ...and the pause is lifted again on the level select, ready for the next attempt
+    // TODO shouldn't this be active?
+    // The pause is lifted again on the level select, ready for the next attempt
     expect(result.stateAt(s.marker('level-select-screen'))).toBe('paused');
   });
 
@@ -2297,18 +2298,14 @@ describe('Leaderboard: Castle Boss Rush Speedrun (timed)', () => {
     const submit = runAchievement(lbTrigger(lb, 'submit'), s).triggeredFrame;
     const measured = result.measuredAt(submit);
 
-    // Nothing is counted before the run begins
     expect(result.measuredAt(start)).toBe(1);
 
-    // The run spans 5242 frames, of which 1815 are the score and shop screens between the four
-    // levels - those are correctly excluded, leaving 3427 frames of actual in-game time
+    // Run total: 5242 frames - 1815 score + shop screens = 3427 frames of actual in-game time
     expect(submit - start + 1).toBe(5242);
     expect(measured).toBe(3427);
     expect(submit - start + 1 - measured).toBe(1815);
 
-    // It is the total across all four levels, not just the last one: Castle 4's own levelTime
-    // at the same frame is only 435 frames, which is what the shared timedLeaderboards loop
-    // would have submitted
+    // Make sure it is bigger than levelTime of last level, Castle 4
     expect(measured).toBeGreaterThan(435);
   });
 
@@ -2318,8 +2315,7 @@ describe('Leaderboard: Castle Boss Rush Speedrun (timed)', () => {
     const submit = runAchievement(lbTrigger(lb, 'submit'), s).triggeredFrame;
 
     // Cross-check against the Boss Rush achievement, which locks at 3600 in-game frames:
-    // the fast run measures 3427 (under) and this one 6752 (over), and the achievement
-    // pops for the fast scenario only
+    // the fast run measures 3427 (under) and this one 6752 (over), and the achievement pops for the fast scenario only
     expect(result.measuredAt(submit)).toBe(6752);
     expect(runAchievement(achievement('Boss Rush'), s).triggered).toBe(false);
     expect(runAchievement(achievement('Boss Rush'), scenario('castle1-boss-rush-fast')).triggered).toBe(true);
