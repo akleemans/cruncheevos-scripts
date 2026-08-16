@@ -2053,6 +2053,7 @@ Manually tested cases:
 [x] Invincibility Cheat cancels LB
 [x] Level Skip Cheat cancels LB
 [x] Level Exit Code cancels LB
+[x] Level timer wrap-around cancels LB
 [x] Game Over with Continue (back to Level select) cancels LB
 [x] Game Over without Continue (Game restart) cancels LB
 */
@@ -2114,8 +2115,8 @@ for (let timedLeaderboard of timedLeaderboards) {
 // Special case: Boss Rush Leaderboard - sum of 4 levels, so we can not just take the levelTime of the last level
 /*
 Manually tested cases:
-[ ] Finish level submits LB with total time, not only last level time
-[ ] Entering in Castle 2 does not trigger the LB
+[x] Finish level submits LB with total time, not only last level time
+[x] Entering in Castle 2 does not trigger the LB
 */
 set.addLeaderboard({
   title: 'Castle Boss Rush Speedrun',
