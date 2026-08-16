@@ -32,6 +32,6 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 ## Tests
 
 Some sets have extensive scenario tests (recorded emulator sequences with expectations), based
-on [https://www.npmjs.com/package/cruncheevos-playtest](cruncheevos-playtest).
+on [cruncheevos-playtest](https://www.npmjs.com/package/cruncheevos-playtest).
 
 See for example the Monster Force set.
