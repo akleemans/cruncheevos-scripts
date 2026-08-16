@@ -2338,6 +2338,36 @@ describe('Leaderboard: Cemetery Trial Speedrun (timed)', () => {
   });
 });
 
+describe('Leaderboard: Clouds Trial Speedrun (timer wrap-around)', () => {
+  const lb = leaderboard('Clouds Trial Speedrun');
+
+  // Recorded by staying in the Clouds Trial past 18:12, where the 16-bit level timer overflows
+  const wrapFrame = 52167;
+  const levelTime = 0x359c;
+
+  test('the recorded run overflows the level timer while in-game', () => {
+    const s = scenario('clouds-trial-time-wraparound');
+
+    expect(s.valueAt(wrapFrame - 1, levelTime)).toBe(65535);
+    expect(s.valueAt(wrapFrame, levelTime)).toBe(0);
+  });
+
+  test('cancels on the frame the level timer wraps around', () => {
+    const s = scenario('clouds-trial-time-wraparound');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    expect(result.triggeredFrame).toBe(wrapFrame);
+  });
+
+  test('does not cancel when the timer resets on a level start (Castle 1 to 4 chain)', () => {
+    const s = scenario('castle1-boss-rush-fast');
+    const result = runAchievement(lbTrigger(lb, 'cancel'), s);
+
+    // Only cancels on the level select after the run, long after the last level transition
+    expect(result.triggeredFrame).toBeGreaterThan(s.marker('score-screen'));
+  });
+});
+
 describe('Leaderboard: Cemetery Level 1 Atoms (score)', () => {
   const lb = leaderboard('Cemetery Level 1 Atoms');
 
