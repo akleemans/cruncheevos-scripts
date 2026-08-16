@@ -114,12 +114,12 @@
     {
       "address": "0x085a",
       "size": "u16",
-      "label": "Normal shots fired"
+      "label": "Normal shots fired in current level"
     },
     {
       "address": "0x085e",
       "size": "u16",
-      "label": "Power shots fired"
+      "label": "Power shots fired in current level"
     },
     {
       "address": "0x0868",
@@ -139,42 +139,42 @@
     {
       "address": "0x1820",
       "size": "u16",
-      "label": "Level object 25 type (see 0x17c0) - Cemetery 1: hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
+      "label": "Level object 25 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
     },
     {
       "address": "0x1824",
       "size": "u16",
-      "label": "Level object 26 type (see 0x17c0) - Cemetery 1: hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
+      "label": "Level object 26 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
     },
     {
       "address": "0x1828",
       "size": "u16",
-      "label": "Level object 27 type (see 0x17c0) - Cemetery 1: hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
+      "label": "Level object 27 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
     },
     {
       "address": "0x182c",
       "size": "u16",
-      "label": "Level object 28 type (see 0x17c0) - Cemetery 1: hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
+      "label": "Level object 28 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
     },
     {
       "address": "0x1838",
       "size": "u16",
-      "label": "Level object 31 type (see 0x17c0) - Cemetery 1: hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
+      "label": "Level object 31 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
     },
     {
       "address": "0x183c",
       "size": "u16",
-      "label": "Level object 32 type (see 0x17c0) - Cemetery 1: hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
+      "label": "Level object 32 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
     },
     {
       "address": "0x1840",
       "size": "u16",
-      "label": "Level object 33 type (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
+      "label": "Level object 33 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 7"
     },
     {
       "address": "0x1844",
       "size": "u16",
-      "label": "Level object 34 type (see 0x17c0) - Cemetery 1: hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
+      "label": "Level object 34 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
     },
     {
       "address": "0x18a4",
@@ -184,7 +184,7 @@
     {
       "address": "0x1be0",
       "size": "u8",
-      "label": "Live object 1 health - Boss in Cemetery Shadow"
+      "label": "Live object 1 health (see 0x1ba4)"
     },
     {
       "address": "0x1d00",
@@ -199,7 +199,7 @@
     {
       "address": "0x34df",
       "size": "u8",
-      "label": "Maximum level unlocked (0-24)"
+      "label": "Maximum level unlocked (0x00 - 0x24)"
     },
     {
       "address": "0x34f3",
@@ -259,7 +259,7 @@
     {
       "address": "0x3540",
       "size": "u8",
-      "label": "Timed switch global timer (e.g. Garden Trial)"
+      "label": "Timed switch global timer (reset to full and counts down, increases when a timer switch is activated)"
     },
     {
       "address": "0x3544",
@@ -274,22 +274,22 @@
     {
       "address": "0x3568",
       "size": "u32",
-      "label": "Viewport position horizontally"
+      "label": "Viewport position: X coordinate"
     },
     {
       "address": "0x356c",
       "size": "u32",
-      "label": "Viewport position vertically"
+      "label": "Viewport position: Y coordinate"
     },
     {
       "address": "0x3588",
       "size": "u32",
-      "label": "Last teleport/start position horizontally"
+      "label": "Last teleport/start position: X coordinate"
     },
     {
       "address": "0x358c",
       "size": "u32",
-      "label": "Last teleport/start position vertically"
+      "label": "Last teleport/start position: Y coordinate"
     },
     {
       "address": "0x3598",
@@ -314,7 +314,7 @@
     {
       "address": "0x35a8",
       "size": "u16",
-      "label": "Total shots fired"
+      "label": "Total shots fired in current level (= 0x085a normal + 0x085e power)"
     },
     {
       "address": "0x35b8",

@@ -129,12 +129,12 @@
     {
       "address": "0x080e",
       "size": "u8",
-      "label": "[Bitflags] Shot modifiers 2"
+      "label": "[Bitflags] Shot modifiers 3"
     },
     {
       "address": "0x0824",
       "size": "u16",
-      "label": "Tool use timer (which one?)"
+      "label": "Tool use timer"
     },
     {
       "address": "0x082c",
@@ -194,12 +194,12 @@
     {
       "address": "0x085a",
       "size": "u16",
-      "label": "Normal shots fired"
+      "label": "Normal shots fired in current level"
     },
     {
       "address": "0x085e",
       "size": "u16",
-      "label": "Power shots fired"
+      "label": "Power shots fired in current level"
     },
     {
       "address": "0x0868",
@@ -234,7 +234,7 @@
     {
       "address": "0x17c0",
       "size": "u16",
-      "label": "Level object 1 type (Start of level object table - pumpkins, enemies, items, switches. 4 bytes per object)"
+      "label": "Level object 1 starting health (Start of level object table - pumpkins, enemies, items, etc. 4 bytes per object). Written when the object is loaded, and overwritten with the remaining health when it is destroyed. Damage during play is tracked in the live object array (see 0x1ba4)."
     },
     {
       "address": "0x17c2",
@@ -249,7 +249,7 @@
     {
       "address": "0x17c4",
       "size": "u16",
-      "label": "Level object 2 type (see 0x0017c0)"
+      "label": "Level object 2 starting health (see 0x0017c0)"
     },
     {
       "address": "0x17c6",
@@ -264,387 +264,387 @@
     {
       "address": "0x17d8",
       "size": "u16",
-      "label": "Level object 7 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 1"
+      "label": "Level object 7 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 1"
     },
     {
       "address": "0x17dc",
       "size": "u16",
-      "label": "Level object 8 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 3"
+      "label": "Level object 8 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 3"
     },
     {
       "address": "0x17e0",
       "size": "u16",
-      "label": "Level object 9 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 4"
+      "label": "Level object 9 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 4"
     },
     {
       "address": "0x17e4",
       "size": "u16",
-      "label": "Level object 10 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 7"
+      "label": "Level object 10 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 7"
     },
     {
       "address": "0x17e8",
       "size": "u16",
-      "label": "Level object 11 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 2"
+      "label": "Level object 11 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 2"
     },
     {
       "address": "0x17ec",
       "size": "u16",
-      "label": "Level object 12 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 5"
+      "label": "Level object 12 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 5"
     },
     {
       "address": "0x17f0",
       "size": "u16",
-      "label": "Level object 13 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 6"
+      "label": "Level object 13 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 6"
     },
     {
       "address": "0x17f4",
       "size": "u16",
-      "label": "Level object 14 type (see 0x17c0) - Atlantis 2: Double-row pumpkin 8"
+      "label": "Level object 14 starting health (see 0x17c0) - Atlantis 2: Double-row pumpkin 8"
     },
     {
       "address": "0x17f8",
       "size": "u16",
-      "label": "Level object 15 type (see 0x17c0) - Atlantis 2: pumpkin at start 1"
+      "label": "Level object 15 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 1"
     },
     {
       "address": "0x17fc",
       "size": "u16",
-      "label": "Level object 16 type (see 0x17c0) - Atlantis 2: pumpkin at start 2"
+      "label": "Level object 16 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 2"
     },
     {
       "address": "0x1800",
       "size": "u16",
-      "label": "Level object 17 type (see 0x17c0) - Atlantis 2: pumpkin at start 3"
+      "label": "Level object 17 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 3"
     },
     {
       "address": "0x1804",
       "size": "u16",
-      "label": "Level object 18 type (see 0x17c0) - Atlantis 2: pumpkin at start 4"
+      "label": "Level object 18 starting health (see 0x17c0) - Atlantis 2: Pumpkin at start 4"
     },
     {
       "address": "0x1808",
       "size": "u16",
-      "label": "Level object 19 type (see 0x17c0) - Atlantis 2: Scare-crow pumpkin 1"
+      "label": "Level object 19 starting health (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 1"
     },
     {
       "address": "0x180c",
       "size": "u16",
-      "label": "Level object 20 type (see 0x17c0) - Atlantis 2: Scare-crow pumpkin 2"
+      "label": "Level object 20 starting health (see 0x17c0) - Atlantis 2: Scarecrow pumpkin 2"
     },
     {
       "address": "0x1820",
       "size": "u16",
-      "label": "Level object 25 type (see 0x17c0) - Cemetery 1: hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
+      "label": "Level object 25 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 1, Atlantis 2: Upper lake black pumpkin 3"
     },
     {
       "address": "0x1824",
       "size": "u16",
-      "label": "Level object 26 type (see 0x17c0) - Cemetery 1: hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
+      "label": "Level object 26 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 2, Atlantis 2: Upper lake black pumpkin 4"
     },
     {
       "address": "0x1828",
       "size": "u16",
-      "label": "Level object 27 type (see 0x17c0) - Cemetery 1: hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
+      "label": "Level object 27 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 3, Atlantis 2: Upper lake pumpkin 1"
     },
     {
       "address": "0x182c",
       "size": "u16",
-      "label": "Level object 28 type (see 0x17c0) - Cemetery 1: hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
+      "label": "Level object 28 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 4, Atlantis 2: Upper lake pumpkin 2"
     },
     {
       "address": "0x1830",
       "size": "u16",
-      "label": "Level object 29 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 1"
+      "label": "Level object 29 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 1"
     },
     {
       "address": "0x1834",
       "size": "u16",
-      "label": "Level object 30 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 2"
+      "label": "Level object 30 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 2"
     },
     {
       "address": "0x1838",
       "size": "u16",
-      "label": "Level object 31 type (see 0x17c0) - Cemetery 1: hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
+      "label": "Level object 31 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 5, Atlantis 2: Lower lake pumpkin 3"
     },
     {
       "address": "0x183c",
       "size": "u16",
-      "label": "Level object 32 type (see 0x17c0) - Cemetery 1: hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
+      "label": "Level object 32 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 6, Atlantis 2: Lower lake pumpkin 4"
     },
     {
       "address": "0x1840",
       "size": "u16",
-      "label": "Level object 33 type (see 0x17c0) - Cemetery 1: hidden pumpkin 7"
+      "label": "Level object 33 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 7"
     },
     {
       "address": "0x1844",
       "size": "u16",
-      "label": "Level object 34 type (see 0x17c0) - Cemetery 1: hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
+      "label": "Level object 34 starting health (see 0x17c0) - Cemetery 1: Hidden pumpkin 8, Atlantis 2: Upper lake pumpkin 3"
     },
     {
       "address": "0x1848",
       "size": "u16",
-      "label": "Level object 35 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 4"
+      "label": "Level object 35 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 4"
     },
     {
       "address": "0x1870",
       "size": "u16",
-      "label": "Level object 45 type (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 1"
+      "label": "Level object 45 starting health (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 1"
     },
     {
       "address": "0x1874",
       "size": "u16",
-      "label": "Level object 46 type (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 2"
+      "label": "Level object 46 starting health (see 0x17c0) - Atlantis 2: Lower lake black pumpkin 2"
     },
     {
       "address": "0x1878",
       "size": "u16",
-      "label": "Level object 47 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 5"
+      "label": "Level object 47 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 5"
     },
     {
       "address": "0x187c",
       "size": "u16",
-      "label": "Level object 48 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 6"
+      "label": "Level object 48 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 6"
     },
     {
       "address": "0x1884",
       "size": "u16",
-      "label": "Level object 50 type (see 0x17c0) - Clouds 1: Pumpkin containing heart tool"
+      "label": "Level object 50 starting health (see 0x17c0) - Clouds 1: Pumpkin containing heart tool"
     },
     {
       "address": "0x1888",
       "size": "u16",
-      "label": "Level object 51 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 5"
+      "label": "Level object 51 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 5"
     },
     {
       "address": "0x1898",
       "size": "u16",
-      "label": "Level object 55 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 7"
+      "label": "Level object 55 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 7"
     },
     {
       "address": "0x189c",
       "size": "u16",
-      "label": "Level object 56 type (see 0x17c0) - Atlantis 2: Upper lake pumpkin 8"
+      "label": "Level object 56 starting health (see 0x17c0) - Atlantis 2: Upper lake pumpkin 8"
     },
     {
       "address": "0x18a0",
       "size": "u16",
-      "label": "Level object 57 type (see 0x17c0) - Atlantis 2: Lower lake pumpkin 6"
+      "label": "Level object 57 starting health (see 0x17c0) - Atlantis 2: Lower lake pumpkin 6"
     },
     {
       "address": "0x18a8",
       "size": "u16",
-      "label": "Level object 59 type (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 1"
+      "label": "Level object 59 starting health (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 1"
     },
     {
       "address": "0x18ac",
       "size": "u16",
-      "label": "Level object 60 type (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 2"
+      "label": "Level object 60 starting health (see 0x17c0) - Atlantis 2: Upper lake black pumpkin 2"
     },
     {
       "address": "0x18b0",
       "size": "u16",
-      "label": "Level object 61 type (see 0x17c0) - Atlantis 2: pumpkin at timer 1"
+      "label": "Level object 61 starting health (see 0x17c0) - Atlantis 2: Pumpkin at timer 1"
     },
     {
       "address": "0x18b4",
       "size": "u16",
-      "label": "Level object 62 type (see 0x17c0) - Atlantis 2: pumpkin at timer 2"
+      "label": "Level object 62 starting health (see 0x17c0) - Atlantis 2: Pumpkin at timer 2"
     },
     {
       "address": "0x18e4",
       "size": "u16",
-      "label": "Level object 74 type (see 0x17c0) - Atlantis 2: Wave pumpkin 1"
+      "label": "Level object 74 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 1"
     },
     {
       "address": "0x18fc",
       "size": "u16",
-      "label": "Level object 80 type (see 0x17c0) - Garden Trial: door to locked part, Atlantis 2: Wave pumpkin 1"
+      "label": "Level object 80 starting health (see 0x17c0) - Garden Trial: Door to locked part, Atlantis 2: Wave pumpkin 2"
     },
     {
       "address": "0x1918",
       "size": "u16",
-      "label": "Level object 87 type (see 0x17c0) - Atlantis 2: Wave pumpkin 3"
+      "label": "Level object 87 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 3"
     },
     {
       "address": "0x1924",
       "size": "u16",
-      "label": "Level object 90 type (see 0x17c0) - Atlantis 2: Wave pumpkin 4"
+      "label": "Level object 90 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 4"
     },
     {
       "address": "0x1928",
       "size": "u16",
-      "label": "Level object 91 type (see 0x17c0) - Atlantis 2: Wave pumpkin 5"
+      "label": "Level object 91 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 5"
     },
     {
       "address": "0x192c",
       "size": "u16",
-      "label": "Level object 92 type (see 0x17c0) - Atlantis 2: Wave pumpkin 6"
+      "label": "Level object 92 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 6"
     },
     {
       "address": "0x1930",
       "size": "u16",
-      "label": "Level object 93 type (see 0x17c0) - Atlantis 2: Wave pumpkin 7"
+      "label": "Level object 93 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 7"
     },
     {
       "address": "0x1934",
       "size": "u16",
-      "label": "Level object 94 type (see 0x17c0) - Atlantis 2: Wave pumpkin 8"
+      "label": "Level object 94 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 8"
     },
     {
       "address": "0x1938",
       "size": "u16",
-      "label": "Level object 95 type (see 0x17c0) - Atlantis 2: Wave pumpkin 9"
+      "label": "Level object 95 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 9"
     },
     {
       "address": "0x193c",
       "size": "u16",
-      "label": "Level object 96 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 1"
+      "label": "Level object 96 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 1"
     },
     {
       "address": "0x1940",
       "size": "u16",
-      "label": "Level object 97 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 2"
+      "label": "Level object 97 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 2"
     },
     {
       "address": "0x1944",
       "size": "u16",
-      "label": "Level object 98 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 1"
+      "label": "Level object 98 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 1"
     },
     {
       "address": "0x1948",
       "size": "u16",
-      "label": "Level object 99 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 2"
+      "label": "Level object 99 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 2"
     },
     {
       "address": "0x194c",
       "size": "u16",
-      "label": "Level object 100 type (see 0x17c0) - Atlantis 2: Wave pumpkin 10"
+      "label": "Level object 100 starting health (see 0x17c0) - Atlantis 2: Wave pumpkin 10"
     },
     {
       "address": "0x1950",
       "size": "u16",
-      "label": "Level object 101 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 3"
+      "label": "Level object 101 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 3"
     },
     {
       "address": "0x1954",
       "size": "u16",
-      "label": "Level object 102 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 4"
+      "label": "Level object 102 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 4"
     },
     {
       "address": "0x1958",
       "size": "u16",
-      "label": "Level object 103 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: pumpkin in corridor 3"
+      "label": "Level object 103 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 1, Atlantis 2: Pumpkin in corridor 3"
     },
     {
       "address": "0x195c",
       "size": "u16",
-      "label": "Level object 104 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: pumpkin in corridor 4"
+      "label": "Level object 104 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 2, Atlantis 2: Pumpkin in corridor 4"
     },
     {
       "address": "0x1964",
       "size": "u16",
-      "label": "Level object 106 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 5"
+      "label": "Level object 106 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 5"
     },
     {
       "address": "0x1968",
       "size": "u16",
-      "label": "Level object 107 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 6"
+      "label": "Level object 107 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 6"
     },
     {
       "address": "0x196c",
       "size": "u16",
-      "label": "Level object 108 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 5"
+      "label": "Level object 108 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 5"
     },
     {
       "address": "0x1970",
       "size": "u16",
-      "label": "Level object 109 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 6"
+      "label": "Level object 109 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 6"
     },
     {
       "address": "0x1978",
       "size": "u16",
-      "label": "Level object 111 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 3"
+      "label": "Level object 111 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 3"
     },
     {
       "address": "0x197c",
       "size": "u16",
-      "label": "Level object 112 type (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: pumpkin in corridor 7"
+      "label": "Level object 112 starting health (see 0x17c0) - Factory 2: Scarecrow pumpkin 4, Atlantis 2: Pumpkin in corridor 7"
     },
     {
       "address": "0x1980",
       "size": "u16",
-      "label": "Level object 113 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 8"
+      "label": "Level object 113 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 8"
     },
     {
       "address": "0x1984",
       "size": "u16",
-      "label": "Level object 114 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 7"
+      "label": "Level object 114 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 7"
     },
     {
       "address": "0x1988",
       "size": "u16",
-      "label": "Level object 115 type (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
+      "label": "Level object 115 starting health (see 0x17c0) - Atlantis 2: Enemy-corridor pumpkin 8"
     },
     {
       "address": "0x1990",
       "size": "u16",
-      "label": "Level object 117 type (see 0x17c0) - Atlantis 2: pumpkin in corridor 10"
+      "label": "Level object 117 starting health (see 0x17c0) - Atlantis 2: Pumpkin in corridor 10"
     },
     {
       "address": "0x199c",
       "size": "u16",
-      "label": "Level object 120 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 1"
+      "label": "Level object 120 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 1"
     },
     {
       "address": "0x19a0",
       "size": "u16",
-      "label": "Level object 121 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 2"
+      "label": "Level object 121 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 2"
     },
     {
       "address": "0x19a8",
       "size": "u16",
-      "label": "Level object 123 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 3"
+      "label": "Level object 123 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 3"
     },
     {
       "address": "0x19ac",
       "size": "u16",
-      "label": "Level object 124 type (see 0x17c0) - Atlantis 2: In-between doors pumpkin 4"
+      "label": "Level object 124 starting health (see 0x17c0) - Atlantis 2: In-between doors pumpkin 4"
     },
     {
       "address": "0x1a00",
       "size": "u16",
-      "label": "Level object 145 type (see 0x17c0) - Atlantis 2: Dual-shot pumpkin in-between black pumpkins"
+      "label": "Level object 145 starting health (see 0x17c0) - Atlantis 2: Dual-shot pumpkin in-between black pumpkins"
     },
     {
       "address": "0x1a30",
       "size": "u16",
-      "label": "Level object 157 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 1"
+      "label": "Level object 157 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 1"
     },
     {
       "address": "0x1a34",
       "size": "u16",
-      "label": "Level object 158 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 2"
+      "label": "Level object 158 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 2"
     },
     {
       "address": "0x1a38",
       "size": "u16",
-      "label": "Level object 159 type (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 3"
+      "label": "Level object 159 starting health (see 0x17c0) - Atlantis 2: Blocking black pumpkin near end 3"
     },
     {
       "address": "0x1a40",
       "size": "u16",
-      "label": "Level object 161 type (see 0x17c0) - Atlantis 2: black pumpkin road block 1"
+      "label": "Level object 161 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 1"
     },
     {
       "address": "0x1a44",
       "size": "u16",
-      "label": "Level object 162 type (see 0x17c0) - Atlantis 2: black pumpkin road block 2"
+      "label": "Level object 162 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 2"
     },
     {
       "address": "0x1a48",
       "size": "u16",
-      "label": "Level object 163 type (see 0x17c0) - Atlantis 2: black pumpkin road block 3"
+      "label": "Level object 163 starting health (see 0x17c0) - Atlantis 2: Black pumpkin road block 3"
     },
     {
       "address": "0x1ba4",
@@ -654,7 +654,7 @@
     {
       "address": "0x1be0",
       "size": "u8",
-      "label": "Live object 1 health - Boss in Cemetery Shadow"
+      "label": "Live object 1 health (see 0x1ba4)"
     },
     {
       "address": "0x1c34",
@@ -684,7 +684,7 @@
     {
       "address": "0x34df",
       "size": "u8",
-      "label": "Maximum level unlocked (0-24)"
+      "label": "Maximum level unlocked (0x00 - 0x24)"
     },
     {
       "address": "0x34f3",
@@ -754,7 +754,7 @@
     {
       "address": "0x3540",
       "size": "u8",
-      "label": "Timed switch global timer (e.g. Garden Trial)"
+      "label": "Timed switch global timer (reset to full and counts down, increases when a timer switch is activated)"
     },
     {
       "address": "0x3544",
@@ -769,22 +769,22 @@
     {
       "address": "0x3568",
       "size": "u32",
-      "label": "Viewport position horizontally"
+      "label": "Viewport position: X coordinate"
     },
     {
       "address": "0x356c",
       "size": "u32",
-      "label": "Viewport position vertically"
+      "label": "Viewport position: Y coordinate"
     },
     {
       "address": "0x3588",
       "size": "u32",
-      "label": "Last teleport/start position horizontally"
+      "label": "Last teleport/start position: X coordinate"
     },
     {
       "address": "0x358c",
       "size": "u32",
-      "label": "Last teleport/start position vertically"
+      "label": "Last teleport/start position: Y coordinate"
     },
     {
       "address": "0x3598",
@@ -809,7 +809,7 @@
     {
       "address": "0x35a8",
       "size": "u16",
-      "label": "Total shots fired"
+      "label": "Total shots fired in current level (= 0x085a normal + 0x085e power)"
     },
     {
       "address": "0x35b8",
