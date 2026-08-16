@@ -464,6 +464,10 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
+      // Lock if the 16-bit level timer wrapped around (18:12 in a single level)
+      ['AndNext', 'Mem',   '8bit',  gameState, '=', 'Value', '',      GameStateEnum.InGame],
+      ['PauseIf', 'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime, 1],
+
       ['',        'Mem',   '16bit', levelTime,    '<', 'Value', '', 600],
 
       // Pop on score screen
@@ -536,6 +540,7 @@ set.addAchievement({
   conditions: {
     core: $(
       // Use the timer directly, "time bonus" only gets set later.
+      // No wraparound protection needed, level fails after 2 minutes if not finished within time.
       // 7200 frames = 120 seconds, which is the required time limit to get the bonus
       ['', 'Mem', '16bit', levelTime,       '<=', 'Value', '', 7200],
 
@@ -978,7 +983,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Sum of flags must be at least 3 at one point
+      // Sum of flags must be at least 3 at one point - no level gate here, is checked below
       ['AddSource', 'Mem', 'Bit4', shotModifiers1],
       ['AddSource', 'Mem', 'Bit5', shotModifiers1],
       ['AddSource', 'Mem', 'Bit6', shotModifiers1],
@@ -1154,7 +1159,7 @@ set.addAchievement({
   points: 5,
   conditions: {
     core: $(
-      // Lock if confused
+      // Lock if confused - no level gate here, is checked below
       ['PauseIf', 'Mem',   'Bit4', ailmentBitflags, '=', 'Value', '', 1, 1],
 
       // Pop on score screen
