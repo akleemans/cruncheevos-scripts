@@ -1,6 +1,11 @@
 [
   {
     "User": "adrianusk",
+    "Address": "0x000000",
+    "Note": "Cruncheevos script: https:\/\/github.com\/akleemans\/cruncheevos-scripts\/tree\/main\/monster-force"
+  },
+  {
+    "User": "adrianusk",
     "Address": "0x000770",
     "Note": "[8-bit] Global game state\r\n0x01 = Game initial startup\r\n0x02 = Game startup license screen\r\n0x04 = Title menu screen\r\n0x06 = Load game screen\r\n0x0c = Level select screen\r\n0x0e = Level start\r\n0x0f = In game\r\n0x10 = Pause\r\n0x11 = Level end\/ranking screen\r\n0x12 = Shop options screen\r\n0x13 = \"Save game\" option screen\r\n0x14 = Game Over screen (Continue)\r\n0x17 = Tutorial \/ story screen\r\n0x1a = Multiplayer waiting screen\r\n0x22 = Credits"
   },
