@@ -827,7 +827,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035b8",
-    "Note": "[8-bit] Cemetery Level 1 ranking (ladder 1)\r\n0x00 = Bronze (score < 500 or skipped)\r\n0x01 = Bronze (score >= 500)\r\n0x02 = Bronze (score >= 1000)\r\n0x03 = Bronze (score >= 2000)\r\n0x04 = Silver (score >= 4000)\r\n0x05 = Gold (score >= 8000)\r\n0x06 = Crystal (score >= 16000)"
+    "Note": "[8-bit] Cemetery Level 1 ranking (ladder 1)\r\n0x00 = Bronze (score < 500)\r\n0x01 = Bronze (score >= 500)\r\n0x02 = Bronze (score >= 1000)\r\n0x03 = Bronze (score >= 2000)\r\n0x04 = Silver (score >= 4000)\r\n0x05 = Gold (score >= 8000)\r\n0x06 = Crystal (score >= 16000)"
   },
   {
     "User": "adrianusk",
@@ -837,12 +837,12 @@
   {
     "User": "adrianusk",
     "Address": "0x0035ba",
-    "Note": "[8-bit] Cemetery Trial ranking (ladder 2)\r\n0x00 = Bronze (score < 25 or skipped)\r\n0x03 = Bronze (score >= 25)\r\n0x04 = Silver (score >= 50)\r\n0x05 = Gold (score >= 100)\r\n0x06 = Crystal (score >= 200)"
+    "Note": "[8-bit] Cemetery Trial ranking (ladder 2)\r\n0x00 = Bronze (score < 25)\r\n0x03 = Bronze (score >= 25)\r\n0x04 = Silver (score >= 50)\r\n0x05 = Gold (score >= 100)\r\n0x06 = Crystal (score >= 200)"
   },
   {
     "User": "adrianusk",
     "Address": "0x0035bb",
-    "Note": "[8-bit] Cemetery Shadow ranking (ladder 3)\r\n0x00 = Bronze (score < 200 or skipped)\r\n0x01 = Bronze (score >= 200)\r\n0x02 = Bronze (score >= 400)\r\n0x03 = Bronze (score >= 800)\r\n0x04 = Silver (score >= 1000)\r\n0x05 = Gold (score >= 2000)\r\n0x06 = Crystal (score >= 4000)"
+    "Note": "[8-bit] Cemetery Shadow ranking (ladder 3)\r\n0x00 = Bronze (score < 200)\r\n0x01 = Bronze (score >= 200)\r\n0x02 = Bronze (score >= 400)\r\n0x03 = Bronze (score >= 800)\r\n0x04 = Silver (score >= 1000)\r\n0x05 = Gold (score >= 2000)\r\n0x06 = Crystal (score >= 4000)"
   },
   {
     "User": "adrianusk",
@@ -857,7 +857,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035be",
-    "Note": "[8-bit] Village Trial ranking (ladder 4)\r\n0x00 = Bronze (score < 250 or skipped)\r\n0x02 = Bronze (score >= 250)\r\n0x03 = Bronze (score >= 500)\r\n0x04 = Silver (score >= 1000)\r\n0x05 = Gold (score >= 2000)\r\n0x06 = Crystal (score >= 4000)"
+    "Note": "[8-bit] Village Trial ranking (ladder 4)\r\n0x00 = Bronze (score < 250)\r\n0x02 = Bronze (score >= 250)\r\n0x03 = Bronze (score >= 500)\r\n0x04 = Silver (score >= 1000)\r\n0x05 = Gold (score >= 2000)\r\n0x06 = Crystal (score >= 4000)"
   },
   {
     "User": "adrianusk",
@@ -887,7 +887,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035c4",
-    "Note": "[8-bit] Atlantis Level 1 ranking (ladder 5)\r\n0x00 = Bronze (score < 2000 or skipped)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 3000)\r\n0x03 = Bronze (score >= 4000)\r\n0x04 = Silver (score >= 6000)\r\n0x05 = Gold (score >= 16000)\r\n0x06 = Crystal (score >= 24000)"
+    "Note": "[8-bit] Atlantis Level 1 ranking (ladder 5)\r\n0x00 = Bronze (score < 2000)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 3000)\r\n0x03 = Bronze (score >= 4000)\r\n0x04 = Silver (score >= 6000)\r\n0x05 = Gold (score >= 16000)\r\n0x06 = Crystal (score >= 24000)"
   },
   {
     "User": "adrianusk",
@@ -947,7 +947,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035d0",
-    "Note": "[8-bit] Clouds Level 1 ranking (ladder 6)\r\n0x00 = Bronze (score < 2000 or skipped)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 4000)\r\n0x03 = Bronze (score >= 8000)\r\n0x04 = Silver (score >= 16000)\r\n0x05 = Gold (score >= 32000)\r\n0x06 = Crystal (score >= 64000)"
+    "Note": "[8-bit] Clouds Level 1 ranking (ladder 6)\r\n0x00 = Bronze (score < 2000)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 4000)\r\n0x03 = Bronze (score >= 8000)\r\n0x04 = Silver (score >= 16000)\r\n0x05 = Gold (score >= 32000)\r\n0x06 = Crystal (score >= 64000)"
   },
   {
     "User": "adrianusk",
@@ -977,7 +977,7 @@
   {
     "User": "adrianusk",
     "Address": "0x0035d6",
-    "Note": "[8-bit] Factory Trial ranking (ladder 7)\r\n0x00 = Bronze (score < 2000 or skipped)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 4000)\r\n0x03 = Bronze (score >= 8000)\r\n0x04 = Silver (score >= 10000)\r\n0x05 = Gold (score >= 20000)\r\n0x06 = Crystal (score >= 40000)"
+    "Note": "[8-bit] Factory Trial ranking (ladder 7)\r\n0x00 = Bronze (score < 2000)\r\n0x01 = Bronze (score >= 2000)\r\n0x02 = Bronze (score >= 4000)\r\n0x03 = Bronze (score >= 8000)\r\n0x04 = Silver (score >= 10000)\r\n0x05 = Gold (score >= 20000)\r\n0x06 = Crystal (score >= 40000)"
   },
   {
     "User": "adrianusk",
