@@ -16,6 +16,7 @@
   "scripts": {
     "lint": "npx eslint monster-force/monster-force.js --fix",
     "format": "node scripts/align-conditions.js",
+    "lint-format": "npm run lint && npm run format",
     "test": "vitest run",
     "check-coverage": "node scripts/test-coverage.js",
     "viewer": "cruncheevos-playtest viewer",

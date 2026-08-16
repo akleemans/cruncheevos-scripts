@@ -2085,13 +2085,13 @@ for (let timedLeaderboard of timedLeaderboards) {
         alt3: $(
           // If player uses "Skip level" cheat
           ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
-          ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+          ['',          'Value', '',     0,                      '=', 'Value', '', 0x41],
           ['',          'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
         ),
         alt4: $(
           // Cancel if the 16-bit level timer wraps around
-          ['AndNext', 'Mem',   '8bit',  gameState, '=', 'Value', '',      GameStateEnum.InGame],
-          ['',        'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime],
+          ['', 'Mem',   '8bit',  gameState, '=', 'Value', '',      GameStateEnum.InGame],
+          ['', 'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime],
         ),
       },
       submit: $(
@@ -2138,7 +2138,7 @@ set.addLeaderboard({
       alt3: $(
         // If player uses "Skip level" cheat
         ['AddSource', 'Mem',   '8bit', buttonsPressed,         '&', 'Value', '', 0x41],
-        ['AndNext',   'Value', '',     0,                      '=', 'Value', '', 0x41],
+        ['',          'Value', '',     0,                      '=', 'Value', '', 0x41],
         ['',          'Mem',   '8bit', shoulderButtonsPressed, '=', 'Value', '', 0xff],
       ),
     },
