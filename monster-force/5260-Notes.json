@@ -642,7 +642,7 @@
   {
     "User": "adrianusk",
     "Address": "0x001ba4",
-    "Note": "[32-bit] Live object 1 health (see 0x0017c0) (Start of live object array. 144 bytes per object)"
+    "Note": "[32-bit] Live object 1 type (see 0x0017c2) (Start of live object array. 144 bytes per object)"
   },
   {
     "User": "adrianusk",
