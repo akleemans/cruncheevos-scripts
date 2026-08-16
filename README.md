@@ -31,7 +31,8 @@ See [@cruncheevos/cli](https://github.com/suXinjke/cruncheevos/tree/master/packa
 
 ## Tests
 
-Some sets have extensive scenario tests (recorded emulator sequences with expectations), based
-on [cruncheevos-playtest](https://www.npmjs.com/package/cruncheevos-playtest).
+Tests are written in [cruncheevos-playtest](https://www.npmjs.com/package/cruncheevos-playtest), which allows for
+recording scenarios (memory recordings of all Code notes while playing manually in an emulator) and then writing test
+expectations against those.
 
-See for example the Monster Force set.
+See for example the Monster Force set, which has extensive tests and scenario recordings.
