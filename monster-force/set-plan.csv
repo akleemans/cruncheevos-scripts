@@ -1,0 +1,71 @@
+Order	Feature	Missable	Achievement Name (wip)	Achievement Description	Notes	Type	Points
+1		FALSE	Welcome to Monsterland	Complete the introduction by finishing Cemetery Level 1	Intro achievement	Progression	2
+2		FALSE	Walking Through Walls	Find and destroy all 8 pumpkins in the hidden area in Cemetery Level 1	Destroy pumpkins/hidden area	Side Quest	2
+3	Trigger	FALSE	Diagonal Thinking	Get 800 Atoms or more in the first 5 seconds of Cemetery Level 2	⭐Time trial / destroy pumpkins	Time Trial	3
+4	Trigger	FALSE	Every Atom Counts	Collect 100 Atoms and finish the Cemetery Trial in time	Collect Atoms	Collection	5
+5	Trigger	FALSE	In the Blink of an Eye	Defeat the Cemetery Shadow in less than 10 seconds	Time Trial	Time Trial	3
+6		FALSE	No Time to Die	Finish the Cemetery Zone		Progression	5
+7	Trigger	FALSE	One at a Time	Beat Village Level 1 by carrying at most 1 key at once	⭐Key restriction	Challenge	5
+8	Trigger	FALSE	Motion Sickness	Beat Village Level 2 while teleporting at most twice	⭐Teleport restriction	Challenge	5
+9	Trigger	FALSE	Slowly but Steady	Pass the Village Trial as Frank within the given bonus time limit	⭐Character challenge	Time Trial	5
+10	Measured	FALSE	Shadow Business	Defeat the Village Shadow with at least 1,500 Atoms collected	Collect Atoms	Collection	3
+11		FALSE	It Takes a Village	Finish the Village Zone		Progression	5
+12	Trigger	FALSE	You Only Got One Shot	Beat Garden Level 1 by firing a single shot at most	⭐Shot restriction	Challenge	5
+13	Trigger	TRUE	Dracula's Favorite	Beat Garden Level 2 as Drac with initial base stats	⭐Character+stat challenge	Challenge	5
+14		FALSE	Blast Radius	Find and use the right tool to defeat 12 enemies and pumpkins at once in Garden Level 2	⭐Tool usage	Challenge	5
+15	Trigger	FALSE	Energy Saver	Beat the Garden Trial by activating timer switches at most twice	⭐Switch restriction	Challenge	10
+16		FALSE	Monet's Garden	Visit the locked part in the northwest of the Garden Trial	⭐Locked area	Side Quest	2
+17		FALSE	Green Thumb	Finish the Garden Zone		Progression	5
+18	Trigger	FALSE	Wolfskin	Beat Atlantis Level 1 as Wolfie without healing	⭐Character challenge	Challenge	3
+19	Measured%	FALSE	Halloween's Over	Find and destroy 70 or more pumpkins in Atlantis Level 2 without using bombs	Destroy pumpkins	Challenge	10
+20	Trigger	FALSE	Metal Detector	Beat the Atlantis Trial without getting damaged by mines	⭐No damage from mines	Challenge	10
+21		FALSE	Platonic Tale	Finish the Atlantis Zone		Progression	5
+22	Measured%	FALSE	Blood Thirst	Destroy at least 50 enemies and pumpkins as Drac in Temple Level 1	Kill enemies	Challenge	3
+23	Trigger	TRUE	Minimal Force	Beat Temple Level 2 with at most 15 HP, 15% Attack and 15% Force, relics included	⭐Stat restriction	Challenge	5
+24	Trigger	FALSE	Here Be Dragons	Defeat the Dragon Boss as Frank without taking damage, no invincibility allowed	⭐Damageless, character	Challenge	10
+25		FALSE	Temple Tantrum	Finish the Temple Zone		Progression	10
+26	Trigger	FALSE	Power Is All You Need	Beat Desert Level 1 by only firing power shots, no normal shots	⭐Shot restriction	Challenge	10
+27		FALSE	Pumpkin Arrow	Follow the pumpkin arrow and unlock the hidden bounty area in Desert Level 2	⭐Hidden area	Side Quest	5
+28	Trigger	FALSE	Superpowers	Beat the Desert Trial by having 3 or more Force combo enhancing tools active at the same time	⭐Tool usage	Challenge	3
+29	Trigger	FALSE	Relicless	Beat the Desert Shadow without carrying any relics at any time	⭐Relics restriction	Challenge	5
+30		FALSE	Rise of the Mummies	Finish the Desert Zone		Progression	10
+31		FALSE	Heart of the Clouds	Collect the secluded Heart in Clouds Level 1	Hidden area	Side Quest	2
+32		FALSE	Clone Wars	Create a shadow clone of yourself in Clouds Level 2	⭐Tool usage	Challenge	2
+33	Trigger	FALSE	Young and Restless	As Wolfie, beat the Clouds Trial while never standing still for 2.5 seconds or more	⭐Movement	Challenge	10
+34	Trigger	FALSE	Marksman	Beat the 4 Clouds Shadow mini-bosses with a total of 8 shots or fewer	⭐Shot restriction	Challenge	5
+35		FALSE	Sky High	Finish the Clouds Zone		Progression	10
+36	Measured	FALSE	Big Drops	Collect 500 or more Atoms at once 40 times in Factory Level 1	Collect Atoms	Collection	3
+37		FALSE	Under the Watch	Destroy the 4 pumpkins guarded by the scarecrow in Factory Level 2	Destroy pumpkins	Fun	2
+38	Trigger	FALSE	Shadow Boxing	Beat the Factory Shadow without suffering from the confused status effect at any time		Challenge	5
+39		FALSE	Industrial Revolution	Finish the Factory Zone		Progression	10
+40	Trigger	FALSE	Divide & Conquer	Beat Castle Level 3 without allowing more than 4 pumpkin heads at one time	⭐Enemy Control	Challenge	3
+41	Trigger	FALSE	Boss Rush	Beat the boss rush in Castle Levels 1 to 4 in 60 seconds total in-game time	Time Trial	Time Trial	10
+42		FALSE	Pumpkin Mash	Finish the Castle Zone by defeating Sergeant Smash and beating the game		Win	25
+43	Trigger	FALSE	Stand Your Ground	Defeat Sergeant Smash without moving left or right	⭐Movement	Challenge	5
+44	Trigger	FALSE	It's All About Balance	As Wolfie, finish a level while healing yourself 3 or more times without carrying health items at the start of the level		Challenge	3
+45	Trigger	FALSE	Frankly Harmless	As Frank, finish any Trial without defeating any enemies or pumpkins at all		Challenge	5
+46	Trigger	FALSE	Second Life	Reach the end of any level after cheating death	⭐Tool usage	Challenge	2
+47	Trigger	FALSE	Worth the Money	Collect 25,000 Atoms in any Trial in a single run and finish it		Collection	5
+48		FALSE	Shop 'Til You Drop	Buy 6 items in Igor's shop in a single visit	⭐Inventory mgmt	Fun	2
+49		FALSE	Ninja Skills	Defeat an enemy or pumpkin with a wall-piercing shot while being invincible	⭐Tool usage	Challenge	3
+50		FALSE	Saving for Later	Enter a level with no tools equipped, and fill up all tool slots before finishing the level	⭐Inventory mgmt	Challenge	5
+51		FALSE	Self Improvement	Consume a stat-increasing Scroll		Collection	2
+52		FALSE	Level Up	Get your first blue-tier relic		Collection	2
+53		FALSE	Relics to the Rescue	Use relics to improve your stats by either +20% Attack or +40% Force		Challenge	3
+54		FALSE	All Green	Have a full set of 4 maxed-out green relics		Collection	10
+55		FALSE	Cloak of Safety	Acquire the Cloak of Safety, the ultimate defense		Collection	3
+56		FALSE	Using the Force	Reach a base Force stat of at least 20% without relics		Side Quest	5
+57		FALSE	This Isn't Even My Final Form	Reach a base Attack stat of at least 30% without relics		Side Quest	5
+58		FALSE	A Pumpkin a Day	Increase your base health stat to at least 40 HP without relics		Side Quest	5
+59		FALSE	Igor's Favorite	Hold a bank total of 50,000 Atoms		Collection	5
+60		FALSE	Silver Lining	Finish all 16 regular levels on Silver or higher		Side Quest	10
+61		FALSE	Silver Sweep	Finish all 8 time trials and 13 boss levels on Silver or higher		Side Quest	10
+62		FALSE	Gold Medal	Finish all 16 regular levels on Gold or higher		Side Quest	10
+63		FALSE	Gold Rush	Finish all 8 time trials on Gold or higher		Side Quest	10
+64		FALSE	Gold Standard	Finish all 13 boss levels on Gold or higher		Side Quest	10
+65		FALSE	First Crystal	Achieve your first Crystal ranking		Side Quest	2
+66		FALSE	Crystal Collection	Achieve 10 Crystal rankings		Side Quest	10
+67		FALSE	Crystallized	Achieve 20 Crystal rankings		Side Quest	10
+68		FALSE	Five of a Kind	Achieve all Crystal rankings and unlock a new character		Side Quest	25
+69		FALSE	Different Perspective	Beat the Cemetery Zone on a new game with an unlocked character		Side Quest	3
+70		FALSE	New Game Plus	Beat the game with an unlocked character		Side Quest	25
