@@ -6,41 +6,12 @@ const achievement = (title) => Object.values(set.achievements).find((a) => a.tit
 const scenario = (name) => loadScenario(new URL(`./scenarios/${name}`, import.meta.url));
 const lastFrame = (s) => s.frameNumberAt(s.length - 1);
 
-const leaderboard = (title) => Object.values(set.leaderboards).find((l) => l.title === title);
-
-// Use LB start/cancel/submit as conditions like achievement
-const lbTrigger = (lb, part) => ({conditions: lb.conditions[part]});
-
-// Make the value expression parseable as a trigger while measuredAt() still reports the value.
-// Adds comparison or hit count as needed
-const lbValue = (lb) => {
-  const value = `${lb.conditions.value}`;
-  return /[<>=!]/.test(value) ? `${value}.4294967295.` : `${value}>=4294967295`;
-};
-
 // Object-slot addresses used by the "all pumpkins destroyed" achievements, for the regression guards below
 const currentLevel = 0x34dd;
 const levelCemetery1 = 0x00;
 const levelFactory2 = 0x1d;
 const cemetery1HiddenPumpkins = [0x1820, 0x1824, 0x1828, 0x182c, 0x1838, 0x183c, 0x1840, 0x1844];
 const factory2ScarecrowPumpkins = [0x1958, 0x195c, 0x1978, 0x197c];
-
-// Test for allPumpkinsDestroyed() - checks if a slot that was already destroyed goes back to 1 before the last pumpkin is destroyed
-const slotsThatCameBackAlive = (s, addresses, levelId) => {
-  const destroyed = (new Set);
-  const violations = [];
-
-  for (let frame = s.firstFrame; frame <= s.lastFrame; frame++) {
-    if (s.valueAt(frame, currentLevel) !== levelId) continue;
-
-    for (const address of addresses) {
-      const value = s.valueAt(frame, address);
-      if (value === 1 && destroyed.has(address)) violations.push(`0x${address.toString(16)}@${frame}`);
-      if (value !== 1) destroyed.add(address);
-    }
-  }
-  return violations;
-};
 
 describe('Progression: Welcome to Monsterland', () => {
   const cheevo = achievement('Welcome to Monsterland');
@@ -372,6 +343,23 @@ describe('Progression: Castle', () => {
 });
 
 /* ========= CHALLENGES ========= */
+
+// Test for allPumpkinsDestroyed() - checks if a slot that was already destroyed goes back to 1 before the last pumpkin is destroyed
+const slotsThatCameBackAlive = (s, addresses, levelId) => {
+  const destroyed = (new Set);
+  const violations = [];
+
+  for (let frame = s.firstFrame; frame <= s.lastFrame; frame++) {
+    if (s.valueAt(frame, currentLevel) !== levelId) continue;
+
+    for (const address of addresses) {
+      const value = s.valueAt(frame, address);
+      if (value === 1 && destroyed.has(address)) violations.push(`0x${address.toString(16)}@${frame}`);
+      if (value !== 1) destroyed.add(address);
+    }
+  }
+  return violations;
+};
 
 describe('Walking Through Walls', () => {
   const cheevo = achievement('Walking Through Walls');
@@ -2230,6 +2218,42 @@ describe('Five of a Kind', () => {
   });
 });
 
+describe('Ranking achievements: skip-level cheat protection', () => {
+  const rankingCheevos = [
+    'Silver Lining', 'Silver Sweep', 'Gold Medal', 'Gold Rush', 'Gold Standard',
+    'First Crystal', 'Crystal Collection', 'Crystallized', 'Five of a Kind',
+  ];
+
+  test('skip-level cheat can award a Gold ranking on a boss level', () => {
+    const s = scenario('desert-shadow-cheat-finish');
+    const desertShadowRanking = 0x35b8 + 23;
+
+    // Rank is written on the score screen that the cheat jumps to
+    expect(s.valueAt(s.marker('level-start'), desertShadowRanking)).toBe(0);
+    expect(s.valueAt(s.marker('score-screen'), desertShadowRanking)).toBe(5);
+  });
+
+  test.each(rankingCheevos)('%s is locked from the skip until the level select', (title) => {
+    const s = scenario('desert-shadow-cheat-finish');
+    const result = runAchievement(achievement(title), s);
+    const skipUsed = 164299;
+
+    expect(result.stateAt(skipUsed - 1)).toBe('active');
+    expect(result.stateAt(skipUsed)).toBe('paused');
+    expect(result.stateAt(s.marker('score-screen'))).toBe('paused');
+
+    // The lock is not permanent: leaving for the level select clears it again
+    expect(result.stateAt(s.marker('level-select-screen'))).toBe('active');
+  });
+
+  test('a clean ranking run is not locked', () => {
+    const s = scenario('silver-for-all-trials-and-boss-levels');
+    const result = runAchievement(achievement('Gold Standard'), s);
+
+    expect(result.stateAt(s.marker('rank-written'))).toBe('active');
+  });
+});
+
 describe('Different Perspective', () => {
   const cheevo = achievement('Different Perspective');
 
@@ -2274,6 +2298,17 @@ describe('New Game Plus', () => {
 });
 
 /* ========= LEADERBOARDS ========= */
+
+const leaderboard = (title) => Object.values(set.leaderboards).find((l) => l.title === title);
+
+// Use LB start/cancel/submit as conditions like achievement
+const lbTrigger = (lb, part) => ({conditions: lb.conditions[part]});
+
+// Make value expression parseable as a trigger while measuredAt() still reports the value: adds comparison or hit count as needed
+const lbValue = (lb) => {
+  const value = `${lb.conditions.value}`;
+  return /[<>=!]/.test(value) ? `${value}.4294967295.` : `${value}>=4294967295`;
+};
 
 describe('Leaderboard: Cemetery Trial Speedrun (timed)', () => {
   const lb = leaderboard('Cemetery Trial Speedrun');

@@ -466,7 +466,7 @@ set.addAchievement({
     core: $(
       // Lock if the 16-bit level timer wrapped around (18:12 in a single level)
       ['AndNext', 'Mem',   '8bit',  gameState, '=', 'Value', '',      GameStateEnum.InGame],
-      ['PauseIf', 'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime, 1],
+      ['PauseIf', 'Delta', '16bit', levelTime, '>', 'Mem',   '16bit', levelTime,            1],
 
       ['',        'Mem',   '16bit', levelTime,    '<', 'Value', '', 600],
 
@@ -1820,6 +1820,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1838,6 +1839,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1856,6 +1858,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1874,6 +1877,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1892,6 +1896,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1910,6 +1915,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1928,6 +1934,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1946,6 +1953,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1964,6 +1972,7 @@ set.addAchievement({
       // Pop on score screen
       ['', 'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
