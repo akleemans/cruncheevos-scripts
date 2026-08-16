@@ -11,13 +11,35 @@ const leaderboard = (title) => Object.values(set.leaderboards).find((l) => l.tit
 // Use LB start/cancel/submit as conditions like achievement
 const lbTrigger = (lb, part) => ({conditions: lb.conditions[part]});
 
-// Make the value expression parseable as a trigger while measuredAt() still reports the value:
-// a plain value ("M:0x 359c") gets a comparison that can never be true, a hit-counting value
-// ("M:0xH770=15") gets an unreachable hit target so the hits are counted instead of "=15"
-// being read as the measured target.
+// Make the value expression parseable as a trigger while measuredAt() still reports the value.
+// Adds comparison or hit count as needed
 const lbValue = (lb) => {
   const value = `${lb.conditions.value}`;
   return /[<>=!]/.test(value) ? `${value}.4294967295.` : `${value}>=4294967295`;
+};
+
+// Object-slot addresses used by the "all pumpkins destroyed" achievements, for the regression guards below
+const currentLevel = 0x34dd;
+const levelCemetery1 = 0x00;
+const levelFactory2 = 0x1d;
+const cemetery1HiddenPumpkins = [0x1820, 0x1824, 0x1828, 0x182c, 0x1838, 0x183c, 0x1840, 0x1844];
+const factory2ScarecrowPumpkins = [0x1958, 0x195c, 0x1978, 0x197c];
+
+// Test for allPumpkinsDestroyed() - checks if a slot that was already destroyed goes back to 1 before the last pumpkin is destroyed
+const slotsThatCameBackAlive = (s, addresses, levelId) => {
+  const destroyed = (new Set);
+  const violations = [];
+
+  for (let frame = s.firstFrame; frame <= s.lastFrame; frame++) {
+    if (s.valueAt(frame, currentLevel) !== levelId) continue;
+
+    for (const address of addresses) {
+      const value = s.valueAt(frame, address);
+      if (value === 1 && destroyed.has(address)) violations.push(`0x${address.toString(16)}@${frame}`);
+      if (value !== 1) destroyed.add(address);
+    }
+  }
+  return violations;
 };
 
 describe('Progression: Welcome to Monsterland', () => {
@@ -218,7 +240,7 @@ describe('Progression: Atlantis', () => {
 describe('Progression: Temple', () => {
   const cheevo = achievement('Temple Tantrum');
 
-  test('pops when Temple Shadow is defeated', () => {
+  test('pops when Temple Dragon Boss is defeated', () => {
     const s = scenario('temple-shadow-progression');
     const result = runAchievement(cheevo, s);
 
@@ -411,6 +433,16 @@ describe('Walking Through Walls', () => {
     expect(result.stateAt(s.marker('score-screen'))).toBe('active');
 
     expect(result.triggered).toBe(false);
+  });
+
+  test('no destroyed pumpkin slot ever returns to 1 while in the level', () => {
+    for (const name of [
+      'cemetery1-hidden-pumpkins', 'cemetery1-hidden-pumpkins-bomb',
+      'cemetery1-hidden-pumpkins-bomb2', 'cemetery1-hidden-pumpkins-high-stats',
+      'cemetery1-hidden-pumpkins-only-5',
+    ]) {
+      expect(slotsThatCameBackAlive(scenario(name), cemetery1HiddenPumpkins, levelCemetery1)).toEqual([]);
+    }
   });
 });
 
@@ -1529,6 +1561,15 @@ describe('Under the Watch', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('pumpkins-destroyed'));
   });
+
+  test('no destroyed pumpkin slot ever returns to 1 while in the level', () => {
+    for (const name of [
+      'factory2-pumpkins-destroyed', 'factory2-pumpkins-destroyed-bomb',
+      'factory2-pumpkins-destroyed-running',
+    ]) {
+      expect(slotsThatCameBackAlive(scenario(name), factory2ScarecrowPumpkins, levelFactory2)).toEqual([]);
+    }
+  });
 });
 
 
@@ -1705,8 +1746,24 @@ describe('Saving for Later', () => {
     expect(result.triggered).toBe(false);
   });
 
+  test('does not pop when entered level with tool in slot 2', () => {
+    const s = scenario('factory1-brought-health4-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
   test('does not pop when entered level with tool in slot 3', () => {
     const s = scenario('factory1-brought-health1-into-level');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('paused');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop when entered level with tool in slot 4', () => {
+    const s = scenario('factory1-brought-health2-into-level');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('paused');
@@ -1909,6 +1966,14 @@ describe('Igor\'s Favorite', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('50k-atoms-reached'));
   });
+
+  test('does not pop again on a score screen when the bank is already above 50k', () => {
+    const s = scenario('garden-trial-2-switch-activations');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('score-screen'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Using the Force', () => {
@@ -1922,6 +1987,14 @@ describe('Using the Force', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('force-level-upgraded'));
+  });
+
+  test('does not pop when an Attack Scroll is consumed instead', () => {
+    const s = scenario('scroll-consumed-attack');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scroll-consumed'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
@@ -1937,6 +2010,14 @@ describe('This Isn\'t Even My Final Form', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('attack-level-upgraded'));
   });
+
+  test('does not pop when a Force Scroll is consumed instead', () => {
+    const s = scenario('scroll-consumed-force');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scroll-consumed'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('A Pumpkin a Day', () => {
@@ -1951,6 +2032,14 @@ describe('A Pumpkin a Day', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('health-upgraded'));
   });
+
+  test('does not pop when an Attack Scroll is consumed instead', () => {
+    const s = scenario('scroll-consumed-attack');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scroll-consumed'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Silver Lining', () => {
@@ -1964,6 +2053,14 @@ describe('Silver Lining', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  test('does not pop if Silver in wrong level', () => {
+    const s = scenario('silver-for-all-trials-and-boss-levels');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
@@ -2023,6 +2120,14 @@ describe('Gold Standard', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
+
+  test('does not pop when the regular levels go Gold, only the boss levels count', () => {
+    const s = scenario('gold-for-all-regular-levels');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Gold Rush', () => {
@@ -2034,6 +2139,14 @@ describe('Gold Rush', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  test('does not pop when the regular levels go Gold, only the trials count', () => {
+    const s = scenario('gold-for-all-regular-levels');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
@@ -2067,6 +2180,14 @@ describe('Crystal Collection', () => {
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
   });
+
+  test('does not pop on a later Crystal when the count is already past 10', () => {
+    const s = scenario('crystal-reach-36-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Crystallized', () => {
@@ -2078,6 +2199,14 @@ describe('Crystallized', () => {
 
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('rank-written'));
+  });
+
+  test('does not pop on a later Crystal when the count is already past 20', () => {
+    const s = scenario('crystal-reach-36-rankings');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 
@@ -2133,6 +2262,14 @@ describe('New Game Plus', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(true);
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+  });
+
+  test('does not pop when the game is beaten with a starting character', () => {
+    const s = scenario('castle-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
   });
 });
 

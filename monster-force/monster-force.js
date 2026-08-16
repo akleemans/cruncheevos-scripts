@@ -418,7 +418,7 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Lock if more than 5 seconds into game
+      // Lock if more than 5 seconds into game into any level - the level-select reset clears the hits before Cemetery 2 is entered
       ['PauseIf', 'Mem',   '8bit',  gameState,           '=',  'Value', '', GameStateEnum.InGame, 300],
       // Atoms >= 800 as Trigger condition
       ['',        'Delta', '32bit', atomsInCurrentLevel, '<',  'Value', '', 800],
@@ -1044,17 +1044,15 @@ set.addAchievement({
   points: 10,
   conditions: {
     core: $(
-      // Add a checkpoint hit when starting the level
-      ['AndNext', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
-      ['AndNext', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.LevelStart],
-      ['',        'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,     1],
+      // Add a checkpoint hit when starting the level (don't check for level = CloudsTrial, this is handled in pop condition below)
+      ['AndNext', 'Delta', '8bit', gameState, '=', 'Value', '', GameStateEnum.LevelStart],
+      ['',        'Mem',   '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame,     1],
 
       // Reset hits of global ResetIf below (so it restarts accumulating hits) if moving
       ['OrNext',      'Delta', '32bit', playerPositionX, '!=', 'Mem', '32bit', playerPositionX],
       ['ResetNextIf', 'Delta', '32bit', playerPositionY, '!=', 'Mem', '32bit', playerPositionY],
 
       // Reset checkpoint hit if accumulated enough hits
-      ['AndNext', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.CloudsTrial],
       ['ResetIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame,  150],
 
       // Character must be Wolfie
@@ -1454,9 +1452,11 @@ set.addAchievement({
   conditions: {
     core: $(
       // While invincible and X-Ray modifier is active, enemy/pumpkin destroyed count should go up
-      ['', 'Mem',   '16bit', invincibilityTimer,      '>', 'Value', '',     0],
-      ['', 'Mem',   'Bit5',  shotModifiers1,          '=', 'Value', '',     1],
-      ['', 'Delta', '8bit',  objectsEnemiesDestroyed, '<', 'Mem',   '8bit', objectsEnemiesDestroyed],
+      ['', 'Mem',   '16bit', invincibilityTimer,      '>',  'Value', '',     0],
+      ['', 'Mem',   'Bit5',  shotModifiers1,          '=',  'Value', '',     1],
+      ['', 'Delta', '8bit',  objectsEnemiesDestroyed, '<',  'Mem',   '8bit', objectsEnemiesDestroyed],
+      // Kill can not be introduced by bomb, must use shooting
+      ['', 'Mem',   '8bit',  playerState,             '!=', 'Value', '',     PlayerStateEnum.BombArmed],
 
       // Context: Must be in in-game
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
@@ -1519,18 +1519,23 @@ set.addAchievement({
     core: $(
       // Context: Must be in-game
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value',  '', 0, '=', 'Value', '', 1],
+    ),
+    alt2: $(
       // Attack power: +2%
       ['SubSource', 'Delta', '8bit', baseAttackPower],
       ['',          'Mem',   '8bit', baseAttackPower, '=', 'Value', '', 2],
     ),
-    alt2: $(
+    alt3: $(
       // Force power: +4%
       ['SubSource', 'Delta', '8bit', baseForcePower],
       ['',          'Mem',   '8bit', baseForcePower, '=', 'Value', '', 4],
     ),
-    alt3: $(
+    alt4: $(
       // Health: +2 HP
       ['SubSource', 'Delta', '8bit', baseHealth],
       ['',          'Mem',   '8bit', baseHealth, '=', 'Value', '', 2],
@@ -1550,9 +1555,14 @@ const levelUpConditions = () => {
       // Context: Relics bought in shop or found in-game
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ...invincibilityCheatProtection(),
+    ),
+    alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value',  '', 0, '=', 'Value', '', 1],
     ),
   };
-  let count = 1;
+  let count = 2;
   for (let currentSlot of relicSlots) {
     for (let currentRelic of blueRelics) {
       // currentRelic was picked up in currentSlot
@@ -1567,7 +1577,7 @@ const levelUpConditions = () => {
   return conditions;
 };
 
-// Relics can be bought in shop or acquired via "???" Gauntlet drops in-game
+// Relics can be bought in shop or acquired via "???" Gauntlet drops in-game.
 set.addAchievement({
   id: 630207,
   title: 'Level Up',
@@ -1589,13 +1599,18 @@ set.addAchievement({
       // Context: Relics can be bought (and equipped) in shop or found in-game (via "???" Gauntlet drops)
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value',  '', 0, '=', 'Value', '', 1],
+    ),
+    alt2: $(
       // Attack power
       ['', 'Delta', '8bit', relicAttackBonus, '<',  'Value', '', 20],
       ['', 'Mem',   '8bit', relicAttackBonus, '>=', 'Value', '', 20],
     ),
-    alt2: $(
+    alt3: $(
       // Force power
       ['', 'Delta', '8bit', relicForceBonus, '<',  'Value', '', 40],
       ['', 'Mem',   '8bit', relicForceBonus, '>=', 'Value', '', 40],
@@ -1748,6 +1763,8 @@ set.addAchievement({
   },
 });
 
+// Full cheat protection here so using the skip level cheat does not trigger the cheevo.
+// This does not turn the cheevo into a missable, it's easy to get below 50k and reach it again without cheats.
 set.addAchievement({
   id: 630039,
   title: 'Igor\'s Favorite',
@@ -1762,6 +1779,7 @@ set.addAchievement({
       // Context - total number of atoms is updated on score screen
       ['',        'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
+      ...skipLevelCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
