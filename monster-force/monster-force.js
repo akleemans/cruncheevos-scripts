@@ -111,6 +111,7 @@ const atomsInCurrentLevel = 0x35a4;
 const totalAtomsInBank = 0x07f8;
 const levelTime = 0x359c;
 const characterActive = 0x0878;
+const charactersUnlocked = 0x3604;
 
 const toolSlot1 = 0x07fc;
 const toolSlot2 = 0x07fd;
@@ -563,7 +564,7 @@ set.addAchievement({
 set.addAchievement({
   id: 625441,
   title: 'Shadow Business',
-  description: 'Defeat the Village Shadow with at least 1500 Atoms collected',
+  description: 'Defeat the Village Shadow with at least 1,500 Atoms collected',
   points: 3,
   conditions: {
     core: $(
@@ -737,7 +738,7 @@ const switchTimerActive = 0x3540;
 set.addAchievement({
   id: 625447,
   title: 'Energy Saver',
-  description: 'Beat the Garden Trial by only activating timer switches 2 times total',
+  description: 'Beat the Garden Trial by activating timer switches at most twice',
   points: 10,
   conditions: {
     core: $(
@@ -862,7 +863,7 @@ const totalForcePower = 0x0834;
 set.addAchievement({
   id: 630022,
   title: 'Minimal Force',
-  description: 'Beat Temple Level 2 with all stats including relics at 15%/HP or lower',
+  description: 'Beat Temple Level 2 with at most 15 HP, 15% Attack and 15% Force, relics included',
   points: 5,
   type: 'missable',
   conditions: {
@@ -979,7 +980,7 @@ const shotModifiers3 = 0x080e;
 set.addAchievement({
   id: 630198,
   title: 'Superpowers',
-  description: 'Beat the Desert Trial by having 3 or more force combo enhancing tools active at the same time',
+  description: 'Beat the Desert Trial by having 3 or more Force combo enhancing tools active at the same time',
   points: 3,
   conditions: {
     core: $(
@@ -1080,7 +1081,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630027,
   title: 'Marksman',
-  description: 'Beat the 4 Clouds Shadow Mini-bosses with a total of 8 shots or less',
+  description: 'Beat the 4 Clouds Shadow mini-bosses with a total of 8 shots or fewer',
   points: 5,
   conditions: {
     core: $(
@@ -1103,7 +1104,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630028,
   title: 'Big Drops',
-  description: 'Collect 500 or more Atoms at once, 40 times, in Factory Level 1',
+  description: 'Collect 500 or more Atoms at once 40 times in Factory Level 1',
   points: 3,
   conditions: {
     core: $(
@@ -1432,7 +1433,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630204,
   title: 'Shop \'Til You Drop',
-  description: 'Buy 6 items in Igor\'s shop in a single shop visit',
+  description: 'Buy 6 items in Igor\'s shop in a single visit',
   points: 2,
   conditions: {
     core: $(
@@ -1442,6 +1443,7 @@ set.addAchievement({
 
       // Context: Must be in shop
       ['', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
       ...levelSelectReset(),
@@ -1597,7 +1599,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630033,
   title: 'Relics to the Rescue',
-  description: 'Use Relics to improve your stats by either +20% Attack Power or +40% Force Power',
+  description: 'Use relics to improve your stats by either +20% Attack or +40% Force',
   points: 3,
   conditions: {
     core: $(
@@ -1626,8 +1628,8 @@ set.addAchievement({
 
 const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
 
-// Deliberately no cheat protection here, as no cheat helps in reaching this achievement.
 // The main use case is the shop ("???" drops are very rare), where the relics can be bought with enough Atoms.
+// Pops in-game / in the shop, so only the invincibility protection applies (skip-level can not be used there).
 set.addAchievement({
   id: 630034,
   title: 'All Green',
@@ -1657,24 +1659,29 @@ set.addAchievement({
       // Context: Relics bought in shop or found in-game (via "???" Gauntlet drops)
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
-      ['', 'Delta', '8bit', relicSlot1, '!=', 'Mem', '8bit', relicSlot1],
+      ...levelSelectReset(),
+      ['', 'Value', '',  0, '=', 'Value', '', 1],
     ),
     alt2: $(
-      ['', 'Delta', '8bit', relicSlot2, '!=', 'Mem', '8bit', relicSlot2],
+      ['', 'Delta', '8bit', relicSlot1, '!=', 'Mem', '8bit', relicSlot1],
     ),
     alt3: $(
-      ['', 'Delta', '8bit', relicSlot3, '!=', 'Mem', '8bit', relicSlot3],
+      ['', 'Delta', '8bit', relicSlot2, '!=', 'Mem', '8bit', relicSlot2],
     ),
     alt4: $(
+      ['', 'Delta', '8bit', relicSlot3, '!=', 'Mem', '8bit', relicSlot3],
+    ),
+    alt5: $(
       ['', 'Delta', '8bit', relicSlot4, '!=', 'Mem', '8bit', relicSlot4],
     ),
   },
 });
 
 
-// No pause-lock here, doesn't matter if player reached shop via skip-level
+// Pops in-game / in the shop, so only the invincibility protection applies (skip-level can not be used there).
 set.addAchievement({
   id: 630035,
   title: 'Cloak of Safety',
@@ -1685,20 +1692,25 @@ set.addAchievement({
       // Context: Either picked up in game (via "???" Amulet drop), or bought in shop
       ['OrNext', 'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.InGame],
       ['',       'Mem', '8bit', gameState, '=', 'Value', '', GameStateEnum.ShopOptions],
+      ...invincibilityCheatProtection(),
     ),
     alt1: $(
+      ...levelSelectReset(),
+      ['', 'Value', '',  0, '=', 'Value', '', 1],
+    ),
+    alt2: $(
       ['', 'Delta', '8bit', relicSlot1, '!=', 'Value', '', 0x23],
       ['', 'Mem',   '8bit', relicSlot1, '=',  'Value', '', 0x23],
     ),
-    alt2: $(
+    alt3: $(
       ['', 'Delta', '8bit', relicSlot2, '!=', 'Value', '', 0x23],
       ['', 'Mem',   '8bit', relicSlot2, '=',  'Value', '', 0x23],
     ),
-    alt3: $(
+    alt4: $(
       ['', 'Delta', '8bit', relicSlot3, '!=', 'Value', '', 0x23],
       ['', 'Mem',   '8bit', relicSlot3, '=',  'Value', '', 0x23],
     ),
-    alt4: $(
+    alt5: $(
       ['', 'Delta', '8bit', relicSlot4, '!=', 'Value', '', 0x23],
       ['', 'Mem',   '8bit', relicSlot4, '=',  'Value', '', 0x23],
     ),
@@ -1708,7 +1720,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630036,
   title: 'Using the Force',
-  description: 'Reach a base Force Level stat of at least 20% without Relics',
+  description: 'Reach a base Force stat of at least 20% without relics',
   points: 5,
   conditions: {
     core: $(
@@ -1729,7 +1741,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630037,
   title: 'This Isn\'t Even My Final Form',
-  description: 'Reach a base Attack Level stat of at least 30% without Relics',
+  description: 'Reach a base Attack stat of at least 30% without relics',
   points: 5,
   conditions: {
     core: $(
@@ -1750,7 +1762,7 @@ set.addAchievement({
 set.addAchievement({
   id: 630038,
   title: 'A Pumpkin a Day',
-  description: 'Increase your base health stat to at least 40 HP without Relics',
+  description: 'Increase your base health stat to at least 40 HP without relics',
   points: 5,
   conditions: {
     core: $(
@@ -1980,6 +1992,13 @@ set.addAchievement({
   },
 });
 
+// Character cheat protection. The character select cheat (L+R+B held, then Right) doesn't write unlock bits (0x3604)
+const unlockedCharacter = (character, unlockedBit) => {
+  return [
+    ['', 'Mem', '8bit',      characterActive,    '=', 'Value', '', character],
+    ['', 'Mem', unlockedBit, charactersUnlocked, '=', 'Value', '', 1],
+  ];
+};
 
 set.addAchievement({
   id: 629101,
@@ -1988,10 +2007,6 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Character must be Mina or Drew
-      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Mina],
-      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drew],
-
       // Pop on score screen
       ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CemeteryShadow],
       ['', 'Mem',   '8bit', currentLevel,     '=', 'Value', '', LevelEnum.CemeteryShadow],
@@ -2002,6 +2017,14 @@ set.addAchievement({
     ),
     alt1: $(
       ...levelSelectReset(),
+      ['', 'Value', '',  0, '=', 'Value', '', 1],
+    ),
+    // Character must be Mina or Drew, and genuinely unlocked
+    alt2: $(
+      ...unlockedCharacter(CharacterActive.Mina, 'Bit2'),
+    ),
+    alt3: $(
+      ...unlockedCharacter(CharacterActive.Drew, 'Bit3'),
     ),
   },
 });
@@ -2013,10 +2036,6 @@ set.addAchievement({
   points: 25,
   conditions: {
     core: $(
-      // Character must be Mina or Drew
-      ['OrNext', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Mina],
-      ['',       'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drew],
-
       // Pop on score screen
       ['', 'Mem',   '8bit', maxLevelUnlocked, '=', 'Value', '', LevelEnum.CastleSergeantSmash],
       ['', 'Mem',   '8bit', currentLevel,     '=', 'Value', '', LevelEnum.CastleSergeantSmash],
@@ -2027,6 +2046,14 @@ set.addAchievement({
     ),
     alt1: $(
       ...levelSelectReset(),
+      ['', 'Value', '',  0, '=', 'Value', '', 1],
+    ),
+    // Character must be Mina or Drew, and genuinely unlocked
+    alt2: $(
+      ...unlockedCharacter(CharacterActive.Mina, 'Bit2'),
+    ),
+    alt3: $(
+      ...unlockedCharacter(CharacterActive.Drew, 'Bit3'),
     ),
   },
 });

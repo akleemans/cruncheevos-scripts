@@ -2266,13 +2266,12 @@ describe('Different Perspective', () => {
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
-  test('pops when Cemetery Shadow was defeated using Drew', () => {
+  test('does not pop when Drew was selected with the character select cheat', () => {
     const s = scenario('cemetery-shadow-drew');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
-    expect(result.triggered).toBe(true);
-    expect(result.triggeredFrame).toBe(s.marker('score-screen'));
+    expect(result.triggered).toBe(false);
   });
 });
 
