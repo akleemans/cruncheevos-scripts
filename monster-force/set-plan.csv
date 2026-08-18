@@ -7,7 +7,7 @@ Order	Feature	Missable	Achievement Name (wip)	Achievement Description	Notes	Type
 6		FALSE	No Time to Die	Finish the Cemetery Zone		Progression	5
 7	Trigger	FALSE	One at a Time	Beat Village Level 1 by carrying at most 1 key at once	⭐Key restriction	Challenge	5
 8	Trigger	FALSE	Motion Sickness	Beat Village Level 2 while teleporting at most twice	⭐Teleport restriction	Challenge	5
-9	Trigger	FALSE	Slowly but Steady	Pass the Village Trial as Frank within the given bonus time limit	⭐Character challenge	Time Trial	5
+9	Trigger	FALSE	Slowly but Steady	Pass the Village Trial as Frank within the given bonus time limit of 2 minutes	⭐Character challenge	Time Trial	5
 10	Measured	FALSE	Shadow Business	Defeat the Village Shadow with at least 1,500 Atoms collected	Collect Atoms	Collection	3
 11		FALSE	It Takes a Village	Finish the Village Zone		Progression	5
 12	Trigger	FALSE	You Only Got One Shot	Beat Garden Level 1 by firing a single shot at most	⭐Shot restriction	Challenge	5

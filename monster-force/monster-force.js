@@ -536,7 +536,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629000,
   title: 'Slowly but Steady',
-  description: 'Pass the Village Trial as Frank within the given bonus time limit',
+  description: 'Pass the Village Trial as Frank within the given bonus time limit of 2 minutes',
   points: 5,
   conditions: {
     core: $(
