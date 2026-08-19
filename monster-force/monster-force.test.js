@@ -657,6 +657,17 @@ describe('Divide & Conquer', () => {
     expect(result.triggeredFrame).toBe(s.marker('score-screen'));
   });
 
+  test('doesnt get locked if 6 enemies in previous level, Castle 2', () => {
+    const s = scenario('castle3-should-not-lock-from-castle2');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('castle2-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+
+    expect(result.stateAt(s.marker('5-enemies-present-castle2'))).toBe('active');
+    expect(result.stateAt(s.marker('castle3-start'))).toBe('primed');
+  });
+
   test('does not pop with more pumpkin heads', () => {
     const s = scenario('castle3-5-pumpkin-heads');
     const result = runAchievement(cheevo, s);
