@@ -152,17 +152,17 @@
   {
     "User": "adrianusk",
     "Address": "0x000850",
-    "Note": "[8-bit] Max. base health (without relics)"
+    "Note": "[8-bit] Max. base health (without relics) (Initial values: 0x07 = Drew, 0x09 = Drac\/Wolfie, 0x0c = Frank, 0x14 = Mina)"
   },
   {
     "User": "adrianusk",
     "Address": "0x000852",
-    "Note": "[8-bit] Base attack level"
+    "Note": "[8-bit] Base attack level (Initial values: 0x02 = Drac\/Wolfie\/Drew, 0x04 = Frank, 0x08 = Mina)"
   },
   {
     "User": "adrianusk",
     "Address": "0x000853",
-    "Note": "[8-bit] Base force level"
+    "Note": "[8-bit] Base force level (Initial values: 0x02 = Wolfie, 0x03 = Drac\/Drew, 0x05 = Frank, 0x08 = Mina)"
   },
   {
     "User": "adrianusk",
