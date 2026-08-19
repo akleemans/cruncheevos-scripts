@@ -1344,7 +1344,6 @@ describe('Heart of the Clouds', () => {
 
   test('pops when collecting the heart after shooting pumpkin', () => {
     const s = scenario('clouds1-pick-up-heart');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
@@ -1355,7 +1354,16 @@ describe('Heart of the Clouds', () => {
 
   test('pops when heart is collected before pumpkin is marked as destroyed', () => {
     const s = scenario('clouds1-pick-up-heart-before-pumpkin-destroyed');
+    const result = runAchievement(cheevo, s);
 
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+
+    expect(result.triggered).toBe(true);
+    expect(result.triggeredFrame).toBe(s.marker('heart-collected'));
+  });
+
+  test('pops when bomb is used to destroy pumpkin', () => {
+    const s = scenario('clouds1-bomb-pumpkin');
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
@@ -1366,7 +1374,6 @@ describe('Heart of the Clouds', () => {
 
   test('does not pop if pumpkin is not destroyed', () => {
     const s = scenario('clouds1-heart-dropped-picked-up-again');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
@@ -1379,7 +1386,6 @@ describe('Clone Wars', () => {
 
   test('pops when creating a decoy', () => {
     const s = scenario('clouds2-create-decoy');
-
     const result = runAchievement(cheevo, s);
 
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
