@@ -536,7 +536,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629000,
   title: 'Slowly but Steady',
-  description: 'Pass the Village Trial as Frank within the given bonus time limit of 2 minutes',
+  description: 'Finish the Village Trial as Frank within the given bonus time limit of 2 minutes',
   points: 5,
   conditions: {
     core: $(
@@ -658,7 +658,8 @@ set.addAchievement({
   conditions: {
     core: $(
       // Pumpkin with heart must be destroyed
-      ['', 'Mem', '16bit', clouds1Pumpkin, '=', 'Value', '', 0x00],
+      ['OrNext', 'Mem', '16bit', clouds1Pumpkin, '=', 'Value', '', 0x00],
+      ['',       'Mem', '16bit', clouds1Pumpkin, '>=', 'Value', '', 0x8000], // bombed: negative HP
 
       // Context
       ['', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Clouds1],
@@ -738,7 +739,7 @@ const switchTimerActive = 0x3540;
 set.addAchievement({
   id: 625447,
   title: 'Energy Saver',
-  description: 'Beat the Garden Trial by activating timer switches at most twice',
+  description: 'Finish the Garden Trial by activating timer switches at most twice',
   points: 10,
   conditions: {
     core: $(
@@ -811,7 +812,7 @@ set.addAchievement({
 set.addAchievement({
   id: 629349,
   title: 'Metal Detector',
-  description: 'Beat the Atlantis Trial without getting damaged by mines',
+  description: 'Finish the Atlantis Trial without getting damaged by mines',
   points: 10,
   conditions: {
     core: $(
@@ -843,7 +844,7 @@ set.addAchievement({
       ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
       ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
-      // Only show Measured on correct character and level + Context
+      // Only show Measured on correct character/level - MeasuredIf also gates the trigger
       ['AndNext',    'Mem', '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Temple1],
       ['MeasuredIf', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
 
@@ -980,7 +981,7 @@ const shotModifiers3 = 0x080e;
 set.addAchievement({
   id: 630198,
   title: 'Superpowers',
-  description: 'Beat the Desert Trial by having 3 or more Force combo enhancing tools active at the same time',
+  description: 'Finish the Desert Trial by having 3 or more Force combo enhancing tools active at the same time',
   points: 3,
   conditions: {
     core: $(
@@ -1046,7 +1047,7 @@ const playerPositionY = 0x0790;
 set.addAchievement({
   id: 625449,
   title: 'Young and Restless',
-  description: 'As Wolfie, beat the Clouds Trial while never standing still for 2.5 seconds or more',
+  description: 'As Wolfie, finish the Clouds Trial while never standing still for 2.5 seconds or more',
   points: 10,
   conditions: {
     core: $(
@@ -1185,10 +1186,13 @@ set.addAchievement({
   points: 3,
   conditions: {
     core: $(
-      // Lock if more than a maximum amount of objects are in live object array. This level only has one enemy type.
+      // Needed if started playing from Castle 2, which can contain more enemies, but the lock should not activate there
+      // (no Score screen in between to reset hits)
+      ['AndNext', 'Mem', '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Castle3],
+      // Lock if more than a maximum amount of objects are in the live object array (this level only has one enemy type).
       // During the explosion of a bigger head (which will be split into 2 smaller ones) there is a short time when
-      // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4"
-      ['PauseIf', 'Mem',   '8bit', liveObjectCount, '>', 'Value', '', 5, 1],
+      // the old and the 2 new co-exist, making the count 1 higher, so the PauseLock check is "> 5" instead of "> 4".
+      ['PauseIf', 'Mem', '8bit', liveObjectCount, '>', 'Value', '', 5,                 1],
 
       // Pop on score screen
       ['',        'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.Castle3],
@@ -1480,17 +1484,13 @@ set.addAchievement({
 set.addAchievement({
   id: 630206,
   title: 'Saving for Later',
-  description: 'Enter a level with no tools equipped, and fill up all tool slots before finishing the level',
+  description: 'Enter a level with no tools equipped, and fill up all tool slots in a single run',
   points: 5,
   conditions: {
     core: $(
-      // Lock if entered level with tool equipped in slots 1 or 2
+      // Lock if entered level with tool equipped in any of the four slots
       ['OrNext',  'Mem',   '8bit', toolSlot1, '!=', 'Value', '', 0],
-      ['AndNext', 'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
-      ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
-      ['PauseIf', 'Mem',   '8bit', gameState, '=',  'Value', '', GameStateEnum.InGame,     1],
-
-      // Lock if entered level with tool equipped in slots 3 or 4
+      ['OrNext',  'Mem',   '8bit', toolSlot2, '!=', 'Value', '', 0],
       ['OrNext',  'Mem',   '8bit', toolSlot3, '!=', 'Value', '', 0],
       ['AndNext', 'Mem',   '8bit', toolSlot4, '!=', 'Value', '', 0],
       ['AndNext', 'Delta', '8bit', gameState, '=',  'Value', '', GameStateEnum.LevelStart],
@@ -1633,7 +1633,7 @@ const greenRelics = [0x13, 0x16, 0x1a, 0x1e];
 set.addAchievement({
   id: 630034,
   title: 'All Green',
-  description: 'Have a full set of 4 maxed-out green relics',
+  description: 'Fill all 4 relic slots with highest-tier green relics',
   points: 10,
   conditions: {
     core: $(
