@@ -573,6 +573,9 @@ describe('Shadow Business', () => {
     const s = scenario('village-shadow-with-1500-atoms');
     const result = runAchievement(cheevo, s);
 
+    // No measuredAt value at start
+    expect(result.measuredAt(s.marker('level-select-before'))).toBe(0);
+
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
 
     // Measured tracks the Atoms collected in the level, capped at the 1500 target

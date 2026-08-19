@@ -6,7 +6,8 @@
   "firstFrame": 80419,
   "markers": {
     "level-start": 80561,
-    "score-screen": 81100
+    "score-screen": 81100,
+    "level-select-before": 80444
   },
   "addresses": [
     {

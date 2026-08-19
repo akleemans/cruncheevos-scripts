@@ -571,8 +571,8 @@ set.addAchievement({
       ['Measured',   'Mem', '32bit', atomsInCurrentLevel, '>=', 'Value', '', 1500],
 
       // Pop on score screen
-      ['MeasuredIf', 'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
-      ['',           'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      ['AndNext',    'Mem',   '8bit', currentLevel, '=', 'Value', '', LevelEnum.VillageShadow],
+      ['MeasuredIf', 'Delta', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ['Trigger',    'Mem',   '8bit', gameState,    '=', 'Value', '', GameStateEnum.ScoreScreen],
       ...invincibilityCheatProtection(),
       ...skipLevelCheatProtection(),
