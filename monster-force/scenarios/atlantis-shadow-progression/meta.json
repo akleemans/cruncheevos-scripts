@@ -7,7 +7,8 @@
   "markers": {
     "level-start": 127675,
     "save-game-screen": 128732,
-    "score-screen": 128280
+    "score-screen": 128280,
+    "level-select-after": 129007
   },
   "addresses": [
     {

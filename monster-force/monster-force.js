@@ -844,11 +844,11 @@ set.addAchievement({
       ['',          'Delta', '8bit', objectsEnemiesDestroyed, '<',  'Value', '', 50],
       ['Measured%', 'Mem',   '8bit', objectsEnemiesDestroyed, '>=', 'Value', '', 50],
 
-      // Only show Measured on correct character/level - MeasuredIf also gates the trigger
+      // Context + only show Measured on correct character/level/in-game
       ['AndNext',    'Mem', '8bit', currentLevel,    '=', 'Value', '', LevelEnum.Temple1],
-      ['MeasuredIf', 'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
+      ['AndNext',    'Mem', '8bit', characterActive, '=', 'Value', '', CharacterActive.Drac],
+      ['MeasuredIf', 'Mem', '8bit', gameState,       '=', 'Value', '', GameStateEnum.InGame],
 
-      ['', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -1115,9 +1115,9 @@ set.addAchievement({
       ['SubSource', 'Delta', '32bit', atomsInCurrentLevel],
       ['Measured',  'Mem',   '32bit', atomsInCurrentLevel, '>=', 'Value', '',      500,                 40],
 
-      // Context
-      ['MeasuredIf', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
-      ['',           'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      // Context + only show Measured on correct level/in-game (no leak to save-game screen)
+      ['AndNext',    'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Factory1],
+      ['MeasuredIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(
@@ -1373,9 +1373,9 @@ set.addAchievement({
       // Reset Hits (also for Measured% UX)
       ['ResetIf', 'Mem', '8bit', playerState, '=', 'Value', '', PlayerStateEnum.BombArmed],
 
-      // Context
-      ['MeasuredIf', 'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
-      ['',           'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
+      // Context + only show Measured on correct level/in-game (no leak to save-game screen)
+      ['AndNext',    'Mem', '8bit', currentLevel, '=', 'Value', '', LevelEnum.Atlantis2],
+      ['MeasuredIf', 'Mem', '8bit', gameState,    '=', 'Value', '', GameStateEnum.InGame],
       ...invincibilityCheatProtection(),
     ),
     alt1: $(

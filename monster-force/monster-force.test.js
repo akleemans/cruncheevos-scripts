@@ -890,6 +890,15 @@ describe('Halloween\'s Over', () => {
 
     expect(result.stateAt(s.marker('bomb-used'))).toBe('reset');
   });
+
+  // currentLevel already points at Atlantis 2 on "Save game" screen, make sure no Measured-leak
+  test('shows no Measured value outside of the level', () => {
+    const s = scenario('atlantis1-wolfie-cheat');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.measuredAt(s.marker('save-game-screen'))).toBe(0);
+    expect(result.measuredAt(s.marker('level-select-after'))).toBe(0);
+  });
 });
 
 describe('Motion Sickness', () => {
@@ -1156,6 +1165,15 @@ describe('Blood Thirst', () => {
     // No Measured if wrong character
     expect(result.measuredAt(s.marker('scenario-start'))).toBe(0);
     expect(result.triggered).toBe(false);
+  });
+
+  // currentLevel already points at Temple 1 on "Save game" screen, make sure no Measured-leak
+  test('shows no Measured value outside of the level', () => {
+    const s = scenario('atlantis-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.measuredAt(s.marker('save-game-screen'))).toBe(0);
+    expect(result.measuredAt(s.marker('level-select-after'))).toBe(0);
   });
 });
 
@@ -1518,7 +1536,7 @@ describe('Big Drops', () => {
   });
 
   // The Atom counter is zeroed on level start, which used to underflow the SubSource
-  // (Mem - Delta wraps to ~4.29 billion, which passes ">= 500") and banked a free hit
+  // (Mem - Delta wraps to ~4 billion, which passes ">= 500") and banked a free hit
   test('does not bank a hit when the Atom counter is zeroed on level start', () => {
     const s = scenario('cemetery-shadow-beat');
     const result = runAchievement(cheevo, s);
@@ -1534,6 +1552,14 @@ describe('Big Drops', () => {
     const result = runAchievement(cheevo, s);
 
     expect(result.measuredAt(lastFrame(s))).toBe(0);
+  });
+
+  // currentLevel already points at Factory 1 on "Save game" screen, make sure no Measured-leak
+  test('shows no Measured value outside of the level', () => {
+    const s = scenario('clouds-shadow-progression');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.measuredAt(s.marker('save-game-screen'))).toBe(0);
   });
 });
 
