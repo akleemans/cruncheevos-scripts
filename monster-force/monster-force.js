@@ -653,7 +653,7 @@ const greenHeartCollectedInSlot = (toolSlot) => {
 set.addAchievement({
   id: 626068,
   title: 'Heart of the Clouds',
-  description: 'Collect the secluded Heart in Clouds Level 1',
+  description: 'Collect the secluded Heart guarded by the hot-air balloon in Clouds Level 1',
   points: 2,
   conditions: {
     core: $(

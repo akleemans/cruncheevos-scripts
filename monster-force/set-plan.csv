@@ -29,7 +29,7 @@ Order	Feature	Missable	Achievement Name (wip)	Achievement Description	Notes	Type
 28	Trigger	FALSE	Superpowers	Finish the Desert Trial by having 3 or more Force combo enhancing tools active at the same time	⭐Tool usage	Challenge	3
 29	Trigger	FALSE	Relicless	Beat the Desert Shadow without carrying any relics at any time	⭐Relics restriction	Challenge	5
 30		FALSE	Rise of the Mummies	Finish the Desert Zone		Progression	10
-31		FALSE	Heart of the Clouds	Collect the secluded Heart in Clouds Level 1	Hidden area	Side Quest	2
+31		FALSE	Heart of the Clouds	Collect the secluded Heart guarded by the hot-air balloon in Clouds Level 1	Hidden area	Side Quest	2
 32		FALSE	Clone Wars	Create a shadow clone of yourself in Clouds Level 2	⭐Tool usage	Challenge	2
 33	Trigger	FALSE	Young and Restless	As Wolfie, finish the Clouds Trial while never standing still for 2.5 seconds or more	⭐Movement	Challenge	10
 34	Trigger	FALSE	Marksman	Beat the 4 Clouds Shadow mini-bosses with a total of 8 shots or fewer	⭐Shot restriction	Challenge	5
