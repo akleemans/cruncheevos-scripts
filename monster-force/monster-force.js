@@ -102,6 +102,8 @@ const bossLevels = [
 
 const gameState = 0x0770;
 const playerState = 0x077c;
+const playerPositionX = 0x078c;
+const playerPositionY = 0x0790;
 const currentLevel = 0x34dd;
 const maxLevelUnlocked = 0x34df;
 
@@ -638,11 +640,22 @@ set.addAchievement({
 
 const clouds1Pumpkin = 0x1884;
 
+// Bounding box for intended heart (approximately walkable area around heart) - Clouds 1 contains 3 green hearts total
+const clouds1HeartAreaMinX = 0x02d000;
+const clouds1HeartAreaMaxX = 0x035000;
+const clouds1HeartAreaMinY = 0x007000;
+const clouds1HeartAreaMaxY = 0x00c000;
+
 const greenHeartCollectedInSlot = (toolSlot) => {
-  // Slot was empty (or contained another item - immediate switching is possible) and is now Health lvl. 3 (checkpoint hit)
+  // Slot was empty (or contained another item - immediate switching is possible) and is now Health lvl. 3 (checkpoint hit),
+  // while standing in the secluded area
   return [
-    ['AndNext', 'Delta', '8bit', toolSlot, '!=', 'Value', '', 0x09],
-    ['',        'Mem',   '8bit', toolSlot, '=',  'Value', '', 0x09, 1],
+    ['AndNext', 'Mem',   '32bit', playerPositionX, '>=', 'Value', '', clouds1HeartAreaMinX],
+    ['AndNext', 'Mem',   '32bit', playerPositionX, '<=', 'Value', '', clouds1HeartAreaMaxX],
+    ['AndNext', 'Mem',   '32bit', playerPositionY, '>=', 'Value', '', clouds1HeartAreaMinY],
+    ['AndNext', 'Mem',   '32bit', playerPositionY, '<=', 'Value', '', clouds1HeartAreaMaxY],
+    ['AndNext', 'Delta', '8bit',  toolSlot,        '!=', 'Value', '', 0x09],
+    ['',        'Mem',   '8bit',  toolSlot,        '=',  'Value', '', 0x09,                 1],
   ];
 };
 
@@ -1039,9 +1052,6 @@ set.addAchievement({
     ),
   },
 });
-
-const playerPositionX = 0x078c;
-const playerPositionY = 0x0790;
 
 // Wolfie's level finish animation takes 143 frames, so we go with 2.5 seconds (150 frames)
 set.addAchievement({
