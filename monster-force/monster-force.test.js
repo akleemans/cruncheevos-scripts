@@ -1400,6 +1400,22 @@ describe('Heart of the Clouds', () => {
     expect(result.stateAt(s.marker('level-start'))).toBe('active');
     expect(result.triggered).toBe(false);
   });
+
+  test('does not pop if wrong (first) heart collected', () => {
+    const s = scenario('clouds1-different-heart-collected');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('level-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
+
+  test('does not pop if wrong (third) heart collected', () => {
+    const s = scenario('clouds1-third-heart-collected');
+    const result = runAchievement(cheevo, s);
+
+    expect(result.stateAt(s.marker('scenario-start'))).toBe('active');
+    expect(result.triggered).toBe(false);
+  });
 });
 
 describe('Clone Wars', () => {
