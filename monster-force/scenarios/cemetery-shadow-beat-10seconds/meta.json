@@ -97,17 +97,17 @@
     {
       "address": "0x0850",
       "size": "u8",
-      "label": "Max. base health (without relics)"
+      "label": "Max. base health (without relics) (Initial values: 0x07 = Drew, 0x09 = Drac/Wolfie, 0x0c = Frank, 0x14 = Mina)"
     },
     {
       "address": "0x0852",
       "size": "u8",
-      "label": "Base attack level"
+      "label": "Base attack level (Initial values: 0x02 = Drac/Wolfie/Drew, 0x04 = Frank, 0x08 = Mina)"
     },
     {
       "address": "0x0853",
       "size": "u8",
-      "label": "Base force level"
+      "label": "Base force level (Initial values: 0x02 = Wolfie, 0x03 = Drac/Drew, 0x05 = Frank, 0x08 = Mina)"
     },
     {
       "address": "0x085a",
@@ -507,7 +507,7 @@
     {
       "address": "0x360d",
       "size": "u8",
-      "label": "[Bitflags] Shoulder buttons pressed"
+      "label": "[Bitflags] Shoulder buttons pressed - used for Cheats: Invincibility (L+R+B+Down on pause screen), Level skip (L+R+A+Up in-game), Character unlock (L+R+B+Right on character select screen)"
     },
     {
       "address": "0x3668",
