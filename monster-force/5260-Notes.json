@@ -1022,7 +1022,7 @@
   {
     "User": "adrianusk",
     "Address": "0x00360d",
-    "Note": "[8-bit][Bitflags] Shoulder buttons pressed\r\nBit0 = Right shoulder button pressed\r\nBit1 = Left shoulder button pressed\r\n(other bits are always 1)"
+    "Note": "[8-bit][Bitflags] Shoulder buttons pressed - used for Cheats: Invincibility (L+R+B+Down on pause screen), Level skip (L+R+A+Up in-game), Character unlock (L+R+B+Right on character select screen)\r\nBit0 = Right shoulder button pressed\r\nBit1 = Left shoulder button pressed\r\n(other bits are always 1)"
   },
   {
     "User": "adrianusk",
